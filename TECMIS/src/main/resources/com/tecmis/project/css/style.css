@@ -1,0 +1,50 @@
+.button1{
+    -fx-background-color: #ffffff;
+}
+
+.button2{
+    -fx-background-color: linear-gradient(to bottom left, #1f9958, #725a7a);
+}
+
+.button3{
+    -fx-background-color: #725a7a;
+}
+
+.button4{
+
+    -fx-background-color: linear-gradient(#007c58, #1f9958);
+    -fx-background-radius: 5;
+    -fx-background-insets: 0;
+    -fx-text-fill: white;
+
+
+}
+.button4:hover{
+
+    -fx-background-color: linear-gradient(#1f9958, #007c58);
+    -fx-background-radius: 10;
+    -fx-background-insets: 0;
+    -fx-text-fill: white;
+
+}
+.linkCLICK1{
+    -fx-text-fill: #1f9958;
+
+}
+.linkCLICK1:hover{
+
+    -fx-text-fill:  #007C58FF;
+
+}
+.texbox{
+    -fx-text-fill: #1f9958;
+    -fx-font-weight: bold;
+
+
+}
+.texbox:hover{
+
+    -fx-text-fill:  #007C58FF;
+    -fx-border-color: green;
+
+}
