@@ -85,5 +85,15 @@
 
 }
 
+.tranparentB{
+
+    -fx-background-color: transparent;
+    -fx-background-radius: 5;
+    -fx-background-insets: 0;
+    -fx-cursor: hand;
+    -fx-text-fill: white;
+
+}
+
 
 
