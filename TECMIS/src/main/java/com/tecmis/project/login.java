@@ -5,20 +5,22 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
 public class login extends Application {
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage primaryStage) throws IOException {
 
         FXMLLoader fxmlLoader = new FXMLLoader(login.class.getResource("login.fxml"));
+       // primaryStage.initStyle(StageStyle.UNDECORATED); //title close and minimise button hide karanne me code eken
         Scene scene = new Scene(fxmlLoader.load(), 600, 400);
-        stage.setResizable(false);
-        stage.getIcons().add(new Image(TitleIcon.class.getResourceAsStream("image/logo.png")));
-        stage.setTitle("TECMIS");
-        stage.setScene(scene);
-        stage.show();
+        primaryStage.setResizable(false);
+        primaryStage.getIcons().add(new Image(TitleIcon.class.getResourceAsStream("image/logo.png")));
+        primaryStage.setTitle("TECMIS");
+        primaryStage.setScene(scene);
+        primaryStage.show();
 
 
 

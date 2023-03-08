@@ -37,26 +37,26 @@
                         <Image url="@image/mainLogo/borboletas-butterflies.gif" />
                      </image>
                   </ImageView>
-                  <TextField layoutX="69.0" layoutY="135.0" prefHeight="38.0" prefWidth="190.0" promptText="User name" styleClass="texbox" stylesheets="@css/style.css">
+                  <TextField fx:id="username" focusTraversable="false" layoutX="69.0" layoutY="135.0" prefHeight="38.0" prefWidth="190.0" promptText="Username" styleClass="texbox" stylesheets="@css/style.css">
                      <font>
                         <Font name="Arial" size="12.0" />
                      </font>
                   </TextField>
-                  <PasswordField layoutX="69.0" layoutY="190.0" prefHeight="38.0" prefWidth="190.0" promptText="Passoword" styleClass="texbox" stylesheets="@css/style.css">
+                  <PasswordField fx:id="password" focusTraversable="false" layoutX="69.0" layoutY="190.0" prefHeight="38.0" prefWidth="190.0" promptText="Password" styleClass="texbox" stylesheets="@css/style.css">
                      <font>
                         <Font name="Arial" size="12.0" />
                      </font>
                   </PasswordField>
                   <BorderPane layoutX="26.0" layoutY="162.0" prefHeight="38.0" prefWidth="37.0" />
                   <BorderPane layoutX="62.0" layoutY="179.0" prefHeight="38.0" prefWidth="37.0" />
-                  <Hyperlink layoutX="69.0" layoutY="307.0" styleClass="linkCLICK1" stylesheets="@css/style.css" text="Forgotten you username or password" textFill="#00bb85">
+                  <Hyperlink focusTraversable="false" layoutX="69.0" layoutY="307.0" styleClass="linkCLICK1" stylesheets="@css/style.css" text="Forgotten you username or password" textFill="#00bb85">
                      <font>
                         <Font size="11.0" />
                      </font>
                   </Hyperlink>
-                  <Label layoutX="126.0" layoutY="68.0" text="Login">
+                  <Label layoutX="117.0" layoutY="41.0" text="Login">
                      <font>
-                        <Font name="Times New Roman" size="31.0" />
+                        <Font name="Times New Roman" size="39.0" />
                      </font>
                   </Label>
                   <ImageView fitHeight="27.0" fitWidth="24.0" layoutX="26.0" layoutY="142.0" pickOnBounds="true" preserveRatio="true">
@@ -69,11 +69,21 @@
                         <Image url="@image/padlock.png" />
                      </image>
                   </ImageView>
-                  <JFXButton layoutX="69.0" layoutY="256.0" prefHeight="35.0" prefWidth="190.0" styleClass="button4" stylesheets="@css/style.css" text="Login" textFill="WHITE">
+                  <JFXButton fx:id="loginButton" focusTraversable="false" layoutX="69.0" layoutY="256.0" onAction="#loginButtonAction" prefHeight="35.0" prefWidth="190.0" styleClass="button4" stylesheets="@css/style.css" text="Login" textFill="WHITE">
                      <font>
                         <Font name="Times New Roman" size="15.0" />
                      </font>
                   </JFXButton>
+                  <Label fx:id="loginMassageLable" alignment="CENTER" layoutX="69.0" layoutY="91.0" prefHeight="22.0" prefWidth="190.0" textAlignment="CENTER" textFill="RED" textOverrun="CLIP">
+                     <font>
+                        <Font name="Times New Roman Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="loginMassageLable2" alignment="CENTER" layoutX="70.0" layoutY="111.0" prefHeight="22.0" prefWidth="190.0" textAlignment="CENTER" textFill="RED" textOverrun="CLIP">
+                     <font>
+                        <Font name="Times New Roman" size="9.0" />
+                     </font>
+                  </Label>
                </children>
             </Pane>
          </children>

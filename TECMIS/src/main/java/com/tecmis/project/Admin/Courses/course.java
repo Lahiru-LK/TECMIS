@@ -5,13 +5,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class course extends Application {
-    @Override
-    public void start(Stage stage) throws IOException {
+public class course{
 
-    }
-
-    public static void main(String[] args) {
-        launch();
-    }
 }

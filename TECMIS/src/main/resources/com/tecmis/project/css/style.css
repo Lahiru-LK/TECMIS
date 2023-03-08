@@ -48,3 +48,42 @@
     -fx-border-color: green;
 
 }
+
+
+.admin{
+
+    -fx-background-color: linear-gradient(#a72d3b, #363636);
+    -fx-background-radius: 5;
+    -fx-background-insets: 0;
+    -fx-text-fill: white;
+
+}
+
+.lecturer{
+
+    -fx-background-color: linear-gradient(#1dc517, #363636);
+    -fx-background-radius: 5;
+    -fx-background-insets: 0;
+    -fx-text-fill: white;
+
+}
+.student{
+
+    -fx-background-color: linear-gradient(#2d70a7, #363636);
+    -fx-background-radius: 5;
+    -fx-background-insets: 0;
+    -fx-text-fill: white;
+
+}
+
+.technical_officer{
+
+    -fx-background-color: linear-gradient(#a72d76, #363636);
+    -fx-background-radius: 5;
+    -fx-background-insets: 0;
+    -fx-text-fill: white;
+
+}
+
+
+
