@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import java.lang.String?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -29,7 +30,7 @@
                         <Image url="@../image/mainLogo/flower.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="150.0" fitWidth="120.0" layoutX="75.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="116.0" fitWidth="107.0" layoutX="77.0" layoutY="51.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../image/Adminuser.png" />
                      </image>
@@ -49,38 +50,40 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <JFXButton alignment="CENTER" layoutX="13.0" layoutY="268.0" prefHeight="50.0" prefWidth="230.0" styleClass="tranparentB" text="Dashboard" textAlignment="CENTER" />
-                  <ImageView fitHeight="42.0" fitWidth="46.0" layoutX="16.0" layoutY="335.0" pickOnBounds="true" preserveRatio="true" />
-                  <JFXButton alignment="CENTER" layoutX="13.0" layoutY="320.0" prefHeight="50.0" prefWidth="230.0" styleClass="tranparentB" text="Maintain Profiles" />
-                  <JFXButton alignment="CENTER" layoutX="13.0" layoutY="372.0" prefHeight="50.0" prefWidth="230.0" styleClass="tranparentB" text="Maintain Courses" textAlignment="CENTER" />
-                  <JFXButton alignment="CENTER" layoutX="13.0" layoutY="424.0" prefHeight="50.0" prefWidth="230.0" styleClass="tranparentB" stylesheets="@../css/stylesheet.css" text="Maintain Notices" />
-                  <JFXButton alignment="CENTER" layoutX="13.0" layoutY="476.0" prefHeight="50.0" prefWidth="230.0" styleClass="tranparentB" stylesheets="@../css/stylesheet.css" text="Maintain Timetables" />
-                  <JFXButton alignment="CENTER" layoutX="23.0" layoutY="635.0" prefHeight="50.0" prefWidth="149.0" styleClass="tranparentB" text="Sign Out " textAlignment="CENTER" />
-                  <Label layoutX="97.0" layoutY="652.0" textFill="WHITE" />
-                  <ImageView fitHeight="31.0" fitWidth="35.0" layoutX="18.0" layoutY="325.0" pickOnBounds="true" preserveRatio="true">
+                  <JFXButton alignment="CENTER" focusTraversable="false" layoutX="22.0" layoutY="336.0" prefHeight="50.0" prefWidth="214.0" styleClass="tranparentB" text="                   Maintain Profiles" />
+                  <JFXButton alignment="CENTER" focusTraversable="false" layoutX="21.0" layoutY="388.0" prefHeight="50.0" prefWidth="216.0" styleClass="tranparentB" text="                   Maintain Courses" textAlignment="CENTER" />
+                  <JFXButton alignment="CENTER" focusTraversable="false" layoutX="20.0" layoutY="440.0" prefHeight="50.0" prefWidth="216.0" styleClass="tranparentB" stylesheets="@../css/stylesheet.css" text="                   Maintain Notices" />
+                  <JFXButton alignment="CENTER" focusTraversable="false" layoutX="18.0" layoutY="492.0" prefHeight="50.0" prefWidth="218.0" styleClass="tranparentB" stylesheets="@../css/stylesheet.css" text="                    Maintain Timetables" />
+                  <JFXButton fx:id="signOutButton" alignment="CENTER" focusTraversable="false" layoutX="23.0" layoutY="626.0" onAction="#SignOutButtonAction" prefHeight="43.0" prefWidth="127.0" text="              Sign Out " textAlignment="CENTER">
+                     <styleClass>
+                        <String fx:value="tranparentB" />
+                        <String fx:value="signOutB" />
+                     </styleClass></JFXButton>
+                  <JFXButton alignment="CENTER" layoutX="23.0" layoutY="284.0" prefHeight="50.0" prefWidth="214.0" styleClass="tranparentB" text="                   Dashboard" />
+                  <ImageView fitHeight="35.0" fitWidth="39.0" layoutX="27.0" layoutY="341.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../image/mainprofile.png" />
                      </image></ImageView>
-                  <ImageView fitHeight="42.0" fitWidth="46.0" layoutX="20.0" layoutY="277.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fitHeight="32.0" fitWidth="35.0" layoutX="18.0" layoutY="377.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="37.0" fitWidth="45.0" layoutX="24.0" layoutY="394.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../image/mainCourses.png" />
                      </image></ImageView>
-                  <ImageView fitHeight="33.0" fitWidth="34.0" layoutX="18.0" layoutY="433.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="36.0" fitWidth="40.0" layoutX="25.0" layoutY="449.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../image/mainNotice.png" />
                      </image></ImageView>
-                  <ImageView fitHeight="28.0" fitWidth="34.0" layoutX="18.0" layoutY="485.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="32.0" fitWidth="35.0" layoutX="30.0" layoutY="293.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/dashboard.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="33.0" fitWidth="34.0" layoutX="27.0" layoutY="503.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../image/timetable.png" />
                      </image></ImageView>
-                  <ImageView fitHeight="36.0" fitWidth="34.0" layoutX="23.0" layoutY="643.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="37.0" layoutY="634.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../image/logout.png" />
-                     </image></ImageView>
-                  <ImageView fitHeight="37.0" fitWidth="35.0" layoutX="17.0" layoutY="276.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../image/dashboard.png" />
                      </image></ImageView>
                </children>
             </AnchorPane>

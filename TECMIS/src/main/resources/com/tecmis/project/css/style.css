@@ -92,8 +92,35 @@
     -fx-background-insets: 0;
     -fx-cursor: hand;
     -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-alignment: Center_Left;
 
 }
+
+.tranparentB:hover{
+
+    -fx-background-color: #d62651;
+
+}
+
+.signOutB{
+
+    -fx-background-color: #a72d3b;
+    -fx-background-radius: 10;
+    -fx-background-insets: 0;
+    -fx-cursor: hand;
+    -fx-text-fill: white;
+    -fx-alignment: Center_Left;
+
+}
+
+.signOutB:hover{
+
+    -fx-background-color: #d62651;
+
+}
+
+
 
 
 

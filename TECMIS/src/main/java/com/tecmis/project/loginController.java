@@ -40,6 +40,7 @@ public class loginController  implements Initializable{
     public void initialize(URL url, ResourceBundle resourceBundle){
 
     }
+
     public void loginButtonAction(ActionEvent event)throws Exception {
 
         if (username.getText().isBlank()==true)
