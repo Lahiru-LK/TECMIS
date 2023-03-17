@@ -1,6 +1,7 @@
 package com.tecmis.project;
 
 
+import animatefx.animation.FadeIn;
 import com.tecmis.project.connection_DB.JDBC;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -8,7 +9,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import javafx.scene.control.TextField;
@@ -20,8 +20,6 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Objects;
 import java.util.ResourceBundle;
-import  javafx.stage.StageStyle;
-import java.awt.*;
 
 public class loginController  implements Initializable{
 
@@ -36,6 +34,7 @@ public class loginController  implements Initializable{
     private Label loginMassageLable2;
     @FXML
     private TextField username,password;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
 
@@ -106,7 +105,9 @@ public class loginController  implements Initializable{
 
                             if (Role.equals("admin"))
                             {
+
                                 Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Admin/admin.fxml")));
+                                new FadeIn(root).play();
                                 stage = (Stage)((Node)event.getSource()).getScene().getWindow();
                                 scene = new Scene(root, 1200,700);
                                 stage.setScene(scene);
@@ -120,6 +121,7 @@ public class loginController  implements Initializable{
                             } else if (Role.equals("student")) {
 
                                 Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Student/student.fxml")));
+                                new FadeIn(root).play();
                                 stage = (Stage)((Node)event.getSource()).getScene().getWindow();
                                 scene = new Scene(root, 1200,700);
                                 stage.setScene(scene);
@@ -131,6 +133,7 @@ public class loginController  implements Initializable{
                             }else if (Role.equals("lecturer")) {
 
                                 Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Lecturer/lecturer.fxml")));
+                                new FadeIn(root).play();
                                 stage = (Stage)((Node)event.getSource()).getScene().getWindow();
                                 scene = new Scene(root, 1200,700);
                                 stage.setScene(scene);
@@ -141,6 +144,7 @@ public class loginController  implements Initializable{
                             }else if (Role.equals("technical_officer")) {
 
                                 Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Technical_Officer/technical_officer.fxml")));
+                                new FadeIn(root).play();
                                 stage = (Stage)((Node)event.getSource()).getScene().getWindow();
                                 scene = new Scene(root, 1200,700);
                                 stage.setScene(scene);

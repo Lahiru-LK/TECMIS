@@ -13,8 +13,8 @@
 .button4{
 
     -fx-background-color: linear-gradient(#007c58, #1f9958);
-    -fx-background-radius: 5;
-    -fx-background-insets: 0;
+    -fx-background-radius: 5px;
+    -fx-background-insets: 0px;
     -fx-text-fill: white;
 
 
@@ -22,8 +22,8 @@
 .button4:hover{
 
     -fx-background-color: linear-gradient(#1f9958, #007c58);
-    -fx-background-radius: 10;
-    -fx-background-insets: 0;
+    -fx-background-radius: 10px;
+    -fx-background-insets: 0px;
     -fx-text-fill: white;
 
 }
@@ -48,13 +48,26 @@
     -fx-border-color: green;
 
 }
+.texbox2{
+    -fx-text-fill: #a72d3b;
+    -fx-font-weight: bold;
+    -fx-border-radius: 5px;
+
+
+}
+.texbox2:hover{
+
+    -fx-text-fill: #8d1f2c;
+    -fx-border-color: #a72d3b;
+
+}
 
 
 .admin{
 
     -fx-background-color: linear-gradient(#a72d3b, #363636);
-    -fx-background-radius: 5;
-    -fx-background-insets: 0;
+    -fx-background-radius: 5px;
+    -fx-background-insets: 0px;
     -fx-text-fill: white;
 
 }
@@ -62,16 +75,16 @@
 .lecturer{
 
     -fx-background-color: linear-gradient(#1dc517, #363636);
-    -fx-background-radius: 5;
-    -fx-background-insets: 0;
+    -fx-background-radius: 5px;
+    -fx-background-insets: 0px;
     -fx-text-fill: white;
 
 }
 .student{
 
     -fx-background-color: linear-gradient(#2d70a7, #363636);
-    -fx-background-radius: 5;
-    -fx-background-insets: 0;
+    -fx-background-radius: 5px;
+    -fx-background-insets: 0px;
     -fx-text-fill: white;
 
 }
@@ -79,8 +92,8 @@
 .technical_officer{
 
     -fx-background-color: linear-gradient(#a72d76, #363636);
-    -fx-background-radius: 5;
-    -fx-background-insets: 0;
+    -fx-background-radius: 5px;
+    -fx-background-insets: 0px;
     -fx-text-fill: white;
 
 }
@@ -88,8 +101,19 @@
 .tranparentB{
 
     -fx-background-color: transparent;
-    -fx-background-radius: 5;
-    -fx-background-insets: 0;
+    -fx-background-radius: 5px;
+    -fx-background-insets: 0px;
+    -fx-cursor: hand;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-alignment: Center_Left;
+
+}
+.tranparentB-2{
+
+    -fx-background-color: transparent;
+    -fx-background-radius: 5px;
+    -fx-background-insets: 0px;
     -fx-cursor: hand;
     -fx-text-fill: white;
     -fx-font-weight: bold;
@@ -106,8 +130,8 @@
 .signOutB{
 
     -fx-background-color: #a72d3b;
-    -fx-background-radius: 10;
-    -fx-background-insets: 0;
+    -fx-background-radius: 10px;
+    -fx-background-insets: 0px;
     -fx-cursor: hand;
     -fx-text-fill: white;
     -fx-alignment: Center_Left;
@@ -118,6 +142,90 @@
 
     -fx-background-color: #d62651;
 
+}
+
+.signB{
+
+    -fx-background-color: #a72d3b;
+    -fx-background-radius: 10px;
+    -fx-background-insets: 0px;
+    -fx-cursor: hand;
+    -fx-text-fill: white;
+    -fx-alignment: Center;
+
+}
+
+.signB:hover{
+
+    -fx-background-color: #d62651;
+
+}
+
+.shadow{
+    -fx-effect: dropshadow(three-pass-box, rgb(0,0,0,.5), 6,0,0,0);
+}
+.white-bg{
+    -fx-background-color: #fff;
+    -fx-background-radius: #8px;
+    -fx-background-radius: 5px;
+    -fx-background-insets: 0px;
+
+}
+
+.heder{
+
+    -fx-border-color: linear-gradient(#a72d3b, #a72d3b);
+    -fx-background-radius: 4px;
+    -fx-background-insets: 0px;
+    -fx-text-fill: white;
+
+}
+.dashboardCard{
+    -fx-background-color: linear-gradient(to bottom left, #a22d3b, #2f2f2f);
+    -fx-background-radius: 9px;
+    -fx-background-insets: 0px;
+    -fx-text-fill: white;
+}
+
+.textfild{
+    -fx-border-color: linear-gradient(to bottom left, #a22d3b, #2f2f2f);
+    -fx-background-radius: 4px;
+    -fx-background-insets: 0px;
+
+}
+
+.searchbox{
+    -fx-border-color: linear-gradient(to bottom left, #a22d3b, #2f2f2f);
+    -fx-border-radius: 10px;
+    -fx-background-insets: 0px;
+
+}
+
+.table-view{
+    -fx-background-color: transparent;
+    -fx-padding: 0px;
+    -fx-border-color: linear-gradient(to bottom left, #a22d3b, #2f2f2f);
+    -fx-border-width: 2px;
+    -fx-border-radius: 8px ;
+
+}
+.table-view .column-header-background{
+    -fx-background-color:linear-gradient(to bottom left, #a22d3b, #2f2f2f);
+    -fx-background-radius: 8px 8px 0px 0px;
+    -fx-background-insets: 0 0 0 0;
+}
+
+.table-view .column-header, .filter{
+    -fx-background-color: transparent;
+    -fx-size:40px;
+}
+.table-view .column-header .label{
+    -fx-text-fill: #fff;
+
+}
+
+.imageCircle{
+    -fx-background-radius: 100%;
 }
 
 

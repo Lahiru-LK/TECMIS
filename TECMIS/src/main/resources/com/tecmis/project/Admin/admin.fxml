@@ -1,31 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
 <?import java.lang.String?>
+<?import javafx.scene.chart.AreaChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tecmis.project.Admin.adminPageController">
    <children>
       <BorderPane prefHeight="700.0" prefWidth="1200.0">
          <left>
-            <AnchorPane prefHeight="627.0" prefWidth="255.0" styleClass="admin" stylesheets="@../css/style.css" BorderPane.alignment="CENTER">
+            <AnchorPane prefHeight="627.0" prefWidth="255.0" stylesheets="@../css/style.css" BorderPane.alignment="CENTER">
                <children>
-                  <ImageView fitHeight="230.0" fitWidth="290.0" layoutY="469.0" opacity="0.08" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../image/mainLogo/flower2%20-%20Copy.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="314.0" fitWidth="329.0" layoutX="-138.0" layoutY="-185.0" opacity="0.06" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="314.0" fitWidth="329.0" layoutX="-138.0" layoutY="-185.0" opacity="0.09" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../image/mainLogo/flower.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="322.0" fitWidth="332.0" layoutX="-162.0" layoutY="147.0" opacity="0.06" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="322.0" fitWidth="332.0" layoutX="-162.0" layoutY="147.0" opacity="0.09" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../image/mainLogo/flower.png" />
                      </image>
@@ -35,23 +40,28 @@
                         <Image url="@../image/Adminuser.png" />
                      </image>
                   </ImageView>
-                  <Label layoutX="130.0" layoutY="213.0" prefHeight="26.0" prefWidth="75.0" text="Prasad" textFill="WHITE">
+                  <ImageView fitHeight="229.0" fitWidth="312.0" layoutX="2.0" layoutY="470.0" opacity="0.09" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/mainLogo/flower2%20-%20Copy.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="130.0" layoutY="202.0" prefHeight="26.0" prefWidth="75.0" text="Prasad" textFill="WHITE">
                      <font>
                         <Font name="Cambria" size="18.0" />
                      </font>
                   </Label>
-                  <Label layoutX="91.0" layoutY="179.0" text="Admin" textAlignment="CENTER" textFill="WHITE">
+                  <Label layoutX="91.0" layoutY="168.0" text="Admin" textAlignment="CENTER" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="25.0" />
                      </font>
                   </Label>
-                  <Label layoutX="75.0" layoutY="212.0" prefHeight="26.0" prefWidth="75.0" text="Lahiru" textFill="WHITE">
+                  <Label layoutX="75.0" layoutY="201.0" prefHeight="26.0" prefWidth="75.0" text="Lahiru" textFill="WHITE">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <JFXButton alignment="CENTER" focusTraversable="false" layoutX="22.0" layoutY="336.0" prefHeight="50.0" prefWidth="214.0" styleClass="tranparentB" text="                   Maintain Profiles" />
-                  <JFXButton alignment="CENTER" focusTraversable="false" layoutX="21.0" layoutY="388.0" prefHeight="50.0" prefWidth="216.0" styleClass="tranparentB" text="                   Maintain Courses" textAlignment="CENTER" />
+                  <JFXButton fx:id="btnProfile" alignment="CENTER" focusTraversable="false" layoutX="22.0" layoutY="336.0" onAction="#switchForm" prefHeight="50.0" prefWidth="214.0" styleClass="tranparentB" text="                   Maintain Profiles" />
+                  <JFXButton fx:id="btnCourse" alignment="CENTER" focusTraversable="false" layoutX="21.0" layoutY="388.0" onAction="#switchForm" prefHeight="50.0" prefWidth="216.0" styleClass="tranparentB" text="                   Maintain Courses" textAlignment="CENTER" />
                   <JFXButton alignment="CENTER" focusTraversable="false" layoutX="20.0" layoutY="440.0" prefHeight="50.0" prefWidth="216.0" styleClass="tranparentB" stylesheets="@../css/stylesheet.css" text="                   Maintain Notices" />
                   <JFXButton alignment="CENTER" focusTraversable="false" layoutX="18.0" layoutY="492.0" prefHeight="50.0" prefWidth="218.0" styleClass="tranparentB" stylesheets="@../css/stylesheet.css" text="                    Maintain Timetables" />
                   <JFXButton fx:id="signOutButton" alignment="CENTER" focusTraversable="false" layoutX="23.0" layoutY="626.0" onAction="#SignOutButtonAction" prefHeight="43.0" prefWidth="127.0" text="              Sign Out " textAlignment="CENTER">
@@ -59,7 +69,7 @@
                         <String fx:value="tranparentB" />
                         <String fx:value="signOutB" />
                      </styleClass></JFXButton>
-                  <JFXButton alignment="CENTER" layoutX="23.0" layoutY="284.0" prefHeight="50.0" prefWidth="214.0" styleClass="tranparentB" text="                   Dashboard" />
+                  <JFXButton fx:id="btnDashboard" alignment="CENTER" focusTraversable="false" layoutX="23.0" layoutY="284.0" onAction="#switchForm" prefHeight="50.0" prefWidth="214.0" styleClass="tranparentB" text="                   Dashboard" />
                   <ImageView fitHeight="35.0" fitWidth="39.0" layoutX="27.0" layoutY="341.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../image/mainprofile.png" />
@@ -85,22 +95,241 @@
                      <image>
                         <Image url="@../image/logout.png" />
                      </image></ImageView>
+                  <Line endX="104.60002136230469" layoutX="126.0" layoutY="242.0" startX="-102.59999084472656" stroke="WHITE" />
                </children>
+               <styleClass>
+                  <String fx:value="admin" />
+                  <String fx:value="shadow" />
+               </styleClass>
             </AnchorPane>
          </left>
          <center>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <AnchorPane prefHeight="700.0" prefWidth="966.0" BorderPane.alignment="CENTER">
                <children>
-                  <ImageView fitHeight="551.0" fitWidth="945.0" layoutY="84.0" opacity="0.09" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../image/mainLogo/borboletas-butterflies.gif" />
-                     </image>
-                  </ImageView>
-                  <Label layoutX="205.0" layoutY="180.0" prefWidth="281.0" text="Admin">
-                     <font>
-                        <Font size="96.0" />
-                     </font>
-                  </Label>
+                  <AnchorPane fx:id="dashboard_form" layoutX="2.0" layoutY="2.0" prefHeight="694.0" prefWidth="938.0">
+                     <children>
+                        <AnchorPane layoutX="14.0" layoutY="14.0" prefHeight="216.0" prefWidth="914.0" stylesheets="@../css/style.css">
+                           <styleClass>
+                              <String fx:value="shadow" />
+                              <String fx:value="white-bg" />
+                           </styleClass>
+                           <children>
+                              <AnchorPane layoutX="14.0" layoutY="15.0" prefHeight="173.0" prefWidth="290.0" styleClass="dashboardCard">
+                                 <children>
+                                    <ImageView fitHeight="82.0" fitWidth="90.0" layoutX="14.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../image/users.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Label layoutX="133.0" layoutY="160.0" prefHeight="18.0" prefWidth="121.0" text="Number of User" textFill="WHITE">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Label alignment="CENTER_RIGHT" layoutX="205.0" layoutY="14.0" prefHeight="26.0" prefWidth="70.0" text="0" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold" size="19.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane layoutX="313.0" layoutY="16.0" prefHeight="169.0" prefWidth="290.0" styleClass="dashboardCard">
+                                 <children>
+                                    <ImageView fitHeight="85.0" fitWidth="81.0" layoutX="14.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../image/students.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Label layoutX="131.0" layoutY="159.0" prefHeight="26.0" prefWidth="142.0" text="Number of Student" textFill="WHITE">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Label alignment="CENTER_RIGHT" layoutX="203.0" layoutY="13.0" prefHeight="26.0" prefWidth="70.0" text="0" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold" size="19.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane layoutX="610.0" layoutY="16.0" prefHeight="180.0" prefWidth="290.0" styleClass="dashboardCard">
+                                 <children>
+                                    <ImageView fitHeight="98.0" fitWidth="105.0" layoutX="9.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../image/lecturer.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Label layoutX="133.0" layoutY="160.0" prefHeight="26.0" prefWidth="146.0" text="Number of Lecturer" textFill="WHITE">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Label alignment="CENTER_RIGHT" layoutX="205.0" layoutY="14.0" prefHeight="26.0" prefWidth="70.0" text="0" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold" size="19.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane layoutX="14.0" layoutY="254.0" prefHeight="431.0" prefWidth="914.0" stylesheets="@../css/style.css">
+                           <styleClass>
+                              <String fx:value="shadow" />
+                              <String fx:value="white-bg" />
+                           </styleClass>
+                           <children>
+                              <AnchorPane layoutX="10.0" layoutY="21.0" prefHeight="390.0" prefWidth="527.0">
+                                 <styleClass>
+                                    <String fx:value="shadow" />
+                                    <String fx:value="white-bg" />
+                                 </styleClass>
+                                 <children>
+                                    <AreaChart layoutX="1.0" layoutY="10.0" prefHeight="390.4" prefWidth="527.2" title="Number of Studert" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                      <xAxis>
+                                        <CategoryAxis side="BOTTOM" />
+                                      </xAxis>
+                                      <yAxis>
+                                        <NumberAxis side="LEFT" />
+                                      </yAxis>
+                                    </AreaChart>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane layoutX="549.0" layoutY="21.0" prefHeight="390.0" prefWidth="357.0">
+                                 <styleClass>
+                                    <String fx:value="shadow" />
+                                    <String fx:value="white-bg" />
+                                 </styleClass>
+                                 <children>
+                                    <PieChart layoutX="62.0" prefHeight="390.4" prefWidth="357.6" title="Number of User" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </AnchorPane>
+                        <Line endX="809.6000366210938" layoutX="115.0" layoutY="242.0" startX="-100.0" stroke="#890303" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="profile_form" layoutX="174.0" layoutY="98.0" prefHeight="700.0" prefWidth="944.8" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <AnchorPane layoutX="9.0" layoutY="14.0" prefHeight="362.0" prefWidth="926.0" stylesheets="@../css/style.css">
+                           <styleClass>
+                              <String fx:value="white-bg" />
+                              <String fx:value="shadow" />
+                           </styleClass>
+                           <children>
+                              <TextField fx:id="addProfile_SearchC" focusTraversable="false" layoutX="49.0" layoutY="9.0" prefHeight="26.0" prefWidth="277.0" promptText="Search">
+                                 <styleClass>
+                                    <String fx:value="searchbox" />
+                                    <String fx:value="texbox2" />
+                                 </styleClass></TextField>
+                              <TableView fx:id="adduser_tableView" focusTraversable="false" layoutX="10.0" layoutY="51.0" onMouseClicked="#addProfilesSelect" prefHeight="307.0" prefWidth="911.0" stylesheets="@../css/style.css">
+                                <columns>
+                                  <TableColumn fx:id="adduser_no" prefWidth="24.0" text="No" />
+                                  <TableColumn fx:id="adduser_id" prefWidth="67.0" text="User_ID" />
+                                    <TableColumn fx:id="adduser_password" prefWidth="92.0" text="User_Password" />
+                                    <TableColumn fx:id="adduser_role" prefWidth="96.0" text="Role" />
+                                    <TableColumn fx:id="adduser_email" prefWidth="108.0" text="Email" />
+                                    <TableColumn fx:id="adduser_firstname" prefWidth="69.0" text="First_name" />
+                                    <TableColumn fx:id="adduser_lastname" prefWidth="66.0" text="Last_name" />
+                                    <TableColumn fx:id="adduser_dob" prefWidth="68.0" text="DOB" />
+                                    <TableColumn fx:id="adduser_sex" prefWidth="54.0" text="Sex" />
+                                    <TableColumn fx:id="adduser_address" prefWidth="115.0" text="Address" />
+                                    <TableColumn fx:id="adduser_tpnumber" prefWidth="73.0" text="Tp_number" />
+                                    <TableColumn fx:id="adduser_propicture" prefWidth="74.0" text="Pro_Picture" />
+                                </columns>
+                              </TableView>
+                              <ImageView fitHeight="25.0" fitWidth="24.0" layoutX="17.0" layoutY="12.0" opacity="0.47" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../image/search.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane fx:id="UserDataEnterArea" layoutX="10.0" layoutY="386.0" prefHeight="305.0" prefWidth="926.0" stylesheets="@../css/style.css">
+                           <styleClass>
+                              <String fx:value="white-bg" />
+                              <String fx:value="shadow" />
+                           </styleClass>
+                           <children>
+                              <AnchorPane layoutX="25.0" layoutY="27.0" prefHeight="200.0" prefWidth="200.0">
+                                 <styleClass>
+                                    <String fx:value="shadow" />
+                                    <String fx:value="white-bg" />
+                                 </styleClass>
+                                 <children>
+                                    <ImageView fx:id="addUser_imageViewC" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                                 </children>
+                              </AnchorPane>
+                              <Label layoutX="281.0" layoutY="73.0" text="User_Password :" />
+                              <TextField fx:id="addUser_PasswordC" focusTraversable="false" layoutX="382.0" layoutY="63.0" promptText="xxx9">
+                                 <styleClass>
+                                    <String fx:value="texbox2" />
+                                    <String fx:value="textfild" />
+                                 </styleClass></TextField>
+                              <Label layoutX="281.0" layoutY="109.0" text="Role :" />
+                              <JFXComboBox fx:id="addUser_roleC" focusTraversable="false" layoutX="381.0" layoutY="99.0" onAction="#addProfileRoleList" prefHeight="30.0" prefWidth="159.0" promptText="  select">
+                                 <styleClass>
+                                    <String fx:value="texbox2" />
+                                    <String fx:value="textfild" />
+                                 </styleClass>
+                              </JFXComboBox>
+                              <Label layoutX="281.0" layoutY="149.0" text="Email :" />
+                              <TextField fx:id="addUser_EmailC" focusTraversable="false" layoutX="382.0" layoutY="139.0" promptText="xxxxx999@gmail.com">
+                                 <styleClass>
+                                    <String fx:value="texbox2" />
+                                    <String fx:value="textfild" />
+                                 </styleClass></TextField>
+                              <Label layoutX="281.0" layoutY="185.0" text="Fist_name :" />
+                              <TextField fx:id="addUser_FirstNameC" focusTraversable="false" layoutX="382.0" layoutY="175.0" promptText="first name">
+                                 <styleClass>
+                                    <String fx:value="texbox2" />
+                                    <String fx:value="textfild" />
+                                 </styleClass></TextField>
+                              <Label layoutX="603.0" layoutY="35.0" text="Last_name :" />
+                              <TextField fx:id="addUser_LastNameC" focusTraversable="false" layoutX="704.0" layoutY="25.0" promptText="last name">
+                                 <styleClass>
+                                    <String fx:value="texbox2" />
+                                    <String fx:value="textfild" />
+                                 </styleClass></TextField>
+                              <Label layoutX="281.0" layoutY="37.0" text="User_ID :" />
+                              <TextField fx:id="addUser_useridC" focusTraversable="false" layoutX="382.0" layoutY="27.0" promptText="xxxx999">
+                                 <styleClass>
+                                    <String fx:value="texbox2" />
+                                    <String fx:value="textfild" />
+                                 </styleClass></TextField>
+                              <JFXButton fx:id="addProfile_uploadBtn" focusTraversable="false" layoutX="27.0" layoutY="236.0" onAction="#addProfileUploadImage" prefHeight="30.0" prefWidth="196.0" styleClass="signB" text="Upload" />
+                              <Label layoutX="603.0" layoutY="109.0" text="Sex :" />
+                              <JFXComboBox fx:id="addUser_sexC" focusTraversable="false" layoutX="703.0" layoutY="99.0" onAction="#addProfileGenderList" prefHeight="30.0" prefWidth="166.0" promptText="  select">
+                                 <styleClass>
+                                    <String fx:value="texbox2" />
+                                    <String fx:value="textfild" />
+                                 </styleClass></JFXComboBox>
+                              <Label layoutX="603.0" layoutY="149.0" text="Address :" />
+                              <TextField fx:id="addUser_AddressC" focusTraversable="false" layoutX="704.0" layoutY="139.0" promptText="999,x/9,xxxxx,xxxx">
+                                 <styleClass>
+                                    <String fx:value="texbox2" />
+                                    <String fx:value="textfild" />
+                                 </styleClass></TextField>
+                              <Label layoutX="603.0" layoutY="185.0" text="Tp_number :" />
+                              <TextField fx:id="addUser_tpNumberC" focusTraversable="false" layoutX="704.0" layoutY="175.0" promptText="+947xxxxxxxx">
+                                 <styleClass>
+                                    <String fx:value="texbox2" />
+                                    <String fx:value="textfild" />
+                                 </styleClass></TextField>
+                              <Label layoutX="603.0" layoutY="72.0" text="DOB :" />
+                              <JFXButton fx:id="addUser_addBtn" focusTraversable="false" layoutX="293.0" layoutY="261.0" onAction="#addProfileAdd" prefHeight="30.0" prefWidth="130.0" styleClass="signB" text="Add" />
+                              <JFXButton fx:id="addUser_updateBtn" focusTraversable="false" layoutX="434.0" layoutY="261.0" onAction="#addProfileUpdate" prefHeight="30.0" prefWidth="130.0" styleClass="signB" text="Update" />
+                              <JFXButton fx:id="addUser_deleteBtn" focusTraversable="false" layoutX="575.0" layoutY="261.0" onAction="#addProfileDelete" prefHeight="30.0" prefWidth="130.0" styleClass="signB" text="Delete" />
+                              <JFXButton fx:id="addUser_clearBtn" focusTraversable="false" layoutX="716.0" layoutY="261.0" onAction="#addProfileClear" prefHeight="30.0" prefWidth="130.0" styleClass="signB" text="Clear" />
+                              <DatePicker fx:id="addUser_dobC" focusTraversable="false" layoutX="704.0" layoutY="62.0" prefHeight="28.0" prefWidth="164.0" promptText=" select">
+                                 <styleClass>
+                                    <String fx:value="texbox2" />
+                                    <String fx:value="textfild" />
+                                 </styleClass>
+                              </DatePicker>
+                           </children>
+                        </AnchorPane>
+                     </children></AnchorPane>
                </children>
             </AnchorPane>
          </center>
