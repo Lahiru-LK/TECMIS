@@ -106,8 +106,8 @@ public class loginController  implements Initializable{
                         while (queryResult2.next()) //
                         {
                             String Role = queryResult2.getString(1); //database eke role eka selectr karanwa
-
-                            if (Role.equals("admin"))
+                            System.out.printf("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+                            if (Role.equals("Admin"))
                             {
 
                                 User_ID = queryResult2.getString("user_id");
@@ -132,7 +132,7 @@ public class loginController  implements Initializable{
 
 
 
-                            } else if (Role.equals("student")) {
+                            } else if (Role.equals("Student")) {
 
                                 Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Student/student.fxml")));
                                 new FadeIn(root).play();
@@ -144,7 +144,7 @@ public class loginController  implements Initializable{
                                 stage.resizableProperty().setValue(false);
 
 
-                            }else if (Role.equals("lecturer")) {
+                            }else if (Role.equals("Lecturer")) {
 
                                 Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Lecturer/lecturer.fxml")));
                                 new FadeIn(root).play();
@@ -155,7 +155,7 @@ public class loginController  implements Initializable{
                                 stage.show();
                                 stage.resizableProperty().setValue(false);
 
-                            }else if (Role.equals("technical_officer")) {
+                            }else if (Role.equals("Technical_Officer")) {
 
                                 Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Technical_Officer/technical_officer.fxml")));
                                 new FadeIn(root).play();

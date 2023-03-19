@@ -130,7 +130,7 @@
          <center>
             <AnchorPane prefHeight="700.0" prefWidth="966.0" BorderPane.alignment="CENTER">
                <children>
-                  <AnchorPane fx:id="dashboard_form" layoutX="2.0" layoutY="2.0" prefHeight="694.0" prefWidth="938.0" visible="false">
+                  <AnchorPane fx:id="dashboard_form" layoutX="2.0" layoutY="2.0" prefHeight="694.0" prefWidth="938.0">
                      <children>
                         <AnchorPane layoutX="14.0" layoutY="14.0" prefHeight="216.0" prefWidth="914.0" stylesheets="@../css/style.css">
                            <styleClass>
@@ -427,7 +427,7 @@
                         </AnchorPane>
                      </children>
                   </AnchorPane>
-                  <AnchorPane fx:id="notice_form" layoutX="203.0" layoutY="157.0" prefHeight="700.0" prefWidth="944.8" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <AnchorPane fx:id="notice_form" layoutX="203.0" layoutY="157.0" prefHeight="700.0" prefWidth="944.8" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <AnchorPane fx:id="NoticeDataEnterArea" layoutX="6.0" layoutY="7.0" prefHeight="687.0" prefWidth="410.0" stylesheets="@../css/style.css">
                            <styleClass>

@@ -269,6 +269,28 @@ public class adminPageController implements Initializable {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     //combobox
     public void addProfileCourseList(){
 
@@ -298,7 +320,7 @@ public class adminPageController implements Initializable {
 
 
 
-    private String[] roleList = {"Admin", "Lecturer", "Technician_Officer", "Student"};
+    private String[] roleList = {"Admin", "Lecturer", "Technical_Officer", "Student"};
     public void addProfileRoleList(){
 
         List<String> roleL = new ArrayList<>();
