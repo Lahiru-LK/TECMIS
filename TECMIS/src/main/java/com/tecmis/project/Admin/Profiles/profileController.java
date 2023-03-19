@@ -5,9 +5,9 @@ import java.util.Date;
 public class profileController{
 
     private String user_role;
-    private Integer user_no;
     private String user_id;
     private String user_password;
+    private String course;
     private String first_name;
     private String last_name;
     private String email;
@@ -16,14 +16,15 @@ public class profileController{
     private String address;
     private String tp_number;
     private String profile_image;
+    private Date date;
 
 
-    public profileController(String user_role, Integer user_no, String user_id, String user_password, String first_name, String last_name, String email, Date dob, String sex, String address, String tp_number, String profile_image  )
+    public profileController(String user_role, String user_id, String user_password,String course, String first_name, String last_name, String email, Date dob, String sex, String address, String tp_number, String profile_image, Date date  )
     {
         this.user_role = user_role;
-        this.user_no = user_no;
         this.user_id = user_id;
         this.user_password = user_password;
+        this.course = course;
         this.first_name = first_name;
         this.last_name = last_name;
         this.email = email;
@@ -32,18 +33,17 @@ public class profileController{
         this.address = address;
         this.tp_number = tp_number;
         this.profile_image = profile_image;
+        this.date = date;
     }
-    public String getUser_role(){
-        return user_role;
-    }
-    public Integer getUser_no(){
-        return user_no;
-    }
+    public String getUser_role(){return user_role;    }
     public String getUser_id(){
         return user_id;
     }
     public String getUser_password(){
         return user_password;
+    }
+    public String getCourse(){
+        return course;
     }
     public String getFirst_name(){
         return first_name;
@@ -68,6 +68,9 @@ public class profileController{
     }
     public String getProfile_image(){
         return profile_image;
+    }
+    public Date getDate(){
+        return date;
     }
 
 }

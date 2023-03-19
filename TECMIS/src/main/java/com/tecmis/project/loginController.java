@@ -35,10 +35,14 @@ public class loginController  implements Initializable{
     @FXML
     private TextField username,password;
 
+    String User_ID;
+    String User_Name;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
 
     }
+
 
     public void loginButtonAction(ActionEvent event)throws Exception {
 
@@ -105,6 +109,16 @@ public class loginController  implements Initializable{
 
                             if (Role.equals("admin"))
                             {
+
+                                User_ID = queryResult2.getString("user_id");
+                                User_Name = queryResult2.getString("first_name");
+
+                                UserSession.getInstance(User_Name,User_ID);
+
+//                                System.out.println(UserSession.getUserId());
+
+
+
 
                                 Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Admin/admin.fxml")));
                                 new FadeIn(root).play();

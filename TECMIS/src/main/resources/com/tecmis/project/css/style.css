@@ -229,6 +229,15 @@
 }
 
 
+.addminButtons{
 
+    -fx-background-radius: 5px;
+    -fx-background-insets: 0px;
+    -fx-cursor: hand;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-alignment: Center_Left;
+
+}
 
 
