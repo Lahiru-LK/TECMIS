@@ -1,0 +1,17 @@
+
+
+
+.default-color0.chart-bar{ -fx-bar-fill: #ff0059
+}
+.default-color1.chart-bar{ -fx-bar-fill: rgb(245, 41, 126)
+}
+
+
+
+.default-color0.chart-bar:hover{ -fx-bar-fill: #ff2464
+}
+.default-color1.chart-bar:hover{ -fx-bar-fill: #ff3a75
+}
+
+
+

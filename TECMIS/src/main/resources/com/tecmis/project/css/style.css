@@ -241,3 +241,20 @@
 }
 
 
+.default-color0.chart-bar{ -fx-bar-fill: #d42439
+}
+.default-color1.chart-bar{ -fx-bar-fill: rgba(252, 31, 86, 0.94)
+}
+
+
+.default-color0.chart-bar:hover{ -fx-bar-fill: #e73447
+}
+.default-color1.chart-bar:hover{ -fx-bar-fill: #ee2d5c
+}
+
+
+
+.default-color0.chart-pie{ -fx-bar-fill:#a72d3b}
+.default-color1.chart-pie{ -fx-bar-fill: #de204f}
+
+

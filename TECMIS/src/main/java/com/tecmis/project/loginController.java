@@ -106,7 +106,8 @@ public class loginController  implements Initializable{
                         while (queryResult2.next()) //
                         {
                             String Role = queryResult2.getString(1); //database eke role eka selectr karanwa
-                            System.out.printf("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+
+
                             if (Role.equals("Admin"))
                             {
 

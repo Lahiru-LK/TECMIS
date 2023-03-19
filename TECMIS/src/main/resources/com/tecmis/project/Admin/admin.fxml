@@ -3,7 +3,7 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import java.lang.String?>
-<?import javafx.scene.chart.AreaChart?>
+<?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.chart.PieChart?>
@@ -56,7 +56,7 @@
                   <JFXButton fx:id="btnProfile" alignment="CENTER" focusTraversable="false" layoutX="22.0" layoutY="374.0" onAction="#switchForm" prefHeight="50.0" prefWidth="214.0" styleClass="addminButtons" text="                   Maintain Profiles" />
                   <JFXButton fx:id="btnCourse" alignment="CENTER" focusTraversable="false" layoutX="21.0" layoutY="426.0" onAction="#switchForm" prefHeight="50.0" prefWidth="216.0" styleClass="addminButtons" text="                   Maintain Courses" textAlignment="CENTER" />
                   <JFXButton fx:id="btnNotice" alignment="CENTER" focusTraversable="false" layoutX="20.0" layoutY="478.0" onAction="#switchForm" prefHeight="50.0" prefWidth="216.0" styleClass="addminButtons" stylesheets="@../css/stylesheet.css" text="                   Maintain Notices" />
-                  <JFXButton alignment="CENTER" focusTraversable="false" layoutX="18.0" layoutY="530.0" prefHeight="50.0" prefWidth="218.0" styleClass="addminButtons" stylesheets="@../css/stylesheet.css" text="                    Maintain Timetables" />
+                  <JFXButton fx:id="btnTimetablee" alignment="CENTER" focusTraversable="false" layoutX="18.0" layoutY="530.0" onAction="#switchForm" prefHeight="50.0" prefWidth="218.0" styleClass="addminButtons" stylesheets="@../css/stylesheet.css" text="                    Maintain Timetables" />
                   <JFXButton fx:id="signOutButton" alignment="CENTER" focusTraversable="false" layoutX="23.0" layoutY="625.0" onAction="#SignOutButtonAction" prefHeight="43.0" prefWidth="127.0" text="              Sign Out " textAlignment="CENTER">
                      <styleClass>
                         <String fx:value="tranparentB" />
@@ -138,62 +138,74 @@
                               <String fx:value="white-bg" />
                            </styleClass>
                            <children>
-                              <AnchorPane layoutX="14.0" layoutY="15.0" prefHeight="173.0" prefWidth="290.0" styleClass="dashboardCard">
+                              <AnchorPane layoutX="14.0" layoutY="15.0" prefHeight="169.0" prefWidth="290.0">
                                  <children>
                                     <ImageView fitHeight="82.0" fitWidth="90.0" layoutX="14.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../image/users.png" />
                                        </image>
                                     </ImageView>
-                                    <Label layoutX="133.0" layoutY="160.0" prefHeight="18.0" prefWidth="121.0" text="Number of User" textFill="WHITE">
+                                    <Label layoutX="133.0" layoutY="126.0" prefHeight="26.0" prefWidth="145.0" text="Total Enrolled Users" textFill="WHITE">
                                        <font>
                                           <Font size="16.0" />
                                        </font>
                                     </Label>
-                                    <Label alignment="CENTER_RIGHT" layoutX="205.0" layoutY="14.0" prefHeight="26.0" prefWidth="70.0" text="0" textFill="WHITE">
+                                    <Label fx:id="dashboad_numberOfUser" alignment="CENTER_RIGHT" layoutX="188.0" layoutY="14.0" prefHeight="26.0" prefWidth="70.0" text="0" textFill="WHITE">
                                        <font>
-                                          <Font name="System Bold" size="19.0" />
+                                          <Font name="System Bold" size="30.0" />
                                        </font>
                                     </Label>
                                  </children>
+                                 <styleClass>
+                                    <String fx:value="dashboardCard" />
+                                    <String fx:value="signB" />
+                                 </styleClass>
                               </AnchorPane>
-                              <AnchorPane layoutX="313.0" layoutY="16.0" prefHeight="169.0" prefWidth="290.0" styleClass="dashboardCard">
+                              <AnchorPane layoutX="313.0" layoutY="16.0" prefHeight="169.0" prefWidth="290.0">
                                  <children>
                                     <ImageView fitHeight="85.0" fitWidth="81.0" layoutX="14.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../image/students.png" />
                                        </image>
                                     </ImageView>
-                                    <Label layoutX="131.0" layoutY="159.0" prefHeight="26.0" prefWidth="142.0" text="Number of Student" textFill="WHITE">
+                                    <Label fx:id="dashboad_numberOfStudentUser" alignment="CENTER_RIGHT" layoutX="194.0" layoutY="13.0" prefHeight="26.0" prefWidth="70.0" text="0" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold" size="30.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="115.0" layoutY="125.0" prefHeight="26.0" prefWidth="174.0" text="Total Enrolled Students" textFill="WHITE">
                                        <font>
                                           <Font size="16.0" />
                                        </font>
                                     </Label>
-                                    <Label alignment="CENTER_RIGHT" layoutX="203.0" layoutY="13.0" prefHeight="26.0" prefWidth="70.0" text="0" textFill="WHITE">
-                                       <font>
-                                          <Font name="System Bold" size="19.0" />
-                                       </font>
-                                    </Label>
                                  </children>
+                                 <styleClass>
+                                    <String fx:value="dashboardCard" />
+                                    <String fx:value="signOutB" />
+                                 </styleClass>
                               </AnchorPane>
-                              <AnchorPane layoutX="610.0" layoutY="16.0" prefHeight="180.0" prefWidth="290.0" styleClass="dashboardCard">
+                              <AnchorPane layoutX="610.0" layoutY="16.0" prefHeight="170.0" prefWidth="290.0">
                                  <children>
                                     <ImageView fitHeight="98.0" fitWidth="105.0" layoutX="9.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../image/lecturer.png" />
                                        </image>
                                     </ImageView>
-                                    <Label layoutX="133.0" layoutY="160.0" prefHeight="26.0" prefWidth="146.0" text="Number of Lecturer" textFill="WHITE">
+                                    <Label fx:id="dashboad_numberOfLecturerUser" alignment="CENTER_RIGHT" layoutX="193.0" layoutY="14.0" prefHeight="26.0" prefWidth="70.0" text="0" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold" size="30.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="119.0" layoutY="125.0" prefHeight="26.0" prefWidth="161.0" text="Total Enrolled Lecturer" textFill="WHITE">
                                        <font>
                                           <Font size="16.0" />
                                        </font>
                                     </Label>
-                                    <Label alignment="CENTER_RIGHT" layoutX="205.0" layoutY="14.0" prefHeight="26.0" prefWidth="70.0" text="0" textFill="WHITE">
-                                       <font>
-                                          <Font name="System Bold" size="19.0" />
-                                       </font>
-                                    </Label>
                                  </children>
+                                 <styleClass>
+                                    <String fx:value="dashboardCard" />
+                                    <String fx:value="signOutB" />
+                                 </styleClass>
                               </AnchorPane>
                            </children>
                         </AnchorPane>
@@ -203,29 +215,45 @@
                               <String fx:value="white-bg" />
                            </styleClass>
                            <children>
-                              <AnchorPane layoutX="10.0" layoutY="21.0" prefHeight="390.0" prefWidth="527.0">
+                              <AnchorPane layoutX="10.0" layoutY="216.0" prefHeight="199.0" prefWidth="374.0">
                                  <styleClass>
                                     <String fx:value="shadow" />
                                     <String fx:value="white-bg" />
                                  </styleClass>
                                  <children>
-                                    <AreaChart layoutX="1.0" layoutY="10.0" prefHeight="390.4" prefWidth="527.2" title="Number of Studert" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <BarChart fx:id="TotalEntrole_studentCHART" layoutY="20.0" prefHeight="199.2" prefWidth="374.4" styleClass="texbox2" stylesheets="@../css/style.css" title="Total Enrolled Student Chart" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                       <xAxis>
                                         <CategoryAxis side="BOTTOM" />
                                       </xAxis>
                                       <yAxis>
                                         <NumberAxis side="LEFT" />
                                       </yAxis>
-                                    </AreaChart>
+                                    </BarChart>
                                  </children>
                               </AnchorPane>
-                              <AnchorPane layoutX="549.0" layoutY="21.0" prefHeight="390.0" prefWidth="357.0">
+                              <AnchorPane layoutX="397.0" layoutY="11.0" prefHeight="403.0" prefWidth="510.0">
                                  <styleClass>
                                     <String fx:value="shadow" />
                                     <String fx:value="white-bg" />
                                  </styleClass>
                                  <children>
-                                    <PieChart layoutX="62.0" prefHeight="390.4" prefWidth="357.6" title="Number of User" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <PieChart fx:id="TotalEntrole_UserRoleCHART" layoutX="114.0" layoutY="24.0" prefHeight="403.2" prefWidth="510.4" styleClass="texbox2" stylesheets="@../css/style.css" title="Total Enrolled User Role Chart" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="195.0" prefWidth="374.0">
+                                 <styleClass>
+                                    <String fx:value="shadow" />
+                                    <String fx:value="white-bg" />
+                                 </styleClass>
+                                 <children>
+                                    <BarChart fx:id="TotalEntrole_lecurerCHART1" layoutY="1.0" prefHeight="195.2" prefWidth="374.4" styleClass="texbox2" stylesheets="@../css/style02.css" title="Total Enrolled Lecturer Chart" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="1.0">
+                                       <xAxis>
+                                          <CategoryAxis side="BOTTOM" />
+                                       </xAxis>
+                                       <yAxis>
+                                          <NumberAxis side="LEFT" />
+                                       </yAxis>
+                                    </BarChart>
                                  </children>
                               </AnchorPane>
                            </children>
@@ -457,9 +485,9 @@
                                     <String fx:value="textfild" />
                                  </styleClass>
                               </TextArea>
-                              <JFXButton fx:id="addCourse_addBtn" focusTraversable="false" layoutX="21.0" layoutY="631.0" onAction="#addNoticeAdd" prefHeight="39.0" prefWidth="115.0" styleClass="signB" text="Add" />
-                              <JFXButton fx:id="addCourse_updateBtn" focusTraversable="false" layoutX="147.0" layoutY="631.0" onAction="#addNoticeUpdate" prefHeight="39.0" prefWidth="115.0" styleClass="signB" text="Update" />
-                              <JFXButton fx:id="addCourse_deleteBtn" focusTraversable="false" layoutX="275.0" layoutY="631.0" onAction="#addCourseDelete" prefHeight="39.0" prefWidth="115.0" styleClass="signB" text="Delete" />
+                              <JFXButton fx:id="addNotice_addBtn" focusTraversable="false" layoutX="21.0" layoutY="631.0" onAction="#addNoticeAdd" prefHeight="39.0" prefWidth="115.0" styleClass="signB" text="Add" />
+                              <JFXButton fx:id="addNotice_updateBtn" focusTraversable="false" layoutX="147.0" layoutY="631.0" onAction="#addNoticeUpdate" prefHeight="39.0" prefWidth="115.0" styleClass="signB" text="Update" />
+                              <JFXButton fx:id="addNotice_deleteBtn" focusTraversable="false" layoutX="275.0" layoutY="631.0" onAction="#addNoticeDelete" prefHeight="39.0" prefWidth="115.0" styleClass="signB" text="Delete" />
                               <JFXButton fx:id="addNotice_clearBtn" focusTraversable="false" layoutX="24.0" layoutY="574.0" onAction="#addNoticeClear" prefHeight="31.0" prefWidth="83.0" styleClass="signB" text="Clear" />
                               <AnchorPane layoutX="82.0" layoutY="16.0" prefHeight="262.0" prefWidth="238.0" styleClass="white-bg">
                                  <children>
@@ -490,7 +518,7 @@
                                     <Image url="@../image/search.png" />
                                  </image>
                               </ImageView>
-                              <TableView fx:id="addNotice_tableView" focusTraversable="false" layoutX="6.0" layoutY="63.0" onMouseClicked="#addNoticeSelect" prefHeight="618.0" prefWidth="498.0" stylesheets="@../css/style.css">
+                              <TableView fx:id="addNotice_tableView" focusTraversable="false" layoutX="6.0" layoutY="63.0" onMouseClicked="#addNoticeSelect" prefHeight="618.0" prefWidth="498.0" stylesheets="@../css/style.css" visible="false">
                                  <columns>
                                     <TableColumn fx:id="addNotice_C_noticeID" prefWidth="64.79998779296875" text="Notice ID" />
                                     <TableColumn fx:id="addNotice_C_noticeName" prefWidth="131.20001220703125" text="Notice Name" />
@@ -504,14 +532,77 @@
                         </AnchorPane>
                      </children>
                   </AnchorPane>
-                  <AnchorPane fx:id="timeTable_form" layoutX="199.0" layoutY="184.0" prefHeight="700.0" prefWidth="944.8" style="-fx-background-color: yellow;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <AnchorPane fx:id="timeTable_formmm" layoutX="141.0" layoutY="184.0" prefHeight="582.0" prefWidth="804.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <TableView layoutX="61.0" layoutY="60.0" prefHeight="229.0" prefWidth="422.0">
-                          <columns>
-                            <TableColumn prefWidth="75.0" text="tID" />
-                            <TableColumn prefWidth="75.0" text="pdf" />
-                          </columns>
-                        </TableView>
+                        <AnchorPane fx:id="TimeTableDataEnterArea1" layoutX="13.0" layoutY="8.0" prefHeight="677.0" prefWidth="399.0" stylesheets="@../css/style.css">
+                           <styleClass>
+                              <String fx:value="white-bg" />
+                              <String fx:value="shadow" />
+                           </styleClass>
+                           <children>
+                              <JFXButton fx:id="addTimetable_ImageuploadBtn" focusTraversable="false" layoutX="16.0" layoutY="422.0" onAction="#addTimetableUploadImage" prefHeight="30.0" prefWidth="379.0" styleClass="signB" text="Upload(jpg/png)" />
+                              <Label layoutX="7.0" layoutY="45.0" text=" Tb_ID :" />
+                              <TextField fx:id="addTimetable_ID" focusTraversable="false" layoutX="105.0" layoutY="39.0" prefHeight="34.0" prefWidth="288.0" promptText="Tb001">
+                                 <styleClass>
+                                    <String fx:value="texbox2" />
+                                    <String fx:value="textfild" />
+                                 </styleClass>
+                              </TextField>
+                              <Label layoutX="9.0" layoutY="109.0" text="Tb_Name :" />
+                              <TextField fx:id="addTimetable_Name" focusTraversable="false" layoutX="102.0" layoutY="101.0" prefHeight="34.0" prefWidth="291.0" promptText="Timetable Name">
+                                 <styleClass>
+                                    <String fx:value="texbox2" />
+                                    <String fx:value="textfild" />
+                                 </styleClass>
+                              </TextField>
+                              <JFXButton fx:id="addTimetable_clearBtn" focusTraversable="false" layoutX="21.0" layoutY="616.0" onAction="#addTimetableAdd" prefHeight="39.0" prefWidth="115.0" styleClass="signB" text="Add" />
+                              <JFXButton fx:id="addTimetable_updateBtn" focusTraversable="false" layoutX="147.0" layoutY="616.0" onAction="#addTimetableUpdate" prefHeight="39.0" prefWidth="115.0" styleClass="signB" text="Update" />
+                              <JFXButton fx:id="addTimetable_deleteBtn" focusTraversable="false" layoutX="275.0" layoutY="616.0" onAction="#addTimetableDelete" prefHeight="39.0" prefWidth="115.0" styleClass="signB" text="Delete" />
+                              <JFXButton fx:id="addTimetable_clearBtn" focusTraversable="false" layoutX="18.0" layoutY="527.0" onAction="#addTimetableClear" prefHeight="31.0" prefWidth="83.0" styleClass="signB" text="Clear" />
+                              <AnchorPane layoutX="97.0" layoutY="157.0" prefHeight="249.0" prefWidth="226.0" styleClass="white-bg">
+                                 <children>
+                                    <Rectangle fx:id="addTimetable_imageView" arcHeight="5.0" arcWidth="5.0" fill="#2197ff00" height="255.0" layoutX="-1.0" layoutY="-1.0" stroke="#a22d3b" strokeType="INSIDE" width="231.0">
+                                       <styleClass>
+                                          <String fx:value="shadow" />
+                                          <String fx:value="white-bg" />
+                                       </styleClass>
+                                    </Rectangle>
+                                 </children>
+                              </AnchorPane>
+                              <JFXButton fx:id="addTimetable_PdfuploadBtn" focusTraversable="false" layoutX="17.0" layoutY="476.0" onAction="#addProfileUploadImage" prefHeight="30.0" prefWidth="379.0" styleClass="signB" text="Upload(pdf)" />
+                              <Label layoutX="194.0" layoutY="456.0" text="OR" />
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane layoutX="426.0" layoutY="7.0" prefHeight="687.0" prefWidth="510.0" stylesheets="@../css/style.css">
+                           <styleClass>
+                              <String fx:value="white-bg" />
+                              <String fx:value="shadow" />
+                           </styleClass>
+                           <children>
+                              <TextField fx:id="addTimetable_SearchC" focusTraversable="false" layoutX="58.0" layoutY="14.0" prefHeight="26.0" prefWidth="277.0" promptText="Search">
+                                 <styleClass>
+                                    <String fx:value="searchbox" />
+                                    <String fx:value="texbox2" />
+                                 </styleClass>
+                              </TextField>
+                              <ImageView fitHeight="25.0" fitWidth="24.0" layoutX="19.0" layoutY="16.0" opacity="0.47" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../image/search.png" />
+                                 </image>
+                              </ImageView>
+                              <TableView fx:id="addTimetable_tableView" focusTraversable="false" layoutX="6.0" layoutY="63.0" onMouseClicked="#addTimetableSelect" onSort="#addTimetableClear" prefHeight="618.0" prefWidth="498.0" stylesheets="@../css/style.css">
+                                 <columns>
+                                    <TableColumn fx:id="addTimetable_C_ID" prefWidth="64.79998779296875" text="Tb_ID" />
+                                    <TableColumn fx:id="addTimetable_C_name" prefWidth="203.0" text="Tb_Name" />
+                                    <TableColumn fx:id="addTimetable_C_creatDate" prefWidth="90.0" text="Creat Date" />
+                                    <TableColumn fx:id="addTimetable_C_image" prefWidth="111.0" text="Upload Image" />
+                                    <TableColumn fx:id="addTimetable_C_pdf" minWidth="0.0" prefWidth="29.0" text="Upload Pdf" />
+                                 </columns>
+                              </TableView>
+                              <TableView cacheShape="false" centerShape="false" focusTraversable="false" prefHeight="618.0" prefWidth="498.0" scaleShape="false" stylesheets="@../css/style.css" visible="false" />
+                              <TableView cacheShape="false" centerShape="false" focusTraversable="false" layoutX="10.0" layoutY="10.0" prefHeight="618.0" prefWidth="498.0" scaleShape="false" stylesheets="@../css/style.css" visible="false" />
+                           </children>
+                        </AnchorPane>
                      </children>
                   </AnchorPane>
                </children>

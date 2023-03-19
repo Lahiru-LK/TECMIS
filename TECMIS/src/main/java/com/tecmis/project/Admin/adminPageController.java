@@ -6,6 +6,7 @@ import com.jfoenix.controls.JFXComboBox;
 import com.tecmis.project.Admin.Courses.courseController;
 import com.tecmis.project.Admin.Notices.noticeController;
 import com.tecmis.project.Admin.Profiles.profileController;
+import com.tecmis.project.Admin.Timetable.TimetableController;
 import com.tecmis.project.UserSession;
 import com.tecmis.project.connection_DB.JDBC;
 import javafx.collections.FXCollections;
@@ -19,6 +20,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.AreaChart;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.PieChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
@@ -39,6 +44,10 @@ import java.time.LocalDate;
 import java.util.*;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.chart.PieChart;
 
 
 public class adminPageController implements Initializable {
@@ -260,6 +269,81 @@ public class adminPageController implements Initializable {
     @FXML
     private Label logeUserPassword;
 
+    @FXML
+    private Label dashboad_numberOfUser;
+
+    @FXML
+    private Label dashboad_numberOfLecturerUser;
+
+    @FXML
+    private Label dashboad_numberOfStudentUser;
+
+    @FXML
+    private BarChart<?, ?> TotalEntrole_studentCHART;
+
+    @FXML
+    private PieChart TotalEntrole_UserRoleCHART;
+
+
+    @FXML
+    private BarChart<?, ?> TotalEntrole_lecurerCHART1;
+
+    @FXML
+    private JFXButton btnTimetablee;
+
+
+    @FXML
+    private AnchorPane timeTable_formmm;
+    @FXML
+    private AnchorPane TimeTableDataEnterArea1;
+
+    @FXML
+    private TableColumn<TimetableController, String> addTimetable_C_ID;
+
+    @FXML
+    private TableColumn<TimetableController, Date> addTimetable_C_creatDate;
+
+    @FXML
+    private TableColumn<TimetableController, String> addTimetable_C_image;
+
+    @FXML
+    private TableColumn<TimetableController, String> addTimetable_C_name;
+
+    @FXML
+    private TableColumn<TimetableController, String> addTimetable_C_pdf;
+
+    @FXML
+    private TextField addTimetable_ID;
+
+    @FXML
+    private JFXButton addTimetable_ImageuploadBtn;
+
+    @FXML
+    private TextField addTimetable_Name;
+
+    @FXML
+    private JFXButton addTimetable_PdfuploadBtn;
+
+    @FXML
+    private TextField addTimetable_SearchC;
+
+    @FXML
+    private JFXButton addTimetable_clearBtn;
+
+    @FXML
+    private JFXButton addTimetable_deleteBtn;
+
+    @FXML
+    private Rectangle addTimetable_imageView;
+
+    @FXML
+    private TableView<TimetableController> addTimetable_tableView;
+
+    @FXML
+    private JFXButton addTimetable_updateBtn;
+
+    @FXML
+    private Rectangle addTimetable_imageViewpdf;
 
     private Connection connect;
     private PreparedStatement prepare;
@@ -275,15 +359,248 @@ public class adminPageController implements Initializable {
 
 
 
+    public void DashboardDisplayNumberofUser(){
+
+        String sql = "SELECT COUNT(user_id) FROM user";
+
+        connect = JDBC.getConnection();
+
+
+
+        try {
+
+            int countUser = 0;
+
+            prepare = connect.prepareStatement(sql);
+            result = prepare.executeQuery();
+
+            if(result.next()){
+
+                countUser = result.getInt("COUNT(user_id)");
+
+                dashboad_numberOfUser.setText(String.valueOf(countUser));
+
+            }
+
+
+        }catch (Exception e){e.printStackTrace();}
+
+    }
+
+    public void DashboardDisplayNumberofStduntUser(){
+
+        String sql = "SELECT COUNT(user_id) FROM user WHERE user_role ='Student'";
+
+        connect = JDBC.getConnection();
+
+
+
+        try {
+
+            int countStudentUser = 0;
+
+            prepare = connect.prepareStatement(sql);
+            result = prepare.executeQuery();
+
+            if(result.next()){
+
+                countStudentUser = result.getInt("COUNT(user_id)");
+
+                dashboad_numberOfStudentUser.setText(String.valueOf(countStudentUser));
+
+            }
+
+
+        }catch (Exception e){e.printStackTrace();}
+
+    }
+
+
+    public void DashboardDisplayNumberofLecturerUser(){
+
+        String sql = "SELECT COUNT(user_id) FROM user WHERE user_role ='Lecturer'";
+
+        connect = JDBC.getConnection();
+
+
+
+        try {
+
+            int countLecturerUser = 0;
+
+            prepare = connect.prepareStatement(sql);
+            result = prepare.executeQuery();
+
+            if(result.next()){
+
+                countLecturerUser = result.getInt("COUNT(user_id)");
+
+                dashboad_numberOfLecturerUser.setText(String.valueOf(countLecturerUser));
+
+            }
+
+
+        }catch (Exception e){e.printStackTrace();}
+
+    }
 
 
 
 
+//    public void DashboardDisplayNumberofMaleUser(){
+//
+//        String sql = "SELECT COUNT(user_id) FROM user WHERE sex ='Males'";
+//
+//        connect = JDBC.getConnection();
+//
+//
+//
+//        try {
+//
+//            int countMale = 0;
+//
+//            prepare = connect.prepareStatement(sql);
+//            result = prepare.executeQuery();
+//
+//            if(result.next()){
+//
+//                countMale = result.getInt("COUNT(user_id)");
+//
+//            }
+//
+//  add to male//////////
+//            dashboad_numberOfUser.setText(String.valueOf(countMale));
+//
+//
+//
+//
+//
+//        }catch (Exception e){e.printStackTrace();}
+//
+//    }
+//
+
+//    public void DashboardDisplayNumberofFemaleUser(){
+//
+//        String sql = "SELECT COUNT(user_id) FROM user WHERE sex ='Female'";
+//
+//        connect = JDBC.getConnection();
+//
+//
+//
+//        try {
+//
+//            int countFemale = 0;
+//
+//            prepare = connect.prepareStatement(sql);
+//            result = prepare.executeQuery();
+//
+//            if(result.next()){
+//
+//                countFemale = result.getInt("COUNT(user_id)");
+//
+//            }
+//
+//  add to male/////////
+//            dashboad_numberOfFemaleUser.setText(String.valueOf(countFemale));
+//
+//
+//
+//
+//
+//        }catch (Exception e){e.printStackTrace();}
+//
+//    }
+//
+
+
+    public void DashboardDisplayNumberOfUserChart() {
+
+        if (TotalEntrole_studentCHART == null) {
+            System.err.println("UserStudent_enrolChart is null");
+            return;
+        }
+
+        TotalEntrole_studentCHART.getData().clear();
+
+        String sql = "SELECT sex, COUNT(user_id) FROM user WHERE user_role = 'Student' GROUP BY sex ORDER BY TIMESTAMP (sex) ASC LIMIT 5";
+
+        try (Connection connect = JDBC.getConnection();
+             PreparedStatement prepare = connect.prepareStatement(sql);
+             ResultSet result = prepare.executeQuery()) {
+
+            XYChart.Series chart = new XYChart.Series();
+
+            while (result.next()) {
+                chart.getData().add(new XYChart.Data(result.getString(1), result.getInt(2)));
+            }
+
+            TotalEntrole_studentCHART.getData().add(chart);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public void DashboardDisplayNumberOfUserChart2() {
+
+        if (TotalEntrole_lecurerCHART1 == null) {
+            System.err.println("UserStudent_enrolChart is null");
+            return;
+        }
+
+        TotalEntrole_lecurerCHART1.getData().clear();
+
+        String sql = "SELECT sex, COUNT(user_id) FROM user WHERE user_role = 'Lecturer' GROUP BY sex ORDER BY TIMESTAMP (sex) ASC LIMIT 5";
+
+        try (Connection connect = JDBC.getConnection();
+             PreparedStatement prepare = connect.prepareStatement(sql);
+             ResultSet result = prepare.executeQuery()) {
+
+            XYChart.Series chart = new XYChart.Series();
+
+            while (result.next()) {
+                chart.getData().add(new XYChart.Data(result.getString(1), result.getInt(2)));
+            }
+
+            TotalEntrole_lecurerCHART1.getData().add(chart);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
 
 
 
+    public void DashboardDisplayNumberOfUserRoleChart() {
 
+        if (TotalEntrole_UserRoleCHART == null) {
+            System.err.println("UserStudent_enrolChart is null");
+            return;
+        }
+
+        TotalEntrole_UserRoleCHART.getData().clear();
+
+        String sql = "SELECT user_role, COUNT(user_id) FROM user GROUP BY user_role ORDER BY TIMESTAMP (user_role) ASC LIMIT 5";
+
+        try (Connection connect = JDBC.getConnection();
+             PreparedStatement prepare = connect.prepareStatement(sql);
+             ResultSet result = prepare.executeQuery()) {
+
+            ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+
+            while (result.next()) {
+                pieChartData.add(new PieChart.Data(result.getString(1), result.getInt(2)));
+            }
+
+            TotalEntrole_UserRoleCHART.setData(pieChartData);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
 
 
@@ -333,7 +650,7 @@ public class adminPageController implements Initializable {
         addUser_roleC.setItems(ObList);
     }
 
-    private String[] genderList = {"males", "female", "other"};
+    private String[] genderList = {"Males", "Female", "Other"};
     public void addProfileGenderList(){
 
         List<String> genderL = new ArrayList<>();
@@ -1167,6 +1484,36 @@ public class adminPageController implements Initializable {
         addNotice_tableView.setItems(sortedList);
     }
 
+    public void addTimetableSearch(){
+
+        FilteredList<TimetableController> filteredList = new FilteredList<>(addTimetableD, e-> true);
+
+        addTimetable_SearchC.textProperty().addListener((Observable, oldValue, newValue) ->{
+
+            filteredList.setPredicate(predicateTimetableController ->{
+
+                if (newValue == null || newValue.isEmpty()){
+                    return true;
+                }
+
+                String searchKey = newValue.toLowerCase();
+
+                if (predicateTimetableController.getTimetable_id().toLowerCase().contains(searchKey)) {
+                    return true;
+                } else if (predicateTimetableController.getTimetable_name().toLowerCase().contains(searchKey)) {
+                    return true;
+                } else if (predicateTimetableController.getCreat_date().toString().contains(searchKey)) {
+                    return true;
+                }
+                else {return false;}
+            });
+        });
+
+        SortedList<TimetableController> sortedList = new SortedList<>(filteredList);
+        sortedList.comparatorProperty().bind(addTimetable_tableView.comparatorProperty());
+        addTimetable_tableView.setItems(sortedList);
+    }
+
 
 
 
@@ -1354,8 +1701,6 @@ public class adminPageController implements Initializable {
         }
     }
 
-
-
     public void addNoticeClear(){
         addNotice_nameC.setText("");
         addNotice_bodyLetterC.setText("");
@@ -1370,8 +1715,6 @@ public class adminPageController implements Initializable {
         addNoticeSearch();
 
     }
-
-
 
     public  void addNoticeUpdate(){
 
@@ -1439,7 +1782,7 @@ public class adminPageController implements Initializable {
         }catch (Exception e){e.printStackTrace();}
     }
 
-    public void addCourseDelete(){
+    public void addNoticeDelete(){
 
         String deleteData = "DELETE FROM notice WHERE notice_id = '"
                 +addNotice_noticeIDC.getText()+"'";
@@ -1501,12 +1844,324 @@ public class adminPageController implements Initializable {
 
 
 
+    public ObservableList<TimetableController> addTimetableController(){
+        ObservableList<TimetableController> listTimetableController = FXCollections.observableArrayList();
+
+        String sql = "SELECT * FROM timetable";
+
+        connect = JDBC.getConnection();
+
+        try {
+
+            TimetableController timetableD;
+            prepare = connect.prepareStatement(sql);
+            result = prepare.executeQuery();
+
+            while (result.next()){
+                timetableD = new TimetableController(result.getString("timetable_id")
+                        , result.getString("timetable_name")
+                        , result.getDate("creat_date")
+                        , result.getString("upload_image")
+
+                );
+
+                listTimetableController.add(timetableD);
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return listTimetableController;
+    }
+
+    private ObservableList<TimetableController> addTimetableD;
 
 
 
+    public void addTimetableShowData(){
+        addTimetableD = addTimetableController();
+
+        addTimetable_C_ID.setCellValueFactory(new PropertyValueFactory<>("timetable_id"));
+        addTimetable_C_name.setCellValueFactory(new PropertyValueFactory<>("timetable_name"));
+        addTimetable_C_creatDate.setCellValueFactory(new PropertyValueFactory<>("creat_date"));
+        addTimetable_C_image.setCellValueFactory(new PropertyValueFactory<>("upload_image"));
+
+
+        addTimetable_tableView.setItems(addTimetableD);
+    }
+
+
+    public void addTimetableSelect(){
+
+        TimetableController timetableD = addTimetable_tableView.getSelectionModel().getSelectedItem();
+        int num = addTimetable_tableView.getSelectionModel().getSelectedIndex();
+
+        if((num - 1) < -1) {return;}
 
 
 
+        addTimetable_ID.setText(String.valueOf(timetableD.getTimetable_id()));
+        addTimetable_Name.setText(String.valueOf(timetableD.getTimetable_name()));
+
+
+        String uri = "file:" + timetableD.getUpload_image();
+        image = new Image(uri, 0, 0, true, false);
+        addTimetable_imageView.setFill(new ImagePattern(image));
+
+        getData.path = timetableD.getUpload_image();
+
+
+
+    }
+
+    public void addTimetableAdd(){
+        String insertDATA = "INSERT INTO timetable"
+                +"(timetable_id,timetable_name,creat_date,upload_image)"
+                +"VALUES(?,?,?,?)";
+
+        connect = JDBC.getConnection();
+
+        try {
+
+            Alert alert;
+
+
+            if (addTimetable_ID.getText().isEmpty()
+                    || addTimetable_Name.getText().isEmpty()
+                    || getData.path == null || getData.path == "" ){
+
+                TimeTableDataEnterArea1.setStyle("-fx-border-color:red;-fx-border-width:2px;"); // filed color red
+                new animatefx.animation.Bounce(TimeTableDataEnterArea1).play();
+                alert= new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error Message");
+                alert.setHeaderText(null);
+                alert.setContentText("Please fill all blank fields");
+                alert.showAndWait();
+
+            }else {
+
+                //check if the user is already exist
+
+                String checkData = "SELECT timetable_id FROM timetable WHERE timetable_id = '"
+                        +addTimetable_ID.getText()+"'";
+
+                statement = connect.createStatement();
+                result = statement.executeQuery(checkData);
+
+                if (result.next()){
+
+                    TimeTableDataEnterArea1.setStyle(null);
+                    addTimetable_ID.setStyle("-fx-border-color:red;-fx-border-width:2px;"); // filed color red
+                    new animatefx.animation.Bounce(addTimetable_ID).play();
+
+                    alert= new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error Message");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Timetable ID '" + addTimetable_ID.getText() + "' was already exist!");
+                    alert.showAndWait();
+
+                }else {
+
+                    addUser_useridC.setStyle(null);
+
+                    prepare = connect.prepareStatement(insertDATA);
+
+                    prepare.setString(1, addTimetable_ID.getText());
+                    prepare.setString(2, addTimetable_Name.getText());
+
+                    Date date = new Date();
+                    java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+                    prepare.setString(3,String.valueOf(sqlDate));
+
+                    String uri = getData.path;
+                    uri = uri.replace("\\", "\\\\");
+                    prepare.setString(4, uri);
+
+
+                    prepare.executeUpdate();
+
+                    alert= new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Information Message");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Successfully Added!");
+                    alert.showAndWait();
+
+                    //to update the tableview
+                    addTimetableShowData();
+
+                    //to clear the fields
+                    addTimetableClear();
+
+                    //to search th fields
+                    addTimetableSearch();
+
+                }
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+
+    public void addTimetableClear(){
+        addTimetable_ID.setText("");
+        addTimetable_Name.setText("");
+        getData.path = "";
+        addTimetable_imageView.setFill(null);
+        TimeTableDataEnterArea1.setStyle(null);
+        addTimetable_ID.setStyle(null);
+        addTimetable_SearchC.setText("");
+        addTimetableSearch();
+    }
+
+
+    public void addTimetableUploadImage(){
+
+        FileChooser open = new FileChooser();
+        open.setTitle("Open Image File");
+        open.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image File", "*jpg", "*png"));
+
+
+
+        File file = open.showOpenDialog(timeTable_formmm.getScene().getWindow());
+
+        if (file != null){
+
+
+            image = new Image(file.toURI().toString(),0, 0, true, false );
+            addTimetable_imageView.setFill(new ImagePattern(image));
+
+
+            getData.path = file.getAbsolutePath();
+
+        }
+    }
+
+
+    public void addTimetableDelete(){
+
+        String deleteData = "DELETE FROM timetable WHERE timetable_id = '"
+                +addTimetable_ID.getText()+"'";
+
+        connect = JDBC.getConnection();
+
+        try {
+            Alert alert;
+            if (addTimetable_ID.getText().isEmpty()
+                    || addTimetable_Name.getText().isEmpty()
+                    || getData.path == null || getData.path == "" ){
+
+                TimeTableDataEnterArea1.setStyle("-fx-border-color:red;-fx-border-width:2px;"); // filed color red
+                new animatefx.animation.Bounce(TimeTableDataEnterArea1).play();
+                alert= new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error Message");
+                alert.setHeaderText(null);
+                alert.setContentText("Please fill all blank fields");
+                alert.showAndWait();
+
+            }else {
+                alert= new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirmation Message");
+                alert.setHeaderText(null);
+                alert.setContentText("Are you sure you want to DELETE Timetable ID '" + addTimetable_ID.getText() + "' ?" );
+
+
+                Optional<ButtonType> option = alert.showAndWait();
+
+                if (option.get().equals(ButtonType.OK)) {
+
+                    statement = connect.createStatement();
+                    statement.executeUpdate(deleteData);
+
+                    UserDataEnterArea.setStyle(null);
+                    alert= new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Information Message");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Successfully Deleted!");
+                    alert.showAndWait();
+
+                    //to update the tableview
+                    addTimetableShowData();
+
+                    //to clear the fields
+                    addTimetableClear();
+
+                    //to search th fields
+                    addTimetableSearch();
+
+
+
+                }else return;
+
+            }
+
+        }catch (Exception e){e.printStackTrace();}
+    }
+
+
+    public  void addTimetableUpdate(){
+
+        String uri = getData.path;
+        uri = uri.replace("\\", "\\\\");
+
+
+
+        String updateData = " UPDATE timetable SET "
+                + "timetable_name  = '"+ addTimetable_Name.getText()
+                + "', upload_image = '"+ uri +"'WHERE timetable = '" +addTimetable_ID.getText()+"'";
+
+        connect = JDBC.getConnection();
+
+
+        try {
+            Alert alert;
+            if (addTimetable_ID.getText().isEmpty()
+                    || addTimetable_Name.getText().isEmpty()
+                    || getData.path == null || getData.path == "" ){
+
+                TimeTableDataEnterArea1.setStyle("-fx-border-color:red;-fx-border-width:2px;"); // filed color red
+                new animatefx.animation.Bounce(TimeTableDataEnterArea1).play();
+                alert= new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error Message");
+                alert.setHeaderText(null);
+                alert.setContentText("Please fill all blank fields");
+                alert.showAndWait();
+
+            }else {
+
+
+                alert= new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirmation Message");
+                alert.setHeaderText(null);
+                alert.setContentText("Are you sure you want to UPDATE Timetable ID '" + addTimetable_ID.getText() + "' ?" );
+                Optional<ButtonType> option = alert.showAndWait();
+
+                if (option.get().equals(ButtonType.OK)){
+
+                    statement = connect.createStatement();
+                    statement.executeUpdate(updateData);
+
+                    TimeTableDataEnterArea1.setStyle(null);
+                    alert= new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Information Message");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Successfully Updated!");
+                    alert.showAndWait();
+
+                    //to update the tableview
+                    addTimetableShowData();
+
+                    //to clear the fields
+                    addTimetableClear();
+
+                    //to search th fields
+                    addTimetableSearch();
+
+                }else return;
+            }
+        }catch (Exception e){e.printStackTrace();}
+    }
 
 
 //-----------------------------------------------------------------------------------------------------------------------------------
@@ -1517,15 +2172,24 @@ public class adminPageController implements Initializable {
             dashboard_form.setVisible(true);
             profile_form.setVisible(false);
             course_form.setVisible(false);
-            course_form.setVisible(false);
             notice_form.setVisible(false);
+            timeTable_formmm.setVisible(false);
+
 
             btnDashboard.setStyle("-fx-background-color: #d62651;");
             btnProfile.setStyle("-fx-background-color: transparent");
             btnCourse.setStyle("-fx-background-color: transparent");
             btnNotice.setStyle("-fx-background-color: transparent");
+            btnTimetablee.setStyle("-fx-background-color: transparent");
 
 
+
+            DashboardDisplayNumberofUser();
+            DashboardDisplayNumberofStduntUser();
+            DashboardDisplayNumberofLecturerUser();
+            DashboardDisplayNumberOfUserChart();
+            DashboardDisplayNumberOfUserRoleChart();
+            DashboardDisplayNumberOfUserChart2();
 
 
 
@@ -1534,11 +2198,15 @@ public class adminPageController implements Initializable {
             profile_form.setVisible(true);
             course_form.setVisible(false);
             notice_form.setVisible(false);
+            timeTable_formmm.setVisible(false);
+
 
             btnDashboard.setStyle("-fx-background-color:transparent ;");
             btnProfile.setStyle("-fx-background-color: #d62651");
             btnCourse.setStyle("-fx-background-color: transparent");
             btnNotice.setStyle("-fx-background-color: transparent");
+            btnTimetablee.setStyle("-fx-background-color: transparent");
+
 
 
             //to become updared once you click the add stuydent button on nav
@@ -1553,12 +2221,16 @@ public class adminPageController implements Initializable {
             profile_form.setVisible(false);
             course_form.setVisible(true);
             notice_form.setVisible(false);
+            timeTable_formmm.setVisible(false);
+
 
 
             btnDashboard.setStyle("-fx-background-color:transparent ;");
             btnProfile.setStyle("-fx-background-color: transparent");
             btnCourse.setStyle("-fx-background-color: #d62651");
             btnNotice.setStyle("-fx-background-color: transparent");
+            btnTimetablee.setStyle("-fx-background-color: transparent");
+
 
             availableCourseShowData();
             availableCourseSearch();
@@ -1570,16 +2242,39 @@ public class adminPageController implements Initializable {
             profile_form.setVisible(false);
             course_form.setVisible(false);
             notice_form.setVisible(true);
+            timeTable_formmm.setVisible(false);
+
 
 
             btnDashboard.setStyle("-fx-background-color:transparent ;");
             btnProfile.setStyle("-fx-background-color: transparent");
             btnCourse.setStyle("-fx-background-color: transparent");
             btnNotice.setStyle("-fx-background-color: #d62651");
+            btnCourse.setStyle("-fx-background-color: transparent");
+            btnTimetablee.setStyle("-fx-background-color: transparent");
+
 
             addNoticeShowData();
             addNoticeSearch();
 
+
+        }else if (event.getSource()==btnTimetablee) {
+
+            dashboard_form.setVisible(false);
+            profile_form.setVisible(false);
+            course_form.setVisible(false);
+            notice_form.setVisible(false);
+            timeTable_formmm.setVisible(true);
+
+
+            btnDashboard.setStyle("-fx-background-color:transparent ;");
+            btnProfile.setStyle("-fx-background-color: transparent");
+            btnCourse.setStyle("-fx-background-color: transparent");
+            btnNotice.setStyle("-fx-background-color: transparent");
+            btnTimetablee.setStyle("-fx-background-color: #d62651");
+
+            addTimetableShowData();
+            addTimetableSearch();
 
         }
 
@@ -1590,18 +2285,23 @@ public class adminPageController implements Initializable {
 
         btnDashboard.setStyle("-fx-background-color: #d62651;");
 
+        DashboardDisplayNumberOfUserChart2();
+        DashboardDisplayNumberOfUserChart();
+        DashboardDisplayNumberOfUserRoleChart();
+        DashboardDisplayNumberofLecturerUser();
+        DashboardDisplayNumberofUser();
+        DashboardDisplayNumberofStduntUser();
         loadUserData();
+
 
         //to show immediately when we open the dashboard
         addProfileshowData();
         availableCourseShowData();
         addNoticeShowData();
+        addTimetableShowData();
         addProfileRoleList();
         addProfileGenderList();
         addProfileCourseList();
-
-
-
     }
 
 

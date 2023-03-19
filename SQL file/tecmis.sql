@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Mar 19, 2023 at 06:11 AM
+-- Generation Time: Mar 19, 2023 at 05:55 PM
 -- Server version: 5.7.36
 -- PHP Version: 7.4.26
 
@@ -72,6 +72,29 @@ INSERT INTO `notice` (`notice_id`, `notice_name`, `bodyof_notice`, `notice_image
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `timetable`
+--
+
+DROP TABLE IF EXISTS `timetable`;
+CREATE TABLE IF NOT EXISTS `timetable` (
+  `timetable_id` varchar(20) NOT NULL,
+  `timetable_name` varchar(100) NOT NULL,
+  `creat_date` date DEFAULT NULL,
+  `upload_image` varchar(5000) NOT NULL,
+  PRIMARY KEY (`timetable_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `timetable`
+--
+
+INSERT INTO `timetable` (`timetable_id`, `timetable_name`, `creat_date`, `upload_image`) VALUES
+('Tb001', 'All Student for TimeTables', '2023-02-15', 'D:\\BICT for Campus Lectures\\Lectures\\2RD YEAR\\1st Semester\\Object Oriented Programming Practicum ICT2132 (P)\\Mini Project\\TECMIS\\src\\main\\resources\\com\\tecmis\\project\\image\\noticeandtimetable\\timetable\\t1.jpg'),
+('Tb002', 'xxxxxxxxxxxxxx', '2023-03-19', 'C:\\\\Users\\\\PC\\\\Pictures\\\\Screenshots\\\\Screenshot (1).png');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `user`
 --
 
@@ -98,13 +121,14 @@ CREATE TABLE IF NOT EXISTS `user` (
 --
 
 INSERT INTO `user` (`user_role`, `user_id`, `user_password`, `course`, `first_name`, `last_name`, `email`, `dob`, `sex`, `address`, `tp_number`, `profile_image`, `date`) VALUES
-('Admin', 'admin001', 'admin1', 'null', 'Lahiru', 'Prasad', 'lahiruprresath2623@gmail.com', '2000-03-21', 'males', '103,c/1,walgampaye,danthure', '+94767171263', 'D:\\BICT for Campus Lectures\\Lectures\\2RD YEAR\\1st Semester\\Object Oriented Programming Practicum ICT2132 (P)\\Mini Project\\TECMIS\\src\\main\\resources\\com\\tecmis\\project\\image\\userImages\\admin_lahiru.png', NULL),
-('Student', 'std001', 'std1', 'BBT', 'Shanika', 'Priyanthi', 'shanikaprianthi9237@gmail.com', '2000-01-29', 'female', '990,d/6,walasmulla,nugegoda', '+94752436375', 'D:\\BICT for Campus Lectures\\Lectures\\2RD YEAR\\1st Semester\\Object Oriented Programming Practicum ICT2132 (P)\\Mini Project\\TECMIS\\src\\main\\resources\\com\\tecmis\\project\\image\\userImages\\student\\std_shanika.png', NULL),
-('Student', 'std002', 'std2', 'BET', 'Preveen', 'Nikmal', 'prevvennikmal233@gmail.com', '2001-05-13', 'males', '25,a/2,colombo,sesmane 2', '+94784623782', 'D:\\BICT for Campus Lectures\\Lectures\\2RD YEAR\\1st Semester\\Object Oriented Programming Practicum ICT2132 (P)\\Mini Project\\TECMIS\\src\\main\\resources\\com\\tecmis\\project\\image\\userImages\\student\\std_preveen.png', NULL),
-('Lecturer', 'lec001', 'lec1', 'null', 'Sarath', 'Kumara', 'sarathkumara232@fot.ruh.lk', '1978-05-20', 'males', '990,f/2,kadanaa,rathmalana', '+94784362458', 'D:\\BICT for Campus Lectures\\Lectures\\2RD YEAR\\1st Semester\\Object Oriented Programming Practicum ICT2132 (P)\\Mini Project\\TECMIS\\src\\main\\resources\\com\\tecmis\\project\\image\\userImages\\lecturer\\lec_sarath.png', NULL),
-('Technician_Officer', 'techoff001', 'techo1', 'null', 'Shima', 'Jacko', 'shimajackonik262@gmail.com', '1980-02-11', 'males', '202,g/1,mawnallla,aranayaka', '+94754623422', 'D:\\BICT for Campus Lectures\\Lectures\\2RD YEAR\\1st Semester\\Object Oriented Programming Practicum ICT2132 (P)\\Mini Project\\TECMIS\\src\\main\\resources\\com\\tecmis\\project\\image\\userImages\\technical_officer\\techoff_shima.png', NULL),
-('Student', 'std003', 'std3', 'BICT', 'Menaka', 'Prebath', 'menukaprabath22@gmail.com', '1996-02-06', 'males', '80,h/3,waththegama,kandy', '+94767272567', 'D:\\BICT for Campus Lectures\\Lectures\\2RD YEAR\\1st Semester\\Object Oriented Programming Practicum ICT2132 (P)\\Mini Project\\TECMIS\\src\\main\\resources\\com\\tecmis\\project\\image\\userImages\\student\\std_Menaka.jpg', '2023-03-17'),
-('Admin', 'admin002', 'admin2', 'null', 'Shakya', 'Deebyana', 'sinkibaby299@gmail.com', '1990-03-05', 'female', '900,b/2,colombo,road,7', '+94787878999', 'D:\\BICT for Campus Lectures\\Lectures\\2RD YEAR\\1st Semester\\Object Oriented Programming Practicum ICT2132 (P)\\Mini Project\\TECMIS\\src\\main\\resources\\com\\tecmis\\project\\image\\userImages\\admin_Shakya.jpg', '2023-03-17');
+('Admin', 'admin001', 'admin1', 'null', 'Lahiru', 'Prasad', 'lahiruprresath2623@gmail.com', '2000-03-21', 'Males', '103,c/1,walgampaye,danthure', '+94767171263', 'D:\\BICT for Campus Lectures\\Lectures\\2RD YEAR\\1st Semester\\Object Oriented Programming Practicum ICT2132 (P)\\Mini Project\\TECMIS\\src\\main\\resources\\com\\tecmis\\project\\image\\userImages\\admin_lahiru.png', '2016-12-23'),
+('Student', 'std001', 'std1', 'BBT', 'Shanika', 'Priyanthi', 'shanikaprianthi9237@gmail.com', '2000-01-29', 'Female', '990,d/6,walasmulla,nugegoda', '+94752436375', 'D:\\BICT for Campus Lectures\\Lectures\\2RD YEAR\\1st Semester\\Object Oriented Programming Practicum ICT2132 (P)\\Mini Project\\TECMIS\\src\\main\\resources\\com\\tecmis\\project\\image\\userImages\\student\\std_shanika.png', '2022-07-20'),
+('Student', 'std002', 'std2', 'BET', 'Preveen', 'Nikmal', 'prevvennikmal233@gmail.com', '2001-05-13', 'Males', '25,a/2,colombo,sesmane 2', '+94784623782', 'D:\\BICT for Campus Lectures\\Lectures\\2RD YEAR\\1st Semester\\Object Oriented Programming Practicum ICT2132 (P)\\Mini Project\\TECMIS\\src\\main\\resources\\com\\tecmis\\project\\image\\userImages\\student\\std_preveen.png', '2023-02-16'),
+('Lecturer', 'lec001', 'lec1', 'null', 'Sarath', 'Kumara', 'sarathkumara232@fot.ruh.lk', '1978-05-20', 'Males', '990,f/2,kadanaa,rathmalana', '+94784362458', 'D:\\BICT for Campus Lectures\\Lectures\\2RD YEAR\\1st Semester\\Object Oriented Programming Practicum ICT2132 (P)\\Mini Project\\TECMIS\\src\\main\\resources\\com\\tecmis\\project\\image\\userImages\\lecturer\\lec_sarath.png', '2019-02-22'),
+('Technical_Officer', 'techoff001', 'techo1', 'null', 'Shima', 'Jacko', 'shimajackonik262@gmail.com', '1980-02-11', 'Males', '202,g/1,mawnallla,aranayaka', '+94754623422', 'D:\\BICT for Campus Lectures\\Lectures\\2RD YEAR\\1st Semester\\Object Oriented Programming Practicum ICT2132 (P)\\Mini Project\\TECMIS\\src\\main\\resources\\com\\tecmis\\project\\image\\userImages\\technical_officer\\techoff_shima.png', '2020-02-12'),
+('Student', 'std003', 'std3', 'BICT', 'Menaka', 'Prebath', 'menukaprabath22@gmail.com', '1996-02-06', 'Males', '80,h/3,waththegama,kandy', '+94767272567', 'D:\\BICT for Campus Lectures\\Lectures\\2RD YEAR\\1st Semester\\Object Oriented Programming Practicum ICT2132 (P)\\Mini Project\\TECMIS\\src\\main\\resources\\com\\tecmis\\project\\image\\userImages\\student\\std_Menaka.jpg', '2023-03-17'),
+('Admin', 'admin002', 'admin2', 'null', 'Shakya', 'Deebyana', 'sinkibaby299@gmail.com', '1990-03-05', 'Female', '900,b/2,colombo,road,7', '+94787878999', 'D:\\BICT for Campus Lectures\\Lectures\\2RD YEAR\\1st Semester\\Object Oriented Programming Practicum ICT2132 (P)\\Mini Project\\TECMIS\\src\\main\\resources\\com\\tecmis\\project\\image\\userImages\\admin_Shakya.jpg', '2023-03-17'),
+('Lecturer', 'lec002', 'lec2', NULL, 'Anusha', 'Lalani', 'anushalalani9990@fot.ruh.lk', '1996-03-21', 'Female', '120,d/2,karagoda,uyangoda', '+94767171999', 'D:\\\\BICT for Campus Lectures\\\\Lectures\\\\2RD YEAR\\\\1st Semester\\\\Object Oriented Programming Practicum ICT2132 (P)\\\\Mini Project\\\\TECMIS\\\\src\\\\main\\\\resources\\\\com\\\\tecmis\\\\project\\\\image\\\\userImages\\\\lecturer\\\\lec-Lalani.jpg', '2022-03-24');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
