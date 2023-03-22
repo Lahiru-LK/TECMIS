@@ -2,6 +2,8 @@
 (Mini-Project ) ICT2132 – Object Oriented Programming Practicum
 
 
-https://user-images.githubusercontent.com/104630433/222924808-1de05124-a9fe-48b8-8b0e-b5bfc57e7aac.mp4
+
+https://user-images.githubusercontent.com/104630433/226312354-392e2ff1-b202-4659-8cc5-75231b5c00c6.mp4
+
 
 
