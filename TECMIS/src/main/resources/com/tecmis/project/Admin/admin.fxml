@@ -130,7 +130,7 @@
          <center>
             <AnchorPane prefHeight="700.0" prefWidth="966.0" BorderPane.alignment="CENTER">
                <children>
-                  <AnchorPane fx:id="dashboard_form" layoutX="2.0" layoutY="2.0" prefHeight="694.0" prefWidth="938.0">
+                  <AnchorPane fx:id="dashboard_form" layoutX="2.0" layoutY="2.0" prefHeight="694.0" prefWidth="938.0" visible="false">
                      <children>
                         <AnchorPane layoutX="14.0" layoutY="14.0" prefHeight="216.0" prefWidth="914.0" stylesheets="@../css/style.css">
                            <styleClass>
@@ -261,7 +261,7 @@
                         <Line endX="809.6000366210938" layoutX="115.0" layoutY="242.0" startX="-100.0" stroke="#890303" />
                      </children>
                   </AnchorPane>
-                  <AnchorPane fx:id="profile_form" layoutX="174.0" layoutY="98.0" onKeyTyped="#addProfilesSelect" prefHeight="700.0" prefWidth="944.8" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <AnchorPane fx:id="profile_form" layoutX="174.0" layoutY="98.0" onKeyTyped="#addProfilesSelect" prefHeight="700.0" prefWidth="944.8" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <AnchorPane layoutX="9.0" layoutY="14.0" prefHeight="362.0" prefWidth="926.0" stylesheets="@../css/style.css">
                            <styleClass>
@@ -284,11 +284,11 @@
                                     <TableColumn fx:id="adduser_firstname" prefWidth="100.0" text="First_name" />
                                     <TableColumn fx:id="adduser_lastname" prefWidth="100.0" text="Last_name" />
                                     <TableColumn fx:id="adduser_dob" prefWidth="75.9998779296875" text="DOB" />
-                                    <TableColumn fx:id="adduser_sex" prefWidth="102.3997802734375" text="Sex" />
-                                    <TableColumn fx:id="adduser_address" prefWidth="212.00018310546875" text="Address" />
+                                    <TableColumn fx:id="adduser_sex" prefWidth="70.0" text="Sex" />
+                                    <TableColumn fx:id="adduser_address" prefWidth="220.0" text="Address" />
                                     <TableColumn fx:id="adduser_tpnumber" prefWidth="100.0" text="Tp_number" />
-                                    <TableColumn fx:id="adduser_propicture" prefWidth="100.0001220703125" text="Pro_Pic" />
-                                    <TableColumn fx:id="adduser_createDate" prefWidth="70.0" text="Create Date" />
+                                    <TableColumn fx:id="adduser_propicture" prefWidth="90.0" text="Pro_Pic" />
+                                    <TableColumn fx:id="adduser_createDate" prefWidth="79.0" text="Create Date" />
                                 </columns>
                               </TableView>
                               <ImageView fitHeight="25.0" fitWidth="24.0" layoutX="17.0" layoutY="12.0" opacity="0.47" pickOnBounds="true" preserveRatio="true">
@@ -518,13 +518,13 @@
                                     <Image url="@../image/search.png" />
                                  </image>
                               </ImageView>
-                              <TableView fx:id="addNotice_tableView" focusTraversable="false" layoutX="6.0" layoutY="63.0" onMouseClicked="#addNoticeSelect" prefHeight="618.0" prefWidth="498.0" stylesheets="@../css/style.css" visible="false">
+                              <TableView fx:id="addNotice_tableView" focusTraversable="false" layoutX="6.0" layoutY="63.0" onMouseClicked="#addNoticeSelect" prefHeight="618.0" prefWidth="498.0" stylesheets="@../css/style.css">
                                  <columns>
                                     <TableColumn fx:id="addNotice_C_noticeID" prefWidth="64.79998779296875" text="Notice ID" />
                                     <TableColumn fx:id="addNotice_C_noticeName" prefWidth="131.20001220703125" text="Notice Name" />
-                                    <TableColumn fx:id="addNotice_C_bodyOfNotice" prefWidth="205.60009765625" text="Body of Notice" />
-                                    <TableColumn fx:id="addNotice_C_creatDate" minWidth="0.0" prefWidth="69.599853515625" text="Create Date" />
-                                    <TableColumn fx:id="addNotice_C_imagepdf" prefWidth="128.0" text="Image/pdf" />
+                                    <TableColumn fx:id="addNotice_C_bodyOfNotice" prefWidth="189.0" text="Body of Notice" />
+                                    <TableColumn fx:id="addNotice_C_creatDate" minWidth="0.0" prefWidth="83.0" text="Create Date" />
+                                    <TableColumn fx:id="addNotice_C_imagepdf" prefWidth="122.0" text="Upload Image" />
                                  </columns>
                               </TableView>
                               <TableView cacheShape="false" centerShape="false" focusTraversable="false" prefHeight="618.0" prefWidth="498.0" scaleShape="false" stylesheets="@../css/style.css" visible="false" />
@@ -549,13 +549,13 @@
                                  </styleClass>
                               </TextField>
                               <Label layoutX="9.0" layoutY="109.0" text="Tb_Name :" />
-                              <TextField fx:id="addTimetable_Name" focusTraversable="false" layoutX="102.0" layoutY="101.0" prefHeight="34.0" prefWidth="291.0" promptText="Timetable Name">
+                              <TextField fx:id="addTimetable_Name" focusTraversable="false" layoutX="106.0" layoutY="101.0" prefHeight="34.0" prefWidth="287.0" promptText="Timetable Name">
                                  <styleClass>
                                     <String fx:value="texbox2" />
                                     <String fx:value="textfild" />
                                  </styleClass>
                               </TextField>
-                              <JFXButton fx:id="addTimetable_clearBtn" focusTraversable="false" layoutX="21.0" layoutY="616.0" onAction="#addTimetableAdd" prefHeight="39.0" prefWidth="115.0" styleClass="signB" text="Add" />
+                              <JFXButton focusTraversable="false" layoutX="21.0" layoutY="616.0" onAction="#addTimetableAdd" prefHeight="39.0" prefWidth="115.0" styleClass="signB" text="Add" />
                               <JFXButton fx:id="addTimetable_updateBtn" focusTraversable="false" layoutX="147.0" layoutY="616.0" onAction="#addTimetableUpdate" prefHeight="39.0" prefWidth="115.0" styleClass="signB" text="Update" />
                               <JFXButton fx:id="addTimetable_deleteBtn" focusTraversable="false" layoutX="275.0" layoutY="616.0" onAction="#addTimetableDelete" prefHeight="39.0" prefWidth="115.0" styleClass="signB" text="Delete" />
                               <JFXButton fx:id="addTimetable_clearBtn" focusTraversable="false" layoutX="18.0" layoutY="527.0" onAction="#addTimetableClear" prefHeight="31.0" prefWidth="83.0" styleClass="signB" text="Clear" />
@@ -569,7 +569,7 @@
                                     </Rectangle>
                                  </children>
                               </AnchorPane>
-                              <JFXButton fx:id="addTimetable_PdfuploadBtn" focusTraversable="false" layoutX="17.0" layoutY="476.0" onAction="#addProfileUploadImage" prefHeight="30.0" prefWidth="379.0" styleClass="signB" text="Upload(pdf)" />
+                              <JFXButton fx:id="addTimetable_PdfuploadBtn" focusTraversable="false" layoutX="17.0" layoutY="476.0" onAction="#choosePdf" prefHeight="30.0" prefWidth="379.0" styleClass="signB" text="Upload(pdf)" />
                               <Label layoutX="194.0" layoutY="456.0" text="OR" />
                            </children>
                         </AnchorPane>
@@ -593,10 +593,10 @@
                               <TableView fx:id="addTimetable_tableView" focusTraversable="false" layoutX="6.0" layoutY="63.0" onMouseClicked="#addTimetableSelect" onSort="#addTimetableClear" prefHeight="618.0" prefWidth="498.0" stylesheets="@../css/style.css">
                                  <columns>
                                     <TableColumn fx:id="addTimetable_C_ID" prefWidth="64.79998779296875" text="Tb_ID" />
-                                    <TableColumn fx:id="addTimetable_C_name" prefWidth="203.0" text="Tb_Name" />
-                                    <TableColumn fx:id="addTimetable_C_creatDate" prefWidth="90.0" text="Creat Date" />
-                                    <TableColumn fx:id="addTimetable_C_image" prefWidth="111.0" text="Upload Image" />
-                                    <TableColumn fx:id="addTimetable_C_pdf" minWidth="0.0" prefWidth="29.0" text="Upload Pdf" />
+                                    <TableColumn fx:id="addTimetable_C_name" prefWidth="160.0" text="Tb_Name" />
+                                    <TableColumn fx:id="addTimetable_C_creatDate" prefWidth="74.0" text="Creat Date" />
+                                    <TableColumn fx:id="addTimetable_C_image" prefWidth="94.0" text="Upload Image" />
+                                    <TableColumn fx:id="addTimetable_C_pdf" prefWidth="105.0" text="Upload Pdf" />
                                  </columns>
                               </TableView>
                               <TableView cacheShape="false" centerShape="false" focusTraversable="false" prefHeight="618.0" prefWidth="498.0" scaleShape="false" stylesheets="@../css/style.css" visible="false" />

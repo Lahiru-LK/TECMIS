@@ -17,9 +17,10 @@ public class profileController{
     private String tp_number;
     private String profile_image;
     private Date date;
+    private String upnonupuserIMG;
 
 
-    public profileController(String user_role, String user_id, String user_password,String course, String first_name, String last_name, String email, Date dob, String sex, String address, String tp_number, String profile_image, Date date  )
+    public profileController(String user_role, String user_id, String user_password,String course, String first_name, String last_name, String email, Date dob, String sex, String address, String tp_number, String profile_image, Date date, String upnonupuserIMG  )
     {
         this.user_role = user_role;
         this.user_id = user_id;
@@ -34,6 +35,7 @@ public class profileController{
         this.tp_number = tp_number;
         this.profile_image = profile_image;
         this.date = date;
+        this.upnonupuserIMG = upnonupuserIMG;
     }
     public String getUser_role(){return user_role;    }
     public String getUser_id(){
@@ -69,8 +71,9 @@ public class profileController{
     public String getProfile_image(){
         return profile_image;
     }
-    public Date getDate(){
-        return date;
-    }
+    public Date getDate(){return date; }
 
+    public String getUpnonupuserIMG() {
+        return upnonupuserIMG;
+    }
 }

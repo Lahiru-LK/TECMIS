@@ -1,6 +1,6 @@
 package com.tecmis.project.Admin.Timetable;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class TimetableController {
 
@@ -11,12 +11,21 @@ public class TimetableController {
 
     private String upload_image;
 
+    private String usepdf;
 
-    public TimetableController(String timetable_id, String timetable_name, Date creat_date, String upload_image) {
+    private String upnonupPDF;
+    private String upnonupIMG;
+
+
+    public TimetableController(String timetable_id, String timetable_name, Date creat_date, String upload_image, String usepdf, String upnonupPDF, String upnonupIMG) {
         this.timetable_id = timetable_id;
         this.timetable_name = timetable_name;
         this.creat_date = creat_date;
         this.upload_image = upload_image;
+        this.usepdf = usepdf;
+        this.upnonupPDF = upnonupPDF;
+        this.upnonupIMG = upnonupIMG;
+
 
     }
 
@@ -32,7 +41,17 @@ public class TimetableController {
         return creat_date;
     }
 
-    public String getUpload_image() {
-        return upload_image;
+    public String getUpload_image() {return upload_image;}
+
+    public String getUsepdf() {
+        return usepdf;
+    }
+
+
+    public String getUpnonupPDF() {
+        return upnonupPDF;
+    }
+    public String getUpnonupIMG() {
+        return upnonupIMG;
     }
 }

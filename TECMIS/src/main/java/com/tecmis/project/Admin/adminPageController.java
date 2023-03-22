@@ -25,9 +25,14 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
@@ -36,18 +41,24 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import java.io.File;
-import java.io.IOException;
+import java.awt.*;
+import java.io.*;
 import java.net.URL;
+import java.nio.file.Files;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.PieChart;
+import org.apache.commons.io.IOUtils;
+
+import javax.script.Bindings;
+import javax.swing.*;
 
 
 public class adminPageController implements Initializable {
@@ -70,6 +81,9 @@ public class adminPageController implements Initializable {
     private AnchorPane dashboard_form;
     @FXML
     private AnchorPane profile_form;
+
+    @FXML
+    private JFXButton addProfile_uploadBtn;
 
     @FXML
     private TableColumn<profileController, String> adduser_createDate;
@@ -354,6 +368,8 @@ public class adminPageController implements Initializable {
 
 
 
+    TimetableController timetableController = null;
+
 
 
 
@@ -604,10 +620,6 @@ public class adminPageController implements Initializable {
 
 
 
-
-
-
-
     //combobox
     public void addProfileCourseList(){
 
@@ -631,9 +643,6 @@ public class adminPageController implements Initializable {
         }catch (Exception e){e.printStackTrace();}
 
     }
-
-
-
 
 
 
@@ -679,9 +688,10 @@ public class adminPageController implements Initializable {
 
             image = new Image(file.toURI().toString(),0, 0, true, false );
             addUser_imageViewNew.setFill(new ImagePattern(image));
-
-
             getData.path = file.getAbsolutePath();
+
+            addProfile_uploadBtn.setStyle("-fx-background-color: #ff9800;");
+
 
         }
     }
@@ -715,6 +725,8 @@ public class adminPageController implements Initializable {
                         , result.getString("tp_number")
                         , result.getString("profile_image")
                         , result.getDate("date")
+                        , result.getString("upnonupuserIMG")
+
                         );
 
                 listProfileController.add(profileCD);
@@ -745,6 +757,12 @@ public class adminPageController implements Initializable {
         adduser_propicture.setCellValueFactory(new PropertyValueFactory<>("profile_image"));
         adduser_createDate.setCellValueFactory(new PropertyValueFactory<>("date"));
 
+        adduser_propicture.setCellValueFactory(new PropertyValueFactory<>("upnonupuserIMG"));
+
+
+        adduser_propicture.setStyle("    -fx-text-fill: #e73d66;" +
+                " -fx-font-weight: bold;");
+
         adduser_tableView.setItems(addProfileCD);
     }
 
@@ -767,8 +785,6 @@ public class adminPageController implements Initializable {
         addUser_dobC.setValue(LocalDate.parse(String.valueOf(profileD.getDob())));
 
 
-
-
         String uri = "file:" + profileD.getProfile_image();
         image = new Image(uri, 0, 0, true, false);
         addUser_imageViewNew.setFill(new ImagePattern(image));
@@ -780,8 +796,8 @@ public class adminPageController implements Initializable {
 
     public void addProfileAdd(){
         String insertDATA = "INSERT INTO user"
-                +"(user_role,user_id,user_password,course,first_name,last_name,email,dob,sex,address,tp_number,profile_image,date)"
-                +"VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                +"(user_role,user_id,user_password,course,first_name,last_name,email,dob,sex,address,tp_number,profile_image,date, upnonupuserIMG)"
+                +"VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
         connect = JDBC.getConnection();
 
@@ -852,6 +868,14 @@ public class adminPageController implements Initializable {
                     uri = uri.replace("\\", "\\\\");
                     prepare.setString(12, uri);
 
+                    if (getData.path !="") {
+                        String string = "Uploaded";
+                        prepare.setString(14, string);
+                    }else {
+                        String string = "None Uploaded";
+                        prepare.setString(14, string);
+                    }
+
                     Date date = new Date();
                     java.sql.Date sqlDate = new java.sql.Date(date.getTime());
                     prepare.setString(13,String.valueOf(sqlDate));
@@ -893,7 +917,7 @@ public class adminPageController implements Initializable {
 
 
 
-        String updateData = " UPDATE user SET "
+        String updateData = "UPDATE user SET "
                 + "user_password  = '"+ addUser_PasswordC.getText()
                 + "', user_role = '"+ addUser_roleC.getSelectionModel().getSelectedItem()
                 + "', course = '"+ addUser_CourseC.getSelectionModel().getSelectedItem()
@@ -904,7 +928,9 @@ public class adminPageController implements Initializable {
                 + "', sex = '"+ addUser_sexC.getSelectionModel().getSelectedItem()
                 + "', address = '"+ addUser_AddressC.getText()
                 + "', tp_number = '"+ addUser_tpNumberC.getText()
-                + "', profile_image = '"+ uri +"'WHERE user_id = '" +addUser_useridC.getText()+"'";
+                + "', upnonupuserIMG = ?"
+                + ", profile_image = '"+ uri +"' WHERE user_id = '" +addUser_useridC.getText()+"'";
+
 
         connect = JDBC.getConnection();
 
@@ -942,8 +968,15 @@ public class adminPageController implements Initializable {
 
                 if (option.get().equals(ButtonType.OK)){
 
-                    statement = connect.createStatement();
-                    statement.executeUpdate(updateData);
+//                    statement = connect.createStatement();
+//                    statement.executeUpdate(updateData);
+
+                    String upnonupprofile = (uri != null) ? "Updated" : "Non Updated";
+                    PreparedStatement preparedStatement = JDBC.getConnection().prepareStatement(updateData);
+                    preparedStatement.setString(1, upnonupprofile);
+                    preparedStatement.executeUpdate();
+                    preparedStatement.close();
+
 
                     UserDataEnterArea.setStyle(null);
                     alert= new Alert(Alert.AlertType.INFORMATION);
@@ -1061,6 +1094,7 @@ public class adminPageController implements Initializable {
         UserDataEnterArea.setStyle(null);
         addUser_useridC.setStyle(null);
         addProfile_SearchC.setText("");
+        addProfile_uploadBtn.setStyle(null);
 
         addProfilesSearch();
     }
@@ -1534,6 +1568,8 @@ public class adminPageController implements Initializable {
             image = new Image(file.toURI().toString(),0, 0, true, false );
             addNotice_imageViewNew.setFill(new ImagePattern(image));
 
+            addNotice_uploadBtn.setStyle("-fx-background-color: #ff9800;");
+
             getData.path = file.getAbsolutePath();
 
         }
@@ -1559,6 +1595,7 @@ public class adminPageController implements Initializable {
                         , result.getString("bodyof_notice")
                         , result.getString("notice_imagepdf")
                         , result.getDate("notice_createdate")
+                        , result.getString("upnonupnotice")
                 );
 
                 listData.add(noticeD);
@@ -1581,7 +1618,12 @@ public class adminPageController implements Initializable {
         addNotice_C_imagepdf.setCellValueFactory(new PropertyValueFactory<>("notice_imagepdf"));
         addNotice_C_creatDate.setCellValueFactory(new PropertyValueFactory<>("notice_createdate"));
 
+        addNotice_C_imagepdf.setCellValueFactory(new PropertyValueFactory<>("upnonupnotice"));
+
         addNotice_tableView.setItems(addNoticeListD);
+
+        addNotice_C_imagepdf.setStyle("    -fx-text-fill: #e73d66;" +
+                " -fx-font-weight: bold;");
     }
 
 
@@ -1608,8 +1650,8 @@ public class adminPageController implements Initializable {
 
     public void addNoticeAdd(){
         String insertDATA = "INSERT INTO notice"
-                +"(notice_id,notice_name,bodyof_notice,notice_createdate,notice_imagepdf)"
-                +"VALUES(?,?,?,?,?)";
+                +"(notice_id,notice_name,bodyof_notice,notice_createdate,notice_imagepdf,upnonupnotice)"
+                +"VALUES(?,?,?,?,?,?)";
 
         connect = JDBC.getConnection();
 
@@ -1671,7 +1713,10 @@ public class adminPageController implements Initializable {
                     uri = uri.replace("\\", "\\\\");
                     prepare.setString(5, uri);
 
-
+                    if (getData.path !="") {
+                        String string = "Uploaded";
+                        prepare.setString(6, string);
+                    }
 
                     prepare.executeUpdate();
 
@@ -1711,76 +1756,75 @@ public class adminPageController implements Initializable {
         getData.path = "";
         NoticeDataEnterArea.setStyle(null);
         addNotice_noticeIDC.setStyle(null);
-
+        addNotice_uploadBtn.setStyle(null);
         addNoticeSearch();
 
     }
 
-    public  void addNoticeUpdate(){
-
+    public void addNoticeUpdate() {
         String uri = getData.path;
         uri = uri.replace("\\", "\\\\");
 
-
-
-        String updateData = " UPDATE notice SET "
-                + " notice_name = '"+ addNotice_nameC.getText()
-                + "', bodyof_notice = '"+ addNotice_bodyLetterC.getText()
-                + "', notice_imagepdf = '"+ uri +"'WHERE notice_id = '" +addNotice_noticeIDC.getText()+"'";
-
-        connect = JDBC.getConnection();
-
+        String updateData = "UPDATE notice SET "
+                + "notice_name = '" + addNotice_nameC.getText()
+                + "', upnonupnotice = ?"
+                + ", bodyof_notice = '" + addNotice_bodyLetterC.getText()
+                + "', notice_imagepdf = '" + uri + "' WHERE notice_id = '" + addNotice_noticeIDC.getText() + "'";
 
         try {
-            Alert alert;
-
             if (addNotice_noticeIDC.getText().isEmpty()
                     || addNotice_nameC.getText().isEmpty()
                     || addNotice_bodyLetterC.getText().isEmpty()
-                    || getData.path == null || getData.path == "" ){
+                    || getData.path == null || getData.path.equals("")) {
 
                 NoticeDataEnterArea.setStyle("-fx-border-color:red;-fx-border-width:2px;"); // filed color red
                 new animatefx.animation.Bounce(NoticeDataEnterArea).play();
-                alert= new Alert(Alert.AlertType.ERROR);
+                Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error Message");
                 alert.setHeaderText(null);
                 alert.setContentText("Please fill all blank fields");
                 alert.showAndWait();
 
-            }else {
-
-
-                alert= new Alert(Alert.AlertType.CONFIRMATION);
+            } else {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Confirmation Message");
                 alert.setHeaderText(null);
-                alert.setContentText("Are you sure you want to UPDATE Notice ID '" + addNotice_noticeIDC.getText() + "' ?" );
+                alert.setContentText("Are you sure you want to UPDATE Notice ID '" + addNotice_noticeIDC.getText() + "' ?");
                 Optional<ButtonType> option = alert.showAndWait();
 
-                if (option.get().equals(ButtonType.OK)){
+                if (option.get().equals(ButtonType.OK)) {
 
-                    statement = connect.createStatement();
-                    statement.executeUpdate(updateData);
+                    String upnonupnotice = (uri != null) ? "Update" : "Non Update";
+                    PreparedStatement preparedStatement = JDBC.getConnection().prepareStatement(updateData);
+                    preparedStatement.setString(1, upnonupnotice);
+                    preparedStatement.executeUpdate();
+                    preparedStatement.close();
 
                     NoticeDataEnterArea.setStyle(null);
-                    alert= new Alert(Alert.AlertType.INFORMATION);
+                    alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Information Message");
                     alert.setHeaderText(null);
                     alert.setContentText("Successfully Updated!");
                     alert.showAndWait();
 
-                    //to update the tableview
+                    // to update the tableview
                     addNoticeShowData();
 
-                    //to clear the fields
+                    // to clear the fields
                     addNoticeClear();
 
-                    //to search th fields
+                    // to search the fields
                     addNoticeSearch();
-
-                }else return;
+                } else {
+                    return;
+                }
             }
-        }catch (Exception e){e.printStackTrace();}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+
+
 
     public void addNoticeDelete(){
 
@@ -1844,6 +1888,18 @@ public class adminPageController implements Initializable {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
     public ObservableList<TimetableController> addTimetableController(){
         ObservableList<TimetableController> listTimetableController = FXCollections.observableArrayList();
 
@@ -1862,6 +1918,9 @@ public class adminPageController implements Initializable {
                         , result.getString("timetable_name")
                         , result.getDate("creat_date")
                         , result.getString("upload_image")
+                        , result.getString("usepdf")
+                        , result.getString("upnonupPDF")
+                        , result.getString("upnonupIMG")
 
                 );
 
@@ -1877,7 +1936,6 @@ public class adminPageController implements Initializable {
     private ObservableList<TimetableController> addTimetableD;
 
 
-
     public void addTimetableShowData(){
         addTimetableD = addTimetableController();
 
@@ -1885,39 +1943,142 @@ public class adminPageController implements Initializable {
         addTimetable_C_name.setCellValueFactory(new PropertyValueFactory<>("timetable_name"));
         addTimetable_C_creatDate.setCellValueFactory(new PropertyValueFactory<>("creat_date"));
         addTimetable_C_image.setCellValueFactory(new PropertyValueFactory<>("upload_image"));
+        addTimetable_C_pdf.setCellValueFactory(new PropertyValueFactory<>("upnonupPDF"));
 
+        addTimetable_C_pdf.setStyle("    -fx-text-fill: #d62651;" +
+                " -fx-font-weight: bold;");
+
+        addTimetable_C_image.setCellValueFactory(new PropertyValueFactory<>("upnonupIMG"));
+        addTimetable_C_image.setStyle("    -fx-text-fill: #e73d66;" +
+                " -fx-font-weight: bold;");
 
         addTimetable_tableView.setItems(addTimetableD);
     }
 
 
-    public void addTimetableSelect(){
+    public void addTimetableSelect(MouseEvent event){
 
-        TimetableController timetableD = addTimetable_tableView.getSelectionModel().getSelectedItem();
-        int num = addTimetable_tableView.getSelectionModel().getSelectedIndex();
-
-        if((num - 1) < -1) {return;}
+        if (event.isPrimaryButtonDown() || event.getClickCount() == 1) {
 
 
+            TimetableController timetableD = addTimetable_tableView.getSelectionModel().getSelectedItem();
+            int num = addTimetable_tableView.getSelectionModel().getSelectedIndex();
 
-        addTimetable_ID.setText(String.valueOf(timetableD.getTimetable_id()));
-        addTimetable_Name.setText(String.valueOf(timetableD.getTimetable_name()));
-
-
-        String uri = "file:" + timetableD.getUpload_image();
-        image = new Image(uri, 0, 0, true, false);
-        addTimetable_imageView.setFill(new ImagePattern(image));
-
-        getData.path = timetableD.getUpload_image();
+            if ((num - 1) < -1) {
+                return;
+            }
 
 
+            addTimetable_ID.setText(String.valueOf(timetableD.getTimetable_id()));
+            addTimetable_Name.setText(String.valueOf(timetableD.getTimetable_name()));
+
+            String uri = "file:" + timetableD.getUpload_image();
+            image = new Image(uri, 0, 0, true, false);
+            addTimetable_imageView.setFill(new ImagePattern(image));
+
+            getData.path = timetableD.getUpload_image();
+
+
+
+
+        } else if (event.isPrimaryButtonDown() || event.getClickCount() == 2) {
+
+            TimetableController timetableD = addTimetable_tableView.getSelectionModel().getSelectedItem();
+            int num = addTimetable_tableView.getSelectionModel().getSelectedIndex();
+
+            if ((num - 1) < -1) {
+                return;
+            }
+
+
+            addTimetable_ID.setText(String.valueOf(timetableD.getTimetable_id()));
+            addTimetable_Name.setText(String.valueOf(timetableD.getTimetable_name()));
+
+
+
+
+            timetableController = addTimetable_tableView.getSelectionModel().getSelectedItem();
+
+            try {
+                connect = JDBC.getConnection();
+
+                query = "SELECT usepdf FROM timetable WHERE timetable_id='"+timetableController.getTimetable_id()+"'";
+                preparedStatement = connection.prepareStatement(query);
+                resultSet = preparedStatement.executeQuery();
+
+                while (resultSet.next()){
+
+                    InputStream is = resultSet.getBinaryStream("usepdf");
+                    OutputStream os = new FileOutputStream(new File("doc.pdf"));
+                    byte[] content = new byte[1024];
+                    int size = 0;
+                    while ((size = is.read(content)) != -1){
+                        os.write(content,0,size);
+                    }
+                    os.close();
+                    is.close();
+
+                    String path = "doc.pdf"; // provide the path to the PDF file
+                    File file = new File(path);
+                    Desktop.getDesktop().open(file);
+
+                }
+
+            }catch (Exception e){
+                System.out.println(e);
+            }
+
+        }
 
     }
 
+//pdf file chooser-----------------------------------------------------------------------------------------
+
+    byte[] pdfBytes;
+
+    @FXML
+    void choosePdf(ActionEvent event) {
+        try {
+            FileChooser fileopen = new FileChooser();
+
+            fileopen.setTitle("Open PDF File");
+
+            fileopen.getExtensionFilters().add(new FileChooser.ExtensionFilter("Pdf File", "*pdf"));
+
+            File pdfFile = fileopen.showOpenDialog(timeTable_formmm.getScene().getWindow());
+
+            pdfBytes = readPDF(pdfFile);
+
+            if (pdfFile != null) {
+                addTimetable_PdfuploadBtn.setStyle("-fx-background-color: #ff9800;");
+
+
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("load pdf...");
+                alert.setHeaderText(null);
+                alert.setContentText("pdf file is loaded. Please fill in the fields and click the add button. Then, 'click+2' the column if the pdf is open:");
+                alert.showAndWait();
+            }
+
+
+        } catch (Exception e) {
+        }
+    }
+    private byte[] readPDF(File file) throws IOException {
+        try (FileInputStream inputStream = new FileInputStream(file);
+             ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
+            IOUtils.copy(inputStream, outputStream);
+            return outputStream.toByteArray();
+        }
+    }
+
+//pdf file chooser-----------------------------------------------------------------------------------------
+
+
     public void addTimetableAdd(){
         String insertDATA = "INSERT INTO timetable"
-                +"(timetable_id,timetable_name,creat_date,upload_image)"
-                +"VALUES(?,?,?,?)";
+                +"(timetable_id,timetable_name,creat_date,upload_image,usepdf,upnonupPDF, upnonupIMG)"
+                +"VALUES(?,?,?,?,?,?,?)";
 
         connect = JDBC.getConnection();
 
@@ -1935,7 +2096,7 @@ public class adminPageController implements Initializable {
                 alert= new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error Message");
                 alert.setHeaderText(null);
-                alert.setContentText("Please fill all blank fields");
+                alert.setContentText("Please fill all blank fields & 'Image insertion is mandatory'");
                 alert.showAndWait();
 
             }else {
@@ -1973,9 +2134,29 @@ public class adminPageController implements Initializable {
                     java.sql.Date sqlDate = new java.sql.Date(date.getTime());
                     prepare.setString(3,String.valueOf(sqlDate));
 
+
                     String uri = getData.path;
                     uri = uri.replace("\\", "\\\\");
                     prepare.setString(4, uri);
+
+                    byte[] pdf = pdfBytes;
+                    prepare.setBytes(5,pdf);
+
+
+                    if (pdfBytes !=null){
+                        String string = "Uploaded";
+                        prepare.setString(6, string);
+
+                    } else if (pdfBytes ==null) {
+                        String string = "None Uploaded";
+                        prepare.setString(6, string);
+                    }
+
+                    if (getData.path !="") {
+                        String string = "Uploaded";
+                        prepare.setString(7, string);
+                    }
+
 
 
                     prepare.executeUpdate();
@@ -2013,6 +2194,9 @@ public class adminPageController implements Initializable {
         addTimetable_ID.setStyle(null);
         addTimetable_SearchC.setText("");
         addTimetableSearch();
+        addTimetable_PdfuploadBtn.setStyle(null);
+        addTimetable_ImageuploadBtn.setStyle(null);
+        pdfBytes = null;
     }
 
 
@@ -2031,9 +2215,9 @@ public class adminPageController implements Initializable {
 
             image = new Image(file.toURI().toString(),0, 0, true, false );
             addTimetable_imageView.setFill(new ImagePattern(image));
-
-
             getData.path = file.getAbsolutePath();
+
+            addTimetable_ImageuploadBtn.setStyle("-fx-background-color: #ff9800;");
 
         }
     }
@@ -2100,67 +2284,78 @@ public class adminPageController implements Initializable {
     }
 
 
-    public  void addTimetableUpdate(){
+    public void addTimetableUpdate() {
 
         String uri = getData.path;
         uri = uri.replace("\\", "\\\\");
 
-
-
-        String updateData = " UPDATE timetable SET "
-                + "timetable_name  = '"+ addTimetable_Name.getText()
-                + "', upload_image = '"+ uri +"'WHERE timetable = '" +addTimetable_ID.getText()+"'";
+        String updateData = "UPDATE timetable SET " +
+                "timetable_name = '" + addTimetable_Name.getText() + "', " +
+                (pdfBytes != null ? "usepdf = ?, " : "") +
+                "upnonupPDF = ? " +
+                (uri != null ? ", upload_image = '" + uri + "' " : "") +
+                "WHERE timetable_id = '" + addTimetable_ID.getText() + "'";
 
         connect = JDBC.getConnection();
 
-
         try {
             Alert alert;
-            if (addTimetable_ID.getText().isEmpty()
-                    || addTimetable_Name.getText().isEmpty()
-                    || getData.path == null || getData.path == "" ){
+
+            if (addTimetable_ID.getText().isEmpty() ||
+                    addTimetable_Name.getText().isEmpty() ||
+                    (uri == null && pdfBytes == null)) {
 
                 TimeTableDataEnterArea1.setStyle("-fx-border-color:red;-fx-border-width:2px;"); // filed color red
-                new animatefx.animation.Bounce(TimeTableDataEnterArea1).play();
-                alert= new Alert(Alert.AlertType.ERROR);
+                new animatefx.animation.Bounce(NoticeDataEnterArea).play();
+                alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error Message");
                 alert.setHeaderText(null);
                 alert.setContentText("Please fill all blank fields");
                 alert.showAndWait();
 
-            }else {
+            } else {
 
-
-                alert= new Alert(Alert.AlertType.CONFIRMATION);
+                alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Confirmation Message");
                 alert.setHeaderText(null);
-                alert.setContentText("Are you sure you want to UPDATE Timetable ID '" + addTimetable_ID.getText() + "' ?" );
+                alert.setContentText("Are you sure you want to UPDATE Timetable ID '" + addTimetable_ID.getText() + "' ?");
                 Optional<ButtonType> option = alert.showAndWait();
 
-                if (option.get().equals(ButtonType.OK)){
+                if (option.get().equals(ButtonType.OK)) {
 
-                    statement = connect.createStatement();
-                    statement.executeUpdate(updateData);
+                    PreparedStatement preparedStatement = connect.prepareStatement(updateData);
+                    int paramIndex = 1;
+
+                    if (pdfBytes != null) {
+                        preparedStatement.setBytes(paramIndex++, pdfBytes);
+                        preparedStatement.setString(paramIndex++, "Updated");
+                    } else {
+                        preparedStatement.setString(paramIndex++, "None Updated");
+                    }
+
+                    preparedStatement.executeUpdate();
 
                     TimeTableDataEnterArea1.setStyle(null);
-                    alert= new Alert(Alert.AlertType.INFORMATION);
+                    alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Information Message");
                     alert.setHeaderText(null);
                     alert.setContentText("Successfully Updated!");
                     alert.showAndWait();
 
-                    //to update the tableview
+                    // to update the tableview
                     addTimetableShowData();
 
-                    //to clear the fields
+                    // to clear the fields
                     addTimetableClear();
 
-                    //to search th fields
+                    // to search the fields
                     addTimetableSearch();
 
-                }else return;
+                } else return;
             }
-        }catch (Exception e){e.printStackTrace();}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
