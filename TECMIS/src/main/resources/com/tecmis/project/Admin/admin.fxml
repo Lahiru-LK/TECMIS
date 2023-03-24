@@ -130,7 +130,7 @@
          <center>
             <AnchorPane prefHeight="700.0" prefWidth="966.0" BorderPane.alignment="CENTER">
                <children>
-                  <AnchorPane fx:id="dashboard_form" layoutX="2.0" layoutY="2.0" prefHeight="694.0" prefWidth="938.0" visible="false">
+                  <AnchorPane fx:id="dashboard_form" layoutX="2.0" layoutY="2.0" prefHeight="694.0" prefWidth="938.0">
                      <children>
                         <AnchorPane layoutX="14.0" layoutY="14.0" prefHeight="216.0" prefWidth="914.0" stylesheets="@../css/style.css">
                            <styleClass>
@@ -238,6 +238,11 @@
                                  </styleClass>
                                  <children>
                                     <PieChart fx:id="TotalEntrole_UserRoleCHART" layoutX="114.0" layoutY="24.0" prefHeight="403.2" prefWidth="510.4" styleClass="texbox2" stylesheets="@../css/style.css" title="Total Enrolled User Role Chart" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <ImageView fitHeight="254.0" fitWidth="235.0" layoutX="138.0" layoutY="81.0" opacity="0.12" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../image/mainLogo/flower.png" />
+                                       </image>
+                                    </ImageView>
                                  </children>
                               </AnchorPane>
                               <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="195.0" prefWidth="374.0">
@@ -261,7 +266,7 @@
                         <Line endX="809.6000366210938" layoutX="115.0" layoutY="242.0" startX="-100.0" stroke="#890303" />
                      </children>
                   </AnchorPane>
-                  <AnchorPane fx:id="profile_form" layoutX="174.0" layoutY="98.0" onKeyTyped="#addProfilesSelect" prefHeight="700.0" prefWidth="944.8" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <AnchorPane fx:id="profile_form" layoutX="174.0" layoutY="98.0" onKeyTyped="#addProfilesSelect" prefHeight="700.0" prefWidth="944.8" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <AnchorPane layoutX="9.0" layoutY="14.0" prefHeight="362.0" prefWidth="926.0" stylesheets="@../css/style.css">
                            <styleClass>
@@ -279,8 +284,9 @@
                                   <TableColumn fx:id="adduser_id" text="User_ID" />
                                     <TableColumn fx:id="adduser_password" prefWidth="100.0" text="User_Password" />
                                     <TableColumn fx:id="adduser_role" prefWidth="111.19999694824219" text="Role" />
-                                    <TableColumn fx:id="adduser_course" prefWidth="71.199951171875" text="Course" />
-                                    <TableColumn fx:id="adduser_email" prefWidth="190.0" text="Email" />
+                                    <TableColumn fx:id="adduser_C_Department" prefWidth="91.0" text="Department" />
+                                    <TableColumn fx:id="adduser_course" prefWidth="59.0" text="Course" />
+                                    <TableColumn fx:id="adduser_email" prefWidth="184.0" text="Email" />
                                     <TableColumn fx:id="adduser_firstname" prefWidth="100.0" text="First_name" />
                                     <TableColumn fx:id="adduser_lastname" prefWidth="100.0" text="Last_name" />
                                     <TableColumn fx:id="adduser_dob" prefWidth="75.9998779296875" text="DOB" />
@@ -314,75 +320,82 @@
                                     </Rectangle>
                                  </children>
                               </AnchorPane>
-                              <Label layoutX="251.0" layoutY="76.0" text="User_Password :" />
-                              <TextField fx:id="addUser_PasswordC" focusTraversable="false" layoutX="352.0" layoutY="68.0" prefHeight="30.0" prefWidth="190.0" promptText="xxx9">
+                              <Label layoutX="269.0" layoutY="56.0" text="User_Password :" />
+                              <TextField fx:id="addUser_PasswordC" focusTraversable="false" layoutX="370.0" layoutY="48.0" prefHeight="30.0" prefWidth="190.0" promptText="xxx9">
                                  <styleClass>
                                     <String fx:value="texbox2" />
                                     <String fx:value="textfild" />
                                  </styleClass></TextField>
-                              <Label layoutX="251.0" layoutY="111.0" text="Role :" />
-                              <JFXComboBox fx:id="addUser_roleC" focusTraversable="false" layoutX="351.0" layoutY="104.0" onAction="#addProfileRoleList" prefHeight="30.0" prefWidth="159.0" promptText="  select">
+                              <Label layoutX="268.0" layoutY="97.0" text="Role :" />
+                              <JFXComboBox fx:id="addUser_roleC" focusTraversable="false" layoutX="369.0" layoutY="91.0" onAction="#addProfileRoleList" prefHeight="30.0" prefWidth="159.0" promptText="  select">
                                  <styleClass>
                                     <String fx:value="texbox2" />
                                     <String fx:value="textfild" />
                                  </styleClass>
                               </JFXComboBox>
-                              <Label layoutX="251.0" layoutY="192.0" text="Email :" />
-                              <TextField fx:id="addUser_EmailC" focusTraversable="false" layoutX="352.0" layoutY="187.0" prefHeight="30.0" prefWidth="190.0" promptText="xxxxx999@gmail.com">
+                              <Label layoutX="269.0" layoutY="218.0" text="Email :" />
+                              <TextField fx:id="addUser_EmailC" focusTraversable="false" layoutX="370.0" layoutY="213.0" prefHeight="30.0" prefWidth="190.0" promptText="xxxxx999@gmail.com">
                                  <styleClass>
                                     <String fx:value="texbox2" />
                                     <String fx:value="textfild" />
                                  </styleClass></TextField>
-                              <Label layoutX="579.0" layoutY="20.0" text="Fist_name :" />
-                              <TextField fx:id="addUser_FirstNameC" focusTraversable="false" layoutX="680.0" layoutY="14.0" prefHeight="30.0" prefWidth="190.0" promptText="first name">
+                              <Label layoutX="602.0" layoutY="26.0" text="Fist_name :" />
+                              <TextField fx:id="addUser_FirstNameC" focusTraversable="false" layoutX="703.0" layoutY="20.0" prefHeight="30.0" prefWidth="190.0" promptText="first name">
                                  <styleClass>
                                     <String fx:value="texbox2" />
                                     <String fx:value="textfild" />
                                  </styleClass></TextField>
-                              <Label layoutX="580.0" layoutY="59.0" text="Last_name :" />
-                              <TextField fx:id="addUser_LastNameC" focusTraversable="false" layoutX="681.0" layoutY="52.0" prefHeight="30.0" prefWidth="190.0" promptText="last name">
+                              <Label layoutX="603.0" layoutY="65.0" text="Last_name :" />
+                              <TextField fx:id="addUser_LastNameC" focusTraversable="false" layoutX="704.0" layoutY="58.0" prefHeight="30.0" prefWidth="190.0" promptText="last name">
                                  <styleClass>
                                     <String fx:value="texbox2" />
                                     <String fx:value="textfild" />
                                  </styleClass></TextField>
-                              <Label layoutX="251.0" layoutY="39.0" text="User_ID :" />
-                              <TextField fx:id="addUser_useridC" focusTraversable="false" layoutX="352.0" layoutY="32.0" prefHeight="30.0" prefWidth="190.0" promptText="xxxx999">
+                              <Label layoutX="269.0" layoutY="14.0" text="User_ID :" />
+                              <TextField fx:id="addUser_useridC" focusTraversable="false" layoutX="370.0" layoutY="7.0" prefHeight="30.0" prefWidth="190.0" promptText="xxxx999">
                                  <styleClass>
                                     <String fx:value="texbox2" />
                                     <String fx:value="textfild" />
                                  </styleClass></TextField>
                               <JFXButton fx:id="addProfile_uploadBtn" focusTraversable="false" layoutX="26.0" layoutY="261.0" onAction="#addProfileUploadImage" prefHeight="30.0" prefWidth="196.0" styleClass="signB" text="Upload" />
-                              <Label layoutX="580.0" layoutY="130.0" text="Sex :" />
-                              <JFXComboBox fx:id="addUser_sexC" focusTraversable="false" layoutX="680.0" layoutY="124.0" onAction="#addProfileGenderList" prefHeight="30.0" prefWidth="161.0" promptText="  select">
+                              <Label layoutX="603.0" layoutY="136.0" text="Sex :" />
+                              <JFXComboBox fx:id="addUser_sexC" focusTraversable="false" layoutX="703.0" layoutY="130.0" onAction="#addProfileGenderList" prefHeight="30.0" prefWidth="161.0" promptText="  select">
                                  <styleClass>
                                     <String fx:value="texbox2" />
                                     <String fx:value="textfild" />
                                  </styleClass></JFXComboBox>
-                              <Label layoutX="580.0" layoutY="170.0" text="Address :" />
-                              <TextField fx:id="addUser_AddressC" focusTraversable="false" layoutX="681.0" layoutY="163.0" prefHeight="30.0" prefWidth="190.0" promptText="999,x/9,xxxxx,xxxx">
+                              <Label layoutX="603.0" layoutY="176.0" text="Address :" />
+                              <TextField fx:id="addUser_AddressC" focusTraversable="false" layoutX="704.0" layoutY="169.0" prefHeight="30.0" prefWidth="190.0" promptText="999,x/9,xxxxx,xxxx">
                                  <styleClass>
                                     <String fx:value="texbox2" />
                                     <String fx:value="textfild" />
                                  </styleClass></TextField>
-                              <Label layoutX="579.0" layoutY="210.0" text="Tp_number :" />
-                              <TextField fx:id="addUser_tpNumberC" focusTraversable="false" layoutX="681.0" layoutY="205.0" prefHeight="30.0" prefWidth="190.0" promptText="+947xxxxxxxx">
+                              <Label layoutX="602.0" layoutY="216.0" text="Tp_number :" />
+                              <TextField fx:id="addUser_tpNumberC" focusTraversable="false" layoutX="704.0" layoutY="211.0" prefHeight="30.0" prefWidth="190.0" promptText="+947xxxxxxxx">
                                  <styleClass>
                                     <String fx:value="texbox2" />
                                     <String fx:value="textfild" />
                                  </styleClass></TextField>
-                              <Label layoutX="580.0" layoutY="95.0" text="DOB :" />
-                              <JFXButton fx:id="addUser_addBtn" focusTraversable="false" layoutX="272.0" layoutY="261.0" onAction="#addProfileAdd" prefHeight="30.0" prefWidth="130.0" styleClass="signB" text="Add" />
-                              <JFXButton fx:id="addUser_updateBtn" focusTraversable="false" layoutX="413.0" layoutY="261.0" onAction="#addProfileUpdate" prefHeight="30.0" prefWidth="130.0" styleClass="signB" text="Update" />
-                              <JFXButton fx:id="addUser_deleteBtn" focusTraversable="false" layoutX="554.0" layoutY="261.0" onAction="#addProfileDelete" prefHeight="30.0" prefWidth="130.0" styleClass="signB" text="Delete" />
-                              <JFXButton fx:id="addUser_clearBtn" focusTraversable="false" layoutX="695.0" layoutY="261.0" onAction="#addProfileClear" prefHeight="30.0" prefWidth="130.0" styleClass="signB" text="Clear" />
-                              <DatePicker fx:id="addUser_dobC" focusTraversable="false" layoutX="681.0" layoutY="89.0" prefHeight="28.0" prefWidth="161.0" promptText=" select">
+                              <Label layoutX="603.0" layoutY="101.0" text="DOB :" />
+                              <JFXButton fx:id="addUser_addBtn" focusTraversable="false" layoutX="295.0" layoutY="261.0" onAction="#addProfileAdd" prefHeight="30.0" prefWidth="130.0" styleClass="signB" text="Add" />
+                              <JFXButton fx:id="addUser_updateBtn" focusTraversable="false" layoutX="436.0" layoutY="261.0" onAction="#addProfileUpdate" prefHeight="30.0" prefWidth="130.0" styleClass="signB" text="Update" />
+                              <JFXButton fx:id="addUser_deleteBtn" focusTraversable="false" layoutX="577.0" layoutY="261.0" onAction="#addProfileDelete" prefHeight="30.0" prefWidth="130.0" styleClass="signB" text="Delete" />
+                              <JFXButton fx:id="addUser_clearBtn" focusTraversable="false" layoutX="718.0" layoutY="261.0" onAction="#addProfileClear" prefHeight="30.0" prefWidth="130.0" styleClass="signB" text="Clear" />
+                              <DatePicker fx:id="addUser_dobC" focusTraversable="false" layoutX="704.0" layoutY="95.0" prefHeight="28.0" prefWidth="161.0" promptText=" select">
                                  <styleClass>
                                     <String fx:value="texbox2" />
                                     <String fx:value="textfild" />
                                  </styleClass>
                               </DatePicker>
-                              <Label layoutX="250.0" layoutY="151.0" text="Course :" />
-                              <JFXComboBox fx:id="addUser_CourseC" focusTraversable="false" layoutX="352.0" layoutY="146.0" onAction="#addProfileCourseList" prefHeight="30.0" prefWidth="159.0" promptText="  select">
+                              <Label layoutX="268.0" layoutY="177.0" text="Course :" />
+                              <JFXComboBox fx:id="addUser_CourseC" focusTraversable="false" layoutX="370.0" layoutY="172.0" onAction="#addProfileCourseList" prefHeight="30.0" prefWidth="159.0" promptText="  select">
+                                 <styleClass>
+                                    <String fx:value="texbox2" />
+                                    <String fx:value="textfild" />
+                                 </styleClass>
+                              </JFXComboBox>
+                              <Label layoutX="269.0" layoutY="139.0" text="Department :" />
+                              <JFXComboBox fx:id="addUser_DepartmentListC" focusTraversable="false" layoutX="369.0" layoutY="132.0" onAction="#addProfileDepartmentList" prefHeight="30.0" prefWidth="159.0" promptText="  select">
                                  <styleClass>
                                     <String fx:value="texbox2" />
                                     <String fx:value="textfild" />
@@ -465,7 +478,7 @@
                            <children>
                               <JFXButton fx:id="addNotice_uploadBtn" focusTraversable="false" layoutX="104.0" layoutY="286.0" onAction="#addNoticeUploadImage" prefHeight="30.0" prefWidth="196.0" styleClass="signB" text="Upload" />
                               <Label layoutX="5.0" layoutY="336.0" text="Notice ID :" />
-                              <TextField fx:id="addNotice_noticeIDC" focusTraversable="false" layoutX="96.0" layoutY="330.0" prefHeight="34.0" prefWidth="305.0" promptText="Notice ID ex:(nod0001)">
+                              <TextField fx:id="addNotice_noticeIDC" focusTraversable="false" layoutX="96.0" layoutY="330.0" prefHeight="34.0" prefWidth="305.0" promptText="Notice ID ex:(Not001)">
                                  <styleClass>
                                     <String fx:value="texbox2" />
                                     <String fx:value="textfild" />
@@ -534,22 +547,22 @@
                   </AnchorPane>
                   <AnchorPane fx:id="timeTable_formmm" layoutX="141.0" layoutY="184.0" prefHeight="582.0" prefWidth="804.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <AnchorPane fx:id="TimeTableDataEnterArea1" layoutX="13.0" layoutY="8.0" prefHeight="677.0" prefWidth="399.0" stylesheets="@../css/style.css">
+                        <AnchorPane fx:id="TimeTableDataEnterArea1" layoutX="13.0" layoutY="7.0" prefHeight="677.0" prefWidth="399.0" stylesheets="@../css/style.css">
                            <styleClass>
                               <String fx:value="white-bg" />
                               <String fx:value="shadow" />
                            </styleClass>
                            <children>
-                              <JFXButton fx:id="addTimetable_ImageuploadBtn" focusTraversable="false" layoutX="16.0" layoutY="422.0" onAction="#addTimetableUploadImage" prefHeight="30.0" prefWidth="379.0" styleClass="signB" text="Upload(jpg/png)" />
-                              <Label layoutX="7.0" layoutY="45.0" text=" Tb_ID :" />
-                              <TextField fx:id="addTimetable_ID" focusTraversable="false" layoutX="105.0" layoutY="39.0" prefHeight="34.0" prefWidth="288.0" promptText="Tb001">
+                              <JFXButton fx:id="addTimetable_ImageuploadBtn" focusTraversable="false" layoutX="16.0" layoutY="452.0" onAction="#addTimetableUploadImage" prefHeight="30.0" prefWidth="379.0" styleClass="signB" text="Upload(jpg/png)" />
+                              <Label layoutX="7.0" layoutY="14.0" text=" Tb_ID :" />
+                              <TextField fx:id="addTimetable_ID" focusTraversable="false" layoutX="105.0" layoutY="8.0" prefHeight="34.0" prefWidth="288.0" promptText="Tb001">
                                  <styleClass>
                                     <String fx:value="texbox2" />
                                     <String fx:value="textfild" />
                                  </styleClass>
                               </TextField>
-                              <Label layoutX="9.0" layoutY="109.0" text="Tb_Name :" />
-                              <TextField fx:id="addTimetable_Name" focusTraversable="false" layoutX="106.0" layoutY="101.0" prefHeight="34.0" prefWidth="287.0" promptText="Timetable Name">
+                              <Label layoutX="9.0" layoutY="78.0" text="Tb_Name :" />
+                              <TextField fx:id="addTimetable_Name" focusTraversable="false" layoutX="106.0" layoutY="70.0" prefHeight="34.0" prefWidth="287.0" promptText="Timetable Name">
                                  <styleClass>
                                     <String fx:value="texbox2" />
                                     <String fx:value="textfild" />
@@ -558,10 +571,10 @@
                               <JFXButton focusTraversable="false" layoutX="21.0" layoutY="616.0" onAction="#addTimetableAdd" prefHeight="39.0" prefWidth="115.0" styleClass="signB" text="Add" />
                               <JFXButton fx:id="addTimetable_updateBtn" focusTraversable="false" layoutX="147.0" layoutY="616.0" onAction="#addTimetableUpdate" prefHeight="39.0" prefWidth="115.0" styleClass="signB" text="Update" />
                               <JFXButton fx:id="addTimetable_deleteBtn" focusTraversable="false" layoutX="275.0" layoutY="616.0" onAction="#addTimetableDelete" prefHeight="39.0" prefWidth="115.0" styleClass="signB" text="Delete" />
-                              <JFXButton fx:id="addTimetable_clearBtn" focusTraversable="false" layoutX="18.0" layoutY="527.0" onAction="#addTimetableClear" prefHeight="31.0" prefWidth="83.0" styleClass="signB" text="Clear" />
-                              <AnchorPane layoutX="97.0" layoutY="157.0" prefHeight="249.0" prefWidth="226.0" styleClass="white-bg">
+                              <JFXButton fx:id="addTimetable_clearBtn" focusTraversable="false" layoutX="18.0" layoutY="557.0" onAction="#addTimetableClear" prefHeight="31.0" prefWidth="83.0" styleClass="signB" text="Clear" />
+                              <AnchorPane layoutX="104.0" layoutY="208.0" prefHeight="229.0" prefWidth="222.0" styleClass="white-bg">
                                  <children>
-                                    <Rectangle fx:id="addTimetable_imageView" arcHeight="5.0" arcWidth="5.0" fill="#2197ff00" height="255.0" layoutX="-1.0" layoutY="-1.0" stroke="#a22d3b" strokeType="INSIDE" width="231.0">
+                                    <Rectangle fx:id="addTimetable_imageView" arcHeight="5.0" arcWidth="5.0" fill="#2197ff00" height="241.0" layoutY="-1.0" stroke="#a22d3b" strokeType="INSIDE" width="222.0">
                                        <styleClass>
                                           <String fx:value="shadow" />
                                           <String fx:value="white-bg" />
@@ -569,8 +582,15 @@
                                     </Rectangle>
                                  </children>
                               </AnchorPane>
-                              <JFXButton fx:id="addTimetable_PdfuploadBtn" focusTraversable="false" layoutX="17.0" layoutY="476.0" onAction="#choosePdf" prefHeight="30.0" prefWidth="379.0" styleClass="signB" text="Upload(pdf)" />
-                              <Label layoutX="194.0" layoutY="456.0" text="OR" />
+                              <JFXButton fx:id="addTimetable_PdfuploadBtn" focusTraversable="false" layoutX="17.0" layoutY="506.0" onAction="#choosePdf" prefHeight="30.0" prefWidth="379.0" styleClass="signB" text="Upload(pdf)" />
+                              <Label layoutX="194.0" layoutY="485.0" text="OR" />
+                              <JFXComboBox fx:id="addTimetable_DepartmentC" focusTraversable="false" layoutX="104.0" layoutY="137.0" onAction="#addProfileDepartmentList" prefHeight="36.0" prefWidth="290.0" promptText="  select">
+                                 <styleClass>
+                                    <String fx:value="texbox2" />
+                                    <String fx:value="textfild" />
+                                 </styleClass>
+                              </JFXComboBox>
+                              <Label layoutX="8.0" layoutY="144.0" text="Department :" />
                            </children>
                         </AnchorPane>
                         <AnchorPane layoutX="426.0" layoutY="7.0" prefHeight="687.0" prefWidth="510.0" stylesheets="@../css/style.css">
@@ -594,8 +614,9 @@
                                  <columns>
                                     <TableColumn fx:id="addTimetable_C_ID" prefWidth="64.79998779296875" text="Tb_ID" />
                                     <TableColumn fx:id="addTimetable_C_name" prefWidth="160.0" text="Tb_Name" />
-                                    <TableColumn fx:id="addTimetable_C_creatDate" prefWidth="74.0" text="Creat Date" />
-                                    <TableColumn fx:id="addTimetable_C_image" prefWidth="94.0" text="Upload Image" />
+                                    <TableColumn fx:id="addTimetable_C_creatDate" prefWidth="84.0" text="Creat Date" />
+                                    <TableColumn fx:id="addTimetable_C_Deparmtnet" prefWidth="75.0" text="Department" />
+                                    <TableColumn fx:id="addTimetable_C_image" prefWidth="83.0" text="Upload Image" />
                                     <TableColumn fx:id="addTimetable_C_pdf" prefWidth="105.0" text="Upload Pdf" />
                                  </columns>
                               </TableView>
@@ -609,5 +630,20 @@
             </AnchorPane>
          </center>
       </BorderPane>
+      <ImageView fitHeight="314.0" fitWidth="329.0" layoutX="265.0" layoutY="-181.0" opacity="0.09" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/mainLogo/flower.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="314.0" fitWidth="329.0" layoutX="566.0" layoutY="-175.0" opacity="0.09" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/mainLogo/flower.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="314.0" fitWidth="329.0" layoutX="856.0" layoutY="-169.0" opacity="0.09" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/mainLogo/flower.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

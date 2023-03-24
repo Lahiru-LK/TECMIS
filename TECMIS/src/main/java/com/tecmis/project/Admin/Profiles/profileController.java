@@ -7,7 +7,9 @@ public class profileController{
     private String user_role;
     private String user_id;
     private String user_password;
-    private String course;
+    private String course_id;
+
+    private String department_id;
     private String first_name;
     private String last_name;
     private String email;
@@ -20,12 +22,13 @@ public class profileController{
     private String upnonupuserIMG;
 
 
-    public profileController(String user_role, String user_id, String user_password,String course, String first_name, String last_name, String email, Date dob, String sex, String address, String tp_number, String profile_image, Date date, String upnonupuserIMG  )
+    public profileController(String user_role, String user_id, String user_password,String course_id, String department_id, String first_name, String last_name, String email, Date dob, String sex, String address, String tp_number, String profile_image, Date date, String upnonupuserIMG  )
     {
         this.user_role = user_role;
         this.user_id = user_id;
         this.user_password = user_password;
-        this.course = course;
+        this.course_id = course_id;
+        this.department_id = department_id;
         this.first_name = first_name;
         this.last_name = last_name;
         this.email = email;
@@ -44,9 +47,13 @@ public class profileController{
     public String getUser_password(){
         return user_password;
     }
-    public String getCourse(){
-        return course;
+    public String getCourse_id(){
+        return course_id;
     }
+    public String getDepartment_id() {
+        return department_id;
+    }
+
     public String getFirst_name(){
         return first_name;
     }

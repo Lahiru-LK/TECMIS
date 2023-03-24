@@ -86,6 +86,12 @@ public class adminPageController implements Initializable {
     private JFXButton addProfile_uploadBtn;
 
     @FXML
+    private TableColumn<profileController, String> adduser_C_Department;
+
+    @FXML
+    private JFXComboBox<?> addUser_DepartmentListC;
+
+    @FXML
     private TableColumn<profileController, String> adduser_createDate;
     @FXML
     private TableColumn<profileController, String> adduser_address;
@@ -313,6 +319,8 @@ public class adminPageController implements Initializable {
 
     @FXML
     private TableColumn<TimetableController, String> addTimetable_C_ID;
+    @FXML
+    private TableColumn<TimetableController, String> addTimetable_C_Deparmtnet;
 
     @FXML
     private TableColumn<TimetableController, Date> addTimetable_C_creatDate;
@@ -358,6 +366,13 @@ public class adminPageController implements Initializable {
 
     @FXML
     private Rectangle addTimetable_imageViewpdf;
+
+
+
+    @FXML
+    private JFXComboBox<?> addTimetable_DepartmentC;
+
+
 
     private Connection connect;
     private PreparedStatement prepare;
@@ -635,7 +650,7 @@ public class adminPageController implements Initializable {
             result = prepare.executeQuery();
 
             while (result.next()){
-                listC.add(result.getString("course_name"));
+                listC.add(result.getString("course_id"));
             }
             addUser_CourseC.setItems(listC);
 
@@ -644,7 +659,29 @@ public class adminPageController implements Initializable {
 
     }
 
+    public void addProfileDepartmentList(){
 
+        String listDepartment = "SELECT * FROM department";
+
+        connect = JDBC.getConnection();
+
+        try {
+
+            ObservableList listC = FXCollections.observableArrayList();
+
+            prepare = connect.prepareStatement(listDepartment);
+            result = prepare.executeQuery();
+
+            while (result.next()){
+                listC.add(result.getString("department_id"));
+            }
+            addUser_DepartmentListC.setItems(listC);
+            addTimetable_DepartmentC.setItems(listC);
+
+
+        }catch (Exception e){e.printStackTrace();}
+
+    }
 
     private String[] roleList = {"Admin", "Lecturer", "Technical_Officer", "Student"};
     public void addProfileRoleList(){
@@ -671,6 +708,10 @@ public class adminPageController implements Initializable {
         ObservableList ObList = FXCollections.observableArrayList(genderL);
         addUser_sexC.setItems(ObList);
     }
+
+
+
+
 
 
     public void addProfileUploadImage(){
@@ -715,7 +756,8 @@ public class adminPageController implements Initializable {
                 profileCD = new profileController(result.getString("user_role")
                         , result.getString("user_id")
                         , result.getString("user_password")
-                        , result.getString("course")
+                        , result.getString("course_id")
+                        , result.getString("department_id")
                         , result.getString("first_name")
                         , result.getString("last_name")
                         , result.getString("email")
@@ -746,7 +788,8 @@ public class adminPageController implements Initializable {
         adduser_id.setCellValueFactory(new PropertyValueFactory<>("user_id"));
         adduser_password.setCellValueFactory(new PropertyValueFactory<>("user_password"));
         adduser_role.setCellValueFactory(new PropertyValueFactory<>("user_role"));
-        adduser_course.setCellValueFactory(new PropertyValueFactory<>("course"));
+        adduser_course.setCellValueFactory(new PropertyValueFactory<>("course_id"));
+        adduser_C_Department.setCellValueFactory(new PropertyValueFactory<>("department_id"));
         adduser_email.setCellValueFactory(new PropertyValueFactory<>("email"));
         adduser_firstname.setCellValueFactory(new PropertyValueFactory<>("first_name"));
         adduser_lastname.setCellValueFactory(new PropertyValueFactory<>("last_name"));
@@ -796,8 +839,8 @@ public class adminPageController implements Initializable {
 
     public void addProfileAdd(){
         String insertDATA = "INSERT INTO user"
-                +"(user_role,user_id,user_password,course,first_name,last_name,email,dob,sex,address,tp_number,profile_image,date, upnonupuserIMG)"
-                +"VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                +"(user_role,user_id,user_password,course_id,department_id,first_name,last_name,email,dob,sex,address,tp_number,profile_image,date, upnonupuserIMG)"
+                +"VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
         connect = JDBC.getConnection();
 
@@ -809,6 +852,8 @@ public class adminPageController implements Initializable {
             if (addUser_useridC.getText().isEmpty()
                     || addUser_PasswordC.getText().isEmpty()
                     || addUser_roleC.getSelectionModel().getSelectedItem() == null
+                    || addUser_CourseC.getSelectionModel().getSelectedItem() == null
+                    || addUser_DepartmentListC.getSelectionModel().getSelectedItem() == null
                     || addUser_EmailC.getText().isEmpty()
                     || addUser_FirstNameC.getText().isEmpty()
                     || addUser_LastNameC.getText().isEmpty()
@@ -856,29 +901,30 @@ public class adminPageController implements Initializable {
                     prepare.setString(2, addUser_useridC.getText());
                     prepare.setString(3, addUser_PasswordC.getText());
                     prepare.setString(4,(String)addUser_CourseC.getSelectionModel().getSelectedItem());
-                    prepare.setString(5,addUser_FirstNameC.getText());
-                    prepare.setString(6,addUser_LastNameC.getText());
-                    prepare.setString(7,addUser_EmailC.getText());
-                    prepare.setString(8,String.valueOf(addUser_dobC.getValue()));
-                    prepare.setString(9,(String)addUser_sexC.getSelectionModel().getSelectedItem());
-                    prepare.setString(10,addUser_AddressC.getText());
-                    prepare.setString(11,addUser_tpNumberC.getText());
+                    prepare.setString(5,(String)addUser_DepartmentListC.getSelectionModel().getSelectedItem());
+                    prepare.setString(6,addUser_FirstNameC.getText());
+                    prepare.setString(7,addUser_LastNameC.getText());
+                    prepare.setString(8,addUser_EmailC.getText());
+                    prepare.setString(9,String.valueOf(addUser_dobC.getValue()));
+                    prepare.setString(10,(String)addUser_sexC.getSelectionModel().getSelectedItem());
+                    prepare.setString(11,addUser_AddressC.getText());
+                    prepare.setString(12,addUser_tpNumberC.getText());
 
                     String uri = getData.path;
                     uri = uri.replace("\\", "\\\\");
-                    prepare.setString(12, uri);
+                    prepare.setString(13, uri);
 
                     if (getData.path !="") {
                         String string = "Uploaded";
-                        prepare.setString(14, string);
+                        prepare.setString(15, string);
                     }else {
                         String string = "None Uploaded";
-                        prepare.setString(14, string);
+                        prepare.setString(15, string);
                     }
 
                     Date date = new Date();
                     java.sql.Date sqlDate = new java.sql.Date(date.getTime());
-                    prepare.setString(13,String.valueOf(sqlDate));
+                    prepare.setString(14,String.valueOf(sqlDate));
 
 
                     prepare.executeUpdate();
@@ -916,11 +962,11 @@ public class adminPageController implements Initializable {
         uri = uri.replace("\\", "\\\\");
 
 
-
         String updateData = "UPDATE user SET "
                 + "user_password  = '"+ addUser_PasswordC.getText()
                 + "', user_role = '"+ addUser_roleC.getSelectionModel().getSelectedItem()
-                + "', course = '"+ addUser_CourseC.getSelectionModel().getSelectedItem()
+                + "', course_id = '"+ addUser_CourseC.getSelectionModel().getSelectedItem()
+                + "', department_id = '"+ addUser_DepartmentListC.getSelectionModel().getSelectedItem()
                 + "', email = '"+ addUser_EmailC.getText()
                 + "', first_name = '"+ addUser_FirstNameC.getText()
                 + "', last_name = '"+ addUser_LastNameC.getText()
@@ -940,6 +986,8 @@ public class adminPageController implements Initializable {
             if (addUser_useridC.getText().isEmpty()
                     || addUser_PasswordC.getText().isEmpty()
                     || addUser_roleC.getSelectionModel().getSelectedItem() == null
+                    || addUser_CourseC.getSelectionModel().getSelectedItem() == null
+                    || addUser_DepartmentListC.getSelectionModel().getSelectedItem() == null
                     || addUser_EmailC.getText().isEmpty()
                     || addUser_FirstNameC.getText().isEmpty()
                     || addUser_LastNameC.getText().isEmpty()
@@ -1017,12 +1065,14 @@ public class adminPageController implements Initializable {
             Alert alert;
             if (addUser_useridC.getText().isEmpty()
                     || addUser_PasswordC.getText().isEmpty()
-                    || addUser_roleC.getSelectionModel().getSelectedItem() == null
+//                    || addUser_roleC.getSelectionModel().getSelectedItem() == null
+//                    || addUser_CourseC.getSelectionModel().getSelectedItem() == null
+//                    || addUser_DepartmentListC.getSelectionModel().getSelectedItem() == null
                     || addUser_EmailC.getText().isEmpty()
                     || addUser_FirstNameC.getText().isEmpty()
                     || addUser_LastNameC.getText().isEmpty()
                     || addUser_dobC.getValue() == null
-                    || addUser_sexC.getSelectionModel().getSelectedItem() == null
+//                    || addUser_sexC.getSelectionModel().getSelectedItem() == null
                     || addUser_AddressC.getText().isEmpty()
                     || addUser_tpNumberC.getText().isEmpty()
                     || getData.path == null || getData.path == "" ){
@@ -1082,6 +1132,7 @@ public class adminPageController implements Initializable {
         addUser_PasswordC.setText("");
         addUser_roleC.getSelectionModel().clearSelection();
         addUser_CourseC.getSelectionModel().clearSelection();
+        addUser_DepartmentListC.getSelectionModel().clearSelection();
         addUser_EmailC.setText("");
         addUser_FirstNameC.setText("");
         addUser_LastNameC.setText("");
@@ -1115,7 +1166,7 @@ public class adminPageController implements Initializable {
             result = prepare.executeQuery();
 
             while (result.next()){
-                courseD = new courseController(result.getString("course_name")
+                courseD = new courseController(result.getString("course_id")
                         , result.getString("description")
                         , result.getString("degree")
                         , result.getDate("date")
@@ -1135,7 +1186,7 @@ public class adminPageController implements Initializable {
     public void availableCourseShowData(){
         availableCourseD = availableCourseListData();
 
-        availableCourse_C_course.setCellValueFactory(new PropertyValueFactory<>("course_name"));
+        availableCourse_C_course.setCellValueFactory(new PropertyValueFactory<>("course_id"));
         availableCourse_C_description.setCellValueFactory(new PropertyValueFactory<>("description"));
         availableCourse_C_degree.setCellValueFactory(new PropertyValueFactory<>("degree"));
         availableCourse_C_creatDate.setCellValueFactory(new PropertyValueFactory<>("date"));
@@ -1152,7 +1203,7 @@ public class adminPageController implements Initializable {
 
         if((num - 1) < -1) {return;}
 
-        availableCourse_courseC.setText(String.valueOf(courseD.getCourse_name()));
+        availableCourse_courseC.setText(String.valueOf(courseD.getCourse_id()));
         availableCourse_descriptionC.setText(String.valueOf(courseD.getDescription()));
         availableCourse_degreeC.setText(String.valueOf(courseD.getDegree()));
 
@@ -1161,7 +1212,7 @@ public class adminPageController implements Initializable {
     public void availableCourseAdd(){
 
         String insertDATA = "INSERT INTO course"
-                +"(course_name,description,degree,date)"
+                +"(course_id,description,degree,date)"
                 +"VALUES(?,?,?,?)";
 
         connect = JDBC.getConnection();
@@ -1187,7 +1238,7 @@ public class adminPageController implements Initializable {
 
                 //check if the course is already exist
 
-                String checkData = "SELECT course_name FROM course WHERE course_name = '"
+                String checkData = "SELECT course_id FROM course WHERE course_id = '"
                         +availableCourse_courseC.getText()+"'";
 
                 statement = connect.createStatement();
@@ -1321,7 +1372,7 @@ public class adminPageController implements Initializable {
 
     public void availableCourseDelete(){
 
-        String deleteData = "DELETE FROM course WHERE course_name = '"
+        String deleteData = "DELETE FROM course WHERE course_id = '"
                 +availableCourse_courseC.getText()+"'";
 
         connect = JDBC.getConnection();
@@ -1468,7 +1519,7 @@ public class adminPageController implements Initializable {
 
                 String searchKey = newValue.toLowerCase();
 
-                if (predicateProfleController.getCourse_name().toLowerCase().contains(searchKey)) {
+                if (predicateProfleController.getCourse_id().toLowerCase().contains(searchKey)) {
                     return true;
                 } else if (predicateProfleController.getDegree().toLowerCase().contains(searchKey)) {
                     return true;
@@ -1915,6 +1966,7 @@ public class adminPageController implements Initializable {
 
             while (result.next()){
                 timetableD = new TimetableController(result.getString("timetable_id")
+                        , result.getString("department_id")
                         , result.getString("timetable_name")
                         , result.getDate("creat_date")
                         , result.getString("upload_image")
@@ -1940,6 +1992,7 @@ public class adminPageController implements Initializable {
         addTimetableD = addTimetableController();
 
         addTimetable_C_ID.setCellValueFactory(new PropertyValueFactory<>("timetable_id"));
+        addTimetable_C_Deparmtnet.setCellValueFactory(new PropertyValueFactory<>("department_id"));
         addTimetable_C_name.setCellValueFactory(new PropertyValueFactory<>("timetable_name"));
         addTimetable_C_creatDate.setCellValueFactory(new PropertyValueFactory<>("creat_date"));
         addTimetable_C_image.setCellValueFactory(new PropertyValueFactory<>("upload_image"));
@@ -2077,8 +2130,8 @@ public class adminPageController implements Initializable {
 
     public void addTimetableAdd(){
         String insertDATA = "INSERT INTO timetable"
-                +"(timetable_id,timetable_name,creat_date,upload_image,usepdf,upnonupPDF, upnonupIMG)"
-                +"VALUES(?,?,?,?,?,?,?)";
+                +"(timetable_id, department_id, timetable_name,creat_date,upload_image,usepdf,upnonupPDF, upnonupIMG)"
+                +"VALUES(?,?,?,?,?,?,?,?)";
 
         connect = JDBC.getConnection();
 
@@ -2089,6 +2142,7 @@ public class adminPageController implements Initializable {
 
             if (addTimetable_ID.getText().isEmpty()
                     || addTimetable_Name.getText().isEmpty()
+                    || addTimetable_DepartmentC.getSelectionModel().getSelectedItem() == null
                     || getData.path == null || getData.path == "" ){
 
                 TimeTableDataEnterArea1.setStyle("-fx-border-color:red;-fx-border-width:2px;"); // filed color red
@@ -2128,33 +2182,34 @@ public class adminPageController implements Initializable {
                     prepare = connect.prepareStatement(insertDATA);
 
                     prepare.setString(1, addTimetable_ID.getText());
-                    prepare.setString(2, addTimetable_Name.getText());
+                    prepare.setString(2,(String)addTimetable_DepartmentC.getSelectionModel().getSelectedItem());
+                    prepare.setString(3, addTimetable_Name.getText());
 
                     Date date = new Date();
                     java.sql.Date sqlDate = new java.sql.Date(date.getTime());
-                    prepare.setString(3,String.valueOf(sqlDate));
+                    prepare.setString(4,String.valueOf(sqlDate));
 
 
                     String uri = getData.path;
                     uri = uri.replace("\\", "\\\\");
-                    prepare.setString(4, uri);
+                    prepare.setString(5, uri);
 
                     byte[] pdf = pdfBytes;
-                    prepare.setBytes(5,pdf);
+                    prepare.setBytes(6,pdf);
 
 
                     if (pdfBytes !=null){
                         String string = "Uploaded";
-                        prepare.setString(6, string);
+                        prepare.setString(7, string);
 
                     } else if (pdfBytes ==null) {
                         String string = "None Uploaded";
-                        prepare.setString(6, string);
+                        prepare.setString(7, string);
                     }
 
                     if (getData.path !="") {
                         String string = "Uploaded";
-                        prepare.setString(7, string);
+                        prepare.setString(8, string);
                     }
 
 
@@ -2197,6 +2252,7 @@ public class adminPageController implements Initializable {
         addTimetable_PdfuploadBtn.setStyle(null);
         addTimetable_ImageuploadBtn.setStyle(null);
         pdfBytes = null;
+        addTimetable_DepartmentC.getSelectionModel().clearSelection();
     }
 
 
@@ -2233,6 +2289,7 @@ public class adminPageController implements Initializable {
         try {
             Alert alert;
             if (addTimetable_ID.getText().isEmpty()
+//                    || addTimetable_DepartmentC.getSelectionModel().getSelectedItem() == null
                     || addTimetable_Name.getText().isEmpty()
                     || getData.path == null || getData.path == "" ){
 
@@ -2289,21 +2346,21 @@ public class adminPageController implements Initializable {
         String uri = getData.path;
         uri = uri.replace("\\", "\\\\");
 
-        String updateData = "UPDATE timetable SET " +
-                "timetable_name = '" + addTimetable_Name.getText() + "', " +
-                (pdfBytes != null ? "usepdf = ?, " : "") +
-                "upnonupPDF = ? " +
-                (uri != null ? ", upload_image = '" + uri + "' " : "") +
-                "WHERE timetable_id = '" + addTimetable_ID.getText() + "'";
+        String updateData = "UPDATE timetable SET "
+                +"timetable_name = '" + addTimetable_Name.getText() + "', "
+                +"department_id = '" + addTimetable_DepartmentC.getSelectionModel().getSelectedItem() + "', "
+                + (pdfBytes != null ? "usepdf = ?, " : "") + "upnonupPDF = ? "
+                +(uri != null ? ", upload_image = '" + uri + "' " : "") +"WHERE timetable_id = '" + addTimetable_ID.getText() + "'";
 
         connect = JDBC.getConnection();
 
         try {
             Alert alert;
 
-            if (addTimetable_ID.getText().isEmpty() ||
-                    addTimetable_Name.getText().isEmpty() ||
-                    (uri == null && pdfBytes == null)) {
+            if (addTimetable_ID.getText().isEmpty()
+                    || addTimetable_DepartmentC.getSelectionModel().getSelectedItem() == null
+                    ||addTimetable_Name.getText().isEmpty()
+                    ||(uri == null && pdfBytes == null)) {
 
                 TimeTableDataEnterArea1.setStyle("-fx-border-color:red;-fx-border-width:2px;"); // filed color red
                 new animatefx.animation.Bounce(NoticeDataEnterArea).play();
@@ -2409,6 +2466,7 @@ public class adminPageController implements Initializable {
             addProfileRoleList();
             addProfileGenderList();
             addProfileCourseList();
+            addProfileDepartmentList();
             addProfilesSearch();
 
         } else if (event.getSource()==btnCourse) {
@@ -2470,6 +2528,8 @@ public class adminPageController implements Initializable {
 
             addTimetableShowData();
             addTimetableSearch();
+            addProfileDepartmentList();
+
 
         }
 
@@ -2497,6 +2557,8 @@ public class adminPageController implements Initializable {
         addProfileRoleList();
         addProfileGenderList();
         addProfileCourseList();
+
+        addProfileDepartmentList();
     }
 
 
