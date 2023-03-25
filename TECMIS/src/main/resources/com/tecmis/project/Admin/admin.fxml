@@ -130,7 +130,7 @@
          <center>
             <AnchorPane prefHeight="700.0" prefWidth="966.0" BorderPane.alignment="CENTER">
                <children>
-                  <AnchorPane fx:id="dashboard_form" layoutX="2.0" layoutY="2.0" prefHeight="694.0" prefWidth="938.0">
+                  <AnchorPane fx:id="dashboard_form" layoutX="2.0" layoutY="2.0" prefHeight="694.0" prefWidth="938.0" visible="false">
                      <children>
                         <AnchorPane layoutX="14.0" layoutY="14.0" prefHeight="216.0" prefWidth="914.0" stylesheets="@../css/style.css">
                            <styleClass>
@@ -140,6 +140,11 @@
                            <children>
                               <AnchorPane layoutX="14.0" layoutY="15.0" prefHeight="169.0" prefWidth="290.0">
                                  <children>
+                                    <ImageView fitHeight="314.0" fitWidth="329.0" layoutX="-28.0" layoutY="-219.0" opacity="0.09" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../image/mainLogo/flower.png" />
+                                       </image>
+                                    </ImageView>
                                     <ImageView fitHeight="82.0" fitWidth="90.0" layoutX="14.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../image/users.png" />
@@ -178,6 +183,11 @@
                                           <Font size="16.0" />
                                        </font>
                                     </Label>
+                                    <ImageView fitHeight="314.0" fitWidth="329.0" layoutX="-26.0" layoutY="-226.0" opacity="0.09" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../image/mainLogo/flower.png" />
+                                       </image>
+                                    </ImageView>
                                  </children>
                                  <styleClass>
                                     <String fx:value="dashboardCard" />
@@ -264,6 +274,11 @@
                            </children>
                         </AnchorPane>
                         <Line endX="809.6000366210938" layoutX="115.0" layoutY="242.0" startX="-100.0" stroke="#890303" />
+                        <ImageView fitHeight="314.0" fitWidth="329.0" layoutX="593.0" layoutY="-188.0" opacity="0.09" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../image/mainLogo/flower.png" />
+                           </image>
+                        </ImageView>
                      </children>
                   </AnchorPane>
                   <AnchorPane fx:id="profile_form" layoutX="174.0" layoutY="98.0" onKeyTyped="#addProfilesSelect" prefHeight="700.0" prefWidth="944.8" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -468,7 +483,7 @@
                         </AnchorPane>
                      </children>
                   </AnchorPane>
-                  <AnchorPane fx:id="notice_form" layoutX="203.0" layoutY="157.0" prefHeight="700.0" prefWidth="944.8" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <AnchorPane fx:id="notice_form" layoutX="203.0" layoutY="157.0" prefHeight="700.0" prefWidth="944.8" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <AnchorPane fx:id="NoticeDataEnterArea" layoutX="6.0" layoutY="7.0" prefHeight="687.0" prefWidth="410.0" stylesheets="@../css/style.css">
                            <styleClass>
@@ -630,20 +645,5 @@
             </AnchorPane>
          </center>
       </BorderPane>
-      <ImageView fitHeight="314.0" fitWidth="329.0" layoutX="265.0" layoutY="-181.0" opacity="0.09" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../image/mainLogo/flower.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="314.0" fitWidth="329.0" layoutX="566.0" layoutY="-175.0" opacity="0.09" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../image/mainLogo/flower.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="314.0" fitWidth="329.0" layoutX="856.0" layoutY="-169.0" opacity="0.09" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../image/mainLogo/flower.png" />
-         </image>
-      </ImageView>
    </children>
 </AnchorPane>

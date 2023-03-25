@@ -5,6 +5,8 @@ import java.util.Date;
 public class noticeController {
 
 
+
+
     private String notice_id;
     private String notice_name;
     private String bodyof_notice;
@@ -13,7 +15,9 @@ public class noticeController {
     private String upnonupnotice;
 
 
-    public noticeController(String notice_id, String notice_name, String bodyof_notice, String notice_imagepdf, Date notice_createdate,String upnonupnotice) {
+    public noticeController( String notice_id, String notice_name, String bodyof_notice, String notice_imagepdf, Date notice_createdate,String upnonupnotice) {
+
+
         this.notice_id = notice_id;
         this.notice_name = notice_name;
         this.bodyof_notice = bodyof_notice;
@@ -21,6 +25,9 @@ public class noticeController {
         this.notice_createdate = notice_createdate;
         this.upnonupnotice = upnonupnotice;
     }
+
+
+
 
     public String getNotice_id() {
         return notice_id;

@@ -372,6 +372,9 @@ public class adminPageController implements Initializable {
     @FXML
     private JFXComboBox<?> addTimetable_DepartmentC;
 
+    @FXML
+    private TableColumn<noticeController, String> addNotice_C_no;
+
 
 
     private Connection connect;
@@ -1659,6 +1662,9 @@ public class adminPageController implements Initializable {
     }
 
     private ObservableList<noticeController> addNoticeListD;
+
+
+
 
     public void addNoticeShowData(){
         addNoticeListD = addNoticeListData();
