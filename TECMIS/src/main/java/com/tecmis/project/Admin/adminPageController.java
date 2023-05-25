@@ -831,6 +831,47 @@ public class adminPageController implements Initializable {
         addUser_dobC.setValue(LocalDate.parse(String.valueOf(profileD.getDob())));
 
 
+        if(profileD.getUser_role().equals("Admin")){
+            addUser_roleC.getSelectionModel().select(0);
+        } else if (profileD.getUser_role().equals("Lecturer")) {
+            addUser_roleC.getSelectionModel().select(1);
+        }else if (profileD.getUser_role().equals("Technical_Officer")) {
+            addUser_roleC.getSelectionModel().select(2);
+        }else{
+            addUser_roleC.getSelectionModel().select(3);
+        }
+
+        if(profileD.getSex().equals("Males")){
+            addUser_sexC.getSelectionModel().select(0);
+        } else if (profileD.getSex().equals("Female")) {
+            addUser_sexC.getSelectionModel().select(1);
+        }else{
+            addUser_sexC.getSelectionModel().select(3);
+        }
+
+
+        if(profileD.getCourse_id().equals("BBT")){
+            addUser_CourseC.getSelectionModel().select(0);
+        } else if (profileD.getCourse_id().equals("BET")) {
+            addUser_CourseC.getSelectionModel().select(1);
+        }else if (profileD.getCourse_id().equals("BICT")) {
+            addUser_CourseC.getSelectionModel().select(2);
+        }else{
+            addUser_CourseC.getSelectionModel().select(3);
+        }
+
+        if(profileD.getDepartment_id().equals("DBT")){
+            addUser_DepartmentListC.getSelectionModel().select(0);
+        } else if (profileD.getDepartment_id().equals("DET")) {
+            addUser_DepartmentListC.getSelectionModel().select(1);
+        }else if (profileD.getDepartment_id().equals("DICT")) {
+            addUser_DepartmentListC.getSelectionModel().select(2);
+        }else{
+            addUser_DepartmentListC.getSelectionModel().select(3);
+        }
+
+
+
         String uri = "file:" + profileD.getProfile_image();
         image = new Image(uri, 0, 0, true, false);
         addUser_imageViewNew.setFill(new ImagePattern(image));
@@ -2030,6 +2071,18 @@ public class adminPageController implements Initializable {
 
             addTimetable_ID.setText(String.valueOf(timetableD.getTimetable_id()));
             addTimetable_Name.setText(String.valueOf(timetableD.getTimetable_name()));
+
+
+            if(timetableD.getDepartment_id().equals("DBT")){
+                addTimetable_DepartmentC.getSelectionModel().select(0);
+            } else if (timetableD.getDepartment_id().equals("DET")) {
+                addTimetable_DepartmentC.getSelectionModel().select(1);
+            }else if (timetableD.getDepartment_id().equals("DICT")) {
+                addTimetable_DepartmentC.getSelectionModel().select(2);
+            }else{
+                addTimetable_DepartmentC.getSelectionModel().select(3);
+            }
+
 
             String uri = "file:" + timetableD.getUpload_image();
             image = new Image(uri, 0, 0, true, false);

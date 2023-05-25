@@ -130,7 +130,7 @@
          <center>
             <AnchorPane prefHeight="700.0" prefWidth="966.0" BorderPane.alignment="CENTER">
                <children>
-                  <AnchorPane fx:id="dashboard_form" layoutX="2.0" layoutY="2.0" prefHeight="694.0" prefWidth="938.0" visible="false">
+                  <AnchorPane fx:id="dashboard_form" layoutX="2.0" layoutY="2.0" prefHeight="694.0" prefWidth="938.0">
                      <children>
                         <AnchorPane layoutX="14.0" layoutY="14.0" prefHeight="216.0" prefWidth="914.0" stylesheets="@../css/style.css">
                            <styleClass>
@@ -342,7 +342,7 @@
                                     <String fx:value="textfild" />
                                  </styleClass></TextField>
                               <Label layoutX="268.0" layoutY="97.0" text="Role :" />
-                              <JFXComboBox fx:id="addUser_roleC" focusTraversable="false" layoutX="369.0" layoutY="91.0" onAction="#addProfileRoleList" prefHeight="30.0" prefWidth="159.0" promptText="  select">
+                              <JFXComboBox fx:id="addUser_roleC" focusTraversable="false" layoutX="369.0" layoutY="91.0" prefHeight="30.0" prefWidth="159.0" promptText="  select">
                                  <styleClass>
                                     <String fx:value="texbox2" />
                                     <String fx:value="textfild" />
@@ -374,7 +374,7 @@
                                  </styleClass></TextField>
                               <JFXButton fx:id="addProfile_uploadBtn" focusTraversable="false" layoutX="26.0" layoutY="261.0" onAction="#addProfileUploadImage" prefHeight="30.0" prefWidth="196.0" styleClass="signB" text="Upload" />
                               <Label layoutX="603.0" layoutY="136.0" text="Sex :" />
-                              <JFXComboBox fx:id="addUser_sexC" focusTraversable="false" layoutX="703.0" layoutY="130.0" onAction="#addProfileGenderList" prefHeight="30.0" prefWidth="161.0" promptText="  select">
+                              <JFXComboBox fx:id="addUser_sexC" focusTraversable="false" layoutX="703.0" layoutY="130.0" prefHeight="30.0" prefWidth="161.0" promptText="  select">
                                  <styleClass>
                                     <String fx:value="texbox2" />
                                     <String fx:value="textfild" />
@@ -403,14 +403,14 @@
                                  </styleClass>
                               </DatePicker>
                               <Label layoutX="268.0" layoutY="177.0" text="Course :" />
-                              <JFXComboBox fx:id="addUser_CourseC" focusTraversable="false" layoutX="370.0" layoutY="172.0" onAction="#addProfileCourseList" prefHeight="30.0" prefWidth="159.0" promptText="  select">
+                              <JFXComboBox fx:id="addUser_CourseC" focusTraversable="false" layoutX="370.0" layoutY="172.0" prefHeight="30.0" prefWidth="159.0" promptText="  select">
                                  <styleClass>
                                     <String fx:value="texbox2" />
                                     <String fx:value="textfild" />
                                  </styleClass>
                               </JFXComboBox>
                               <Label layoutX="269.0" layoutY="139.0" text="Department :" />
-                              <JFXComboBox fx:id="addUser_DepartmentListC" focusTraversable="false" layoutX="369.0" layoutY="132.0" onAction="#addProfileDepartmentList" prefHeight="30.0" prefWidth="159.0" promptText="  select">
+                              <JFXComboBox fx:id="addUser_DepartmentListC" focusTraversable="false" layoutX="369.0" layoutY="132.0" prefHeight="30.0" prefWidth="159.0" promptText="  select">
                                  <styleClass>
                                     <String fx:value="texbox2" />
                                     <String fx:value="textfild" />
@@ -483,7 +483,7 @@
                         </AnchorPane>
                      </children>
                   </AnchorPane>
-                  <AnchorPane fx:id="notice_form" layoutX="203.0" layoutY="157.0" prefHeight="700.0" prefWidth="944.8" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <AnchorPane fx:id="notice_form" layoutX="-1.0" prefHeight="700.0" prefWidth="944.8" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <AnchorPane fx:id="NoticeDataEnterArea" layoutX="6.0" layoutY="7.0" prefHeight="687.0" prefWidth="410.0" stylesheets="@../css/style.css">
                            <styleClass>
@@ -599,7 +599,7 @@
                               </AnchorPane>
                               <JFXButton fx:id="addTimetable_PdfuploadBtn" focusTraversable="false" layoutX="17.0" layoutY="506.0" onAction="#choosePdf" prefHeight="30.0" prefWidth="379.0" styleClass="signB" text="Upload(pdf)" />
                               <Label layoutX="194.0" layoutY="485.0" text="OR" />
-                              <JFXComboBox fx:id="addTimetable_DepartmentC" focusTraversable="false" layoutX="104.0" layoutY="137.0" onAction="#addProfileDepartmentList" prefHeight="36.0" prefWidth="290.0" promptText="  select">
+                              <JFXComboBox fx:id="addTimetable_DepartmentC" focusTraversable="false" layoutX="104.0" layoutY="137.0" prefHeight="36.0" prefWidth="290.0" promptText="  select">
                                  <styleClass>
                                     <String fx:value="texbox2" />
                                     <String fx:value="textfild" />
