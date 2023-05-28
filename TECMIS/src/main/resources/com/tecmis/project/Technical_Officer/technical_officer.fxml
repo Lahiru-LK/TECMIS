@@ -4,6 +4,8 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -12,6 +14,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tecmis.project.Technical_Officer.technical_officerController">
    <children>
@@ -128,7 +131,7 @@
                            </children>
                         </AnchorPane>
                         <Label layoutX="327.0" layoutY="122.0" scaleX="2.0" scaleY="2.0" text="User ID:" />
-                        <TextField fx:id="addUser_useridC" layoutX="577.0" layoutY="116.0" prefHeight="31.0" prefWidth="266.0" promptText="techoffxxx" styleClass="technical_officer" stylesheets="@../css/stylesheet.css" />
+                        <TextField fx:id="addUser_useridC" disable="true" layoutX="577.0" layoutY="116.0" prefHeight="31.0" prefWidth="266.0" promptText="techoffxxx" styleClass="technical_officer" stylesheets="@../css/stylesheet.css" />
                         <Label layoutX="350.0" layoutY="177.0" scaleX="2.0" scaleY="2.0" text="User Password:" />
                         <TextField fx:id="addUser_PasswordC" layoutX="577.0" layoutY="171.0" prefHeight="31.0" prefWidth="266.0" promptText="techoffx" styleClass="technical_officer" stylesheets="@../css/stylesheet.css" />
                         <Label layoutX="339.0" layoutY="232.0" scaleX="2.0" scaleY="2.0" text="First Name:" />
@@ -141,17 +144,24 @@
                         <TextField fx:id="addUser_AddressC" layoutX="577.0" layoutY="393.0" prefHeight="31.0" prefWidth="266.0" promptText="No:xxxx,xxxxxxxxxxx,xxx" styleClass="technical_officer" stylesheets="@../css/stylesheet.css" />
                         <Label layoutX="337.0" layoutY="452.0" scaleX="2.0" scaleY="2.0" text="Tel Number:" />
                         <TextField fx:id="addUser_tpNumberC" layoutX="577.0" layoutY="445.0" prefHeight="31.0" prefWidth="266.0" promptText="+94xxxxxxxxx" styleClass="technical_officer" stylesheets="@../css/stylesheet.css" />
-                        <Label layoutX="54.0" layoutY="531.0" scaleX="2.0" scaleY="2.0" text="Gender:" />
-                        <ComboBox fx:id="addUser_genderC" editable="true" layoutX="162.0" layoutY="525.0" prefHeight="29.0" prefWidth="273.0" promptText="select" styleClass="technical_officer" stylesheets="@../css/stylesheet.css" />
-                        <Label layoutX="516.0" layoutY="531.0" scaleX="2.0" scaleY="2.0" text="Department:" />
-                        <ComboBox fx:id="addUser_DepartmentListC" editable="true" layoutX="670.0" layoutY="525.0" prefHeight="29.0" prefWidth="273.0" promptText="select" styleClass="technical_officer" stylesheets="@../css/stylesheet.css" />
-                        <Label layoutX="54.0" layoutY="611.0" scaleX="2.0" scaleY="2.0" text="DOB:" />
-                        <DatePicker fx:id="addUser_dobC" layoutX="162.0" layoutY="607.0" prefHeight="26.0" prefWidth="274.0" promptText="select" styleClass="technical_officer" stylesheets="@../css/stylesheet.css" />
-                        <Button layoutX="530.0" layoutY="578.0" mnemonicParsing="false" onAction="#addProfileUpdatex" prefHeight="49.0" prefWidth="140.0" styleClass="technical_officer" stylesheets="@../css/stylesheet.css" text="Update" />
-                        <Button layoutX="737.0" layoutY="578.0" mnemonicParsing="false" onAction="#addProfileClear" prefHeight="49.0" prefWidth="140.0" styleClass="technical_officer" stylesheets="@../css/stylesheet.css" text="Clear" />
-                        <Label fx:id="UserDataEnterArea" layoutX="197.0" layoutY="655.0" prefHeight="41.0" prefWidth="606.0" />
+                        <Label layoutX="47.0" layoutY="515.0" scaleX="2.0" scaleY="2.0" text="Gender:" />
+                        <ComboBox fx:id="addUser_genderC" editable="true" layoutX="160.0" layoutY="510.0" prefHeight="29.0" prefWidth="273.0" promptText="select" styleClass="technical_officer" stylesheets="@../css/stylesheet.css" />
+                        <Label layoutX="521.0" layoutY="515.0" scaleX="2.0" scaleY="2.0" text="Department:" />
+                        <ComboBox fx:id="addUser_DepartmentListC" disable="true" editable="true" layoutX="670.0" layoutY="505.0" prefHeight="36.0" prefWidth="275.0" promptText="select" style="-fx-border-color: red;" styleClass="technical_officer" stylesheets="@../css/stylesheet.css" />
+                        <Label layoutX="38.0" layoutY="567.0" scaleX="2.0" scaleY="2.0" text="DOB:" />
+                        <DatePicker fx:id="addUser_dobC" layoutX="159.0" layoutY="562.0" prefHeight="26.0" prefWidth="274.0" promptText="select" styleClass="technical_officer" stylesheets="@../css/stylesheet.css" />
+                        <Button layoutX="640.0" layoutY="639.0" mnemonicParsing="false" onAction="#addProfileUpdatex" prefHeight="49.0" prefWidth="140.0" styleClass="technical_officer" stylesheets="@../css/stylesheet.css" text="Update" />
                         <Button fx:id="btnimportimage" layoutX="101.0" layoutY="421.0" mnemonicParsing="false" onAction="#addProfileUploadImage" prefHeight="49.0" prefWidth="104.0" styleClass="technical_officer" stylesheets="@../css/stylesheet.css" text="Import" />
                         <Rectangle fx:id="add_userimageC2" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="288.0" layoutX="21.0" layoutY="109.0" stroke="BLACK" strokeType="INSIDE" width="254.0" />
+                        <TextField fx:id="addUser_userCourseC" disable="true" layoutX="324.0" layoutY="483.0" opacity="0.0" prefHeight="26.0" prefWidth="117.0" promptText="techoffxxx" styleClass="technical_officer" stylesheets="@../css/stylesheet.css" />
+                        <Label fx:id="UploadSuccessfullTEXT" layoutX="14.0" layoutY="628.0" prefHeight="71.0" prefWidth="611.0" textFill="#00c140">
+                           <font>
+                              <Font size="49.0" />
+                           </font>
+                        </Label>
+                        <Button layoutX="803.0" layoutY="639.0" mnemonicParsing="false" onAction="#addProfileClearX" prefHeight="49.0" prefWidth="140.0" styleClass="technical_officer" stylesheets="@../css/stylesheet.css" text="Clear" />
+                        <ComboBox fx:id="addUser_roleC" disable="true" editable="true" layoutX="671.0" layoutY="559.0" prefHeight="38.0" prefWidth="272.0" promptText="select" styleClass="technical_officer" stylesheets="@../css/stylesheet.css" />
+                        <Label layoutX="495.0" layoutY="568.0" scaleX="2.0" scaleY="2.0" text="Role:" />
                      </children>
                   </AnchorPane>
                   <AnchorPane fx:id="attendenceform" layoutX="10.0" layoutY="10.0" prefHeight="710.0" prefWidth="956.0" style="-fx-background-color: blue;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -178,38 +188,13 @@
                                     </ImageView>
                                  </children>
                               </AnchorPane>
-                              <AnchorPane layoutX="14.0" layoutY="86.0" prefHeight="612.0" prefWidth="458.0" style="-fx-border-color: red;">
-                                 <children>
-                                    <AnchorPane layoutX="69.0" layoutY="55.0" prefHeight="315.0" prefWidth="325.0" style="-fx-border-color: black;">
-                                       <children>
-                                          <ImageView fx:id="notice_img1" fitHeight="357.0" fitWidth="207.0" layoutX="61.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../image/noticeandtimetable/notice/notice1.jpg" />
-                                             </image>
-                                          </ImageView>
-                                       </children></AnchorPane>
-                                    <Label fx:id="notice_head1" layoutX="27.0" layoutY="7.0" prefHeight="37.0" prefWidth="405.0" styleClass="technical_officer" stylesheets="@../css/stylesheet.css" text="Vaccination Of University Staff and The Student bleow 30 Years Of age agaist COVID-19" />
-                                    <TextArea fx:id="notice_body1" layoutX="22.0" layoutY="376.0" prefHeight="184.0" prefWidth="416.0" style="-fx-border-color: red;" text="All Universities. .&#10;&#10;Therefore, University Staff and Students can get their vaccines&#10; administered  at the closest University Premises in the areas of &#10;their residences (permanent or current residences) &#10;from 11th October 2021 – 15th October 2021.&#10;The vaccination program of University of Sri Jayewardenepura &#10;will be conducted from 11th to 15th October 2021 &#10;at the Bandaranayake Hall of the University Premises&#10; from 9.00 a.m. to 2.00 p.m. each day.." />
-                                    <Label layoutX="14.0" layoutY="580.0" text="Create Date:" />
-                                    <TextField fx:id="notice_date1" layoutX="109.0" layoutY="574.0" styleClass="technical_officer" stylesheets="@../css/stylesheet.css" text="2023-03-24" />
-                                 </children>
-                              </AnchorPane>
-                              <AnchorPane layoutX="485.0" layoutY="86.0" prefHeight="612.0" prefWidth="458.0" style="-fx-border-color: red;">
-                                 <children>
-                                    <AnchorPane layoutX="69.0" layoutY="54.0" prefHeight="315.0" prefWidth="325.0" style="-fx-border-color: black;">
-                                       <children>
-                                          <ImageView fx:id="notice_img2" fitHeight="477.0" fitWidth="234.0" layoutX="47.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../image/noticeandtimetable/notice/notice2.jpg" />
-                                             </image>
-                                          </ImageView>
-                                       </children></AnchorPane>
-                                    <Label fx:id="notice_head2" layoutX="27.0" layoutY="7.0" prefHeight="37.0" prefWidth="405.0" styleClass="technical_officer" stylesheets="@../css/stylesheet.css" text="To all Candiddtes paying for PGIM examination" />
-                                    <TextArea fx:id="notice_body2" layoutX="21.0" layoutY="376.0" prefHeight="184.0" prefWidth="416.0" style="-fx-border-color: red;" text="&#10;&#10;&#10;For those who are to get the 2nd dose of the Sinopharm vaccine&#10; from VajiragnggnanaDharmayatana premises also can join &#10;and please be at 9.30 a.m. on 8th October 2021 in front of&#10;Sumangala Building for transport facilities." />
-                                    <Label layoutX="14.0" layoutY="580.0" text="Create Date:" />
-                                    <TextField fx:id="notice_date2" layoutX="112.0" layoutY="575.0" styleClass="technical_officer" stylesheets="@../css/stylesheet.css" text="2023-03-24" />
-                                 </children>
-                              </AnchorPane>
+                              <TableView layoutX="45.0" layoutY="121.0" prefHeight="541.0" prefWidth="868.0">
+                                <columns>
+                                  <TableColumn prefWidth="75.0" text="C1" />
+                                  <TableColumn prefWidth="75.0" text="C2" />
+                                    <TableColumn prefWidth="75.0" text="C2" />
+                                </columns>
+                              </TableView>
                            </children></AnchorPane>
                      </children>
                   </AnchorPane>
