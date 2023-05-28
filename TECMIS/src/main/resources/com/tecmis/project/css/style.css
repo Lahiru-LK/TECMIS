@@ -91,7 +91,7 @@
 
 .technical_officer{
 
-    -fx-background-color: linear-gradient(#a72d3b, #363636);
+    -fx-background-color: linear-gradient(#a72d76, #363636);
     -fx-background-radius: 5px;
     -fx-background-insets: 0px;
     -fx-text-fill: white;
@@ -124,7 +124,6 @@
 .tranparentB:hover{
 
     -fx-background-color: #d62651;
-
 
 }
 
@@ -165,6 +164,7 @@
 .shadow{
     -fx-effect: dropshadow(three-pass-box, rgb(0,0,0,.5), 6,0,0,0);
 }
+
 .white-bg{
     -fx-background-color: #fff;
     -fx-background-radius: #8px;
@@ -240,22 +240,5 @@
     -fx-alignment: Center_Left;
 
 }
-
-
-.default-color0.chart-bar{ -fx-bar-fill: #d42439
-}
-.default-color1.chart-bar{ -fx-bar-fill: rgba(252, 31, 86, 0.94)
-}
-
-
-.default-color0.chart-bar:hover{ -fx-bar-fill: #e73447
-}
-.default-color1.chart-bar:hover{ -fx-bar-fill: #ee2d5c
-}
-
-
-
-.default-color0.chart-pie{ -fx-bar-fill:#a72d3b}
-.default-color1.chart-pie{ -fx-bar-fill: #de204f}
 
 
