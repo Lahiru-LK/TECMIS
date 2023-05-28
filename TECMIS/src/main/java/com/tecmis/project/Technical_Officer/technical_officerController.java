@@ -1,6 +1,8 @@
 package com.tecmis.project.Technical_Officer;
 
 import animatefx.animation.FadeIn;
+import com.tecmis.project.Admin.Notices.noticeController;
+import com.tecmis.project.Admin.Timetable.TimetableController;
 import com.tecmis.project.Admin.getData;
 import com.tecmis.project.Technical_Officer.TechProfile.techProfileControllerX;
 import com.tecmis.project.UserSession;
@@ -14,7 +16,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -24,8 +28,8 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.scene.control.Label;
 
-import java.io.File;
-import java.io.IOException;
+import java.awt.*;
+import java.io.*;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -60,17 +64,21 @@ public class technical_officerController implements Initializable {
     private Label UploadSuccessfullTEXT;
 
     @FXML
+    private Rectangle addNotice_imageViewNew;
+
+
+    @FXML
     private TextField addUser_userCourseC;
 
-    @FXML
-    void addProfileUpdate(ActionEvent event) {
-
-    }
-
-    @FXML
-    void addProfileClear(ActionEvent event) {
-
-    }
+//    @FXML
+//    void addProfileUpdate(ActionEvent event) {
+//
+//    }
+//
+//    @FXML
+//    void addProfileClear(ActionEvent event) {
+//
+//    }
 
 
     @FXML
@@ -165,6 +173,53 @@ public class technical_officerController implements Initializable {
 
     @FXML
     private AnchorPane timetableform;
+
+    @FXML
+    private TableColumn<?, ?> addNotice_C_noticeID;
+
+    @FXML
+    private TableColumn<?, ?> addNotice_C_noticeName;
+
+    @FXML
+    private TableColumn<?, ?> add_nBody;
+
+    @FXML
+    private TableColumn<?, ?> addNotice_C_imagepdf;
+
+    @FXML
+    private TableColumn<?, ?> NCreateDate;
+
+    @FXML
+    private TableColumn<?, ?> nStatus;
+
+    @FXML
+    private TableView<noticeController> addNotice_tableView;
+
+    @FXML
+    private TableView<TimetableController> addTimetable_tableView;
+
+    @FXML
+    private TableColumn<?, ?> timetable_id;
+
+    @FXML
+    private TableColumn<?, ?> dept_id;
+
+    @FXML
+    private TableColumn<?, ?> timetable_name;
+
+    @FXML
+    private TableColumn<?, ?> timetable_date;
+
+    @FXML
+    private TableColumn<?, ?> timetable_img;
+
+    @FXML
+    private TableColumn<?, ?> pdf_status;
+
+    @FXML
+    private TableColumn<?, ?> image_status;
+
+
 
     private Connection connect;
     private PreparedStatement prepare;
@@ -545,6 +600,145 @@ public class technical_officerController implements Initializable {
 
 
 
+    public ObservableList<noticeController> addNoticeListData(){
+        ObservableList<noticeController> listData = FXCollections.observableArrayList();
+
+        String sql = "SELECT * FROM notice";
+
+        connect = JDBC.getConnection();
+
+        try {
+
+            noticeController noticeD;
+            prepare = connect.prepareStatement(sql);
+            result = prepare.executeQuery();
+
+            while (result.next()){
+                noticeD = new noticeController(result.getString("notice_id")
+                        , result.getString("notice_name")
+                        , result.getString("bodyof_notice")
+                        , result.getString("notice_imagepdf")
+                        , result.getDate("notice_createdate")
+                        , result.getString("upnonupnotice")
+                );
+
+                listData.add(noticeD);
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return listData;
+    }
+
+    private ObservableList<noticeController> addNoticeListD;
+
+
+
+
+    public void addNoticeShowData(){
+        addNoticeListD = addNoticeListData();
+
+        addNotice_C_noticeID.setCellValueFactory(new PropertyValueFactory<>("notice_id"));
+        addNotice_C_noticeName.setCellValueFactory(new PropertyValueFactory<>("notice_name"));
+        add_nBody.setCellValueFactory(new PropertyValueFactory<>("bodyof_notice"));
+        addNotice_C_imagepdf.setCellValueFactory(new PropertyValueFactory<>("notice_imagepdf"));
+        NCreateDate.setCellValueFactory(new PropertyValueFactory<>("notice_createdate"));
+
+        nStatus.setCellValueFactory(new PropertyValueFactory<>("upnonupnotice"));
+
+        addNotice_tableView.setItems(addNoticeListD);
+
+//        addNotice_C_imagepdf.setStyle("    -fx-text-fill: #e73d66;" +
+//                " -fx-font-weight: bold;");
+    }
+
+
+//    public void addNoticeSelect(){
+//
+//        noticeController noticeD = addNotice_tableView.getSelectionModel().getSelectedItem();
+//        int num = addNotice_tableView.getSelectionModel().getSelectedIndex();
+//
+//        if((num - 1) < -1) {return;}
+//
+//
+//
+//        addNotice_C_noticeID.setText(String.valueOf(noticeD.getNotice_id()));
+//        addNotice_C_noticeName.setText(String.valueOf(noticeD.getNotice_name()));
+//        add_nBody.setText(String.valueOf(noticeD.getBodyof_notice()));
+//
+//        String uri = "file:" + noticeD.getNotice_imagepdf();
+//        image = new Image(uri, 0, 0, true, false);
+//        addNotice_imageViewNew.setFill(new ImagePattern(image));
+//
+//        getData.path = noticeD.getNotice_imagepdf();
+//
+//    }
+
+
+    public ObservableList<TimetableController> addTimetableController(){
+        ObservableList<TimetableController> listTimetableController = FXCollections.observableArrayList();
+
+        String sql = "SELECT * FROM timetable";
+
+        connect = JDBC.getConnection();
+
+        try {
+
+            TimetableController timetableD;
+            prepare = connect.prepareStatement(sql);
+            result = prepare.executeQuery();
+
+            while (result.next()){
+                timetableD = new TimetableController(result.getString("timetable_id")
+                        , result.getString("department_id")
+                        , result.getString("timetable_name")
+                        , result.getDate("creat_date")
+                        , result.getString("upload_image")
+                        , result.getString("usepdf")
+                        , result.getString("upnonupPDF")
+                        , result.getString("upnonupIMG")
+
+                );
+
+                listTimetableController.add(timetableD);
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return listTimetableController;
+    }
+
+    private ObservableList<TimetableController> addTimetableD;
+
+
+    public void addTimetableShowData(){
+        addTimetableD = addTimetableController();
+
+        timetable_id.setCellValueFactory(new PropertyValueFactory<>("timetable_id"));
+        dept_id.setCellValueFactory(new PropertyValueFactory<>("department_id"));
+       timetable_name.setCellValueFactory(new PropertyValueFactory<>("timetable_name"));
+        timetable_date.setCellValueFactory(new PropertyValueFactory<>("creat_date"));
+       timetable_img.setCellValueFactory(new PropertyValueFactory<>("upload_image"));
+        pdf_status.setCellValueFactory(new PropertyValueFactory<>("upnonupPDF"));
+
+//        pdf_status.setStyle("    -fx-text-fill: #d62651;" +
+//                " -fx-font-weight: bold;");
+
+        image_status.setCellValueFactory(new PropertyValueFactory<>("upnonupIMG"));
+//        image_status.setStyle("    -fx-text-fill: #e73d66;" +
+//                " -fx-font-weight: bold;");
+
+        addTimetable_tableView.setItems(addTimetableD);
+    }
+
+
+
+
+
+
+
     public void switchForm(ActionEvent event) {
 
         if (event.getSource()==btnProfile){
@@ -683,6 +877,8 @@ public class technical_officerController implements Initializable {
 
 
         addProfileshowData();
+        addNoticeShowData();
+        addTimetableShowData();
         loadUserData();
 
 
