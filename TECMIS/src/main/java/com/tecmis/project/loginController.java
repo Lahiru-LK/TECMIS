@@ -124,7 +124,7 @@ public class loginController  implements Initializable{
                                 Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Admin/admin.fxml")));
                                 new FadeIn(root).play();
                                 stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-                                scene = new Scene(root);
+                                scene = new Scene(root, 1200,700);
                                 stage.setScene(scene);
                                 stage.centerOnScreen();
                                 stage.show();
@@ -135,16 +135,10 @@ public class loginController  implements Initializable{
 
                             } else if (Role.equals("Student")) {
 
-                                User_ID = queryResult2.getString("user_id");
-                                User_Name = queryResult2.getString("first_name");
-
-                                UserSession.getInstance(User_Name,User_ID);
-
-
                                 Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Student/student.fxml")));
                                 new FadeIn(root).play();
                                 stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-                                scene = new Scene(root);
+                                scene = new Scene(root, 1200,700);
                                 stage.setScene(scene);
                                 stage.centerOnScreen();
                                 stage.show();
@@ -152,6 +146,11 @@ public class loginController  implements Initializable{
 
 
                             }else if (Role.equals("Lecturer")) {
+
+                                User_ID = queryResult2.getString("user_id");
+                                User_Name = queryResult2.getString("first_name");
+
+                                UserSession.getInstance(User_Name,User_ID);
 
                                 Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Lecturer/lecturer.fxml")));
                                 new FadeIn(root).play();
@@ -164,16 +163,10 @@ public class loginController  implements Initializable{
 
                             }else if (Role.equals("Technical_Officer")) {
 
-                                User_ID = queryResult2.getString("user_id");
-                                User_Name = queryResult2.getString("first_name");
-
-                                UserSession.getInstance(User_Name,User_ID);
-
-
                                 Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Technical_Officer/technical_officer.fxml")));
                                 new FadeIn(root).play();
                                 stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-                                scene = new Scene(root);
+                                scene = new Scene(root, 1200,700);
                                 stage.setScene(scene);
                                 stage.centerOnScreen();
                                 stage.show();
