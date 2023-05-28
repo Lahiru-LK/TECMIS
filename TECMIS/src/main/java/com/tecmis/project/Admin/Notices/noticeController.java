@@ -2,7 +2,7 @@ package com.tecmis.project.Admin.Notices;
 
 import java.util.Date;
 
-public class noticeController {
+public class noticeController  {
 
 
 
