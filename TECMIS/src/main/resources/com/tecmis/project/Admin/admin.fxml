@@ -40,7 +40,7 @@
                   </ImageView>
                   <ImageView fitHeight="229.0" fitWidth="312.0" layoutX="2.0" layoutY="470.0" opacity="0.09" pickOnBounds="true" preserveRatio="true">
                      <image>
-<!--                        <Image url="@../image/mainLogo/flower2%20-%20Copy.png" />-->
+                        <Image url="@../image/mainLogo/flower2%20-%20Copy.png" />
                      </image>
                   </ImageView>
                   <Label layoutX="81.0" layoutY="165.0" styleClass="shadow" text="Admin" textAlignment="CENTER" textFill="WHITE">
