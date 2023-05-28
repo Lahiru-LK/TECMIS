@@ -5,7 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="afe469b3-d327-46d7-8723-481347c36676" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/TECMIS/doc.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TECMIS/src/main/java/com/tecmis/project/Admin/Notices/noticeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/TECMIS/src/main/java/com/tecmis/project/Admin/Notices/noticeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TECMIS/src/main/java/com/tecmis/project/Technical_Officer/Notices/noticeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/TECMIS/src/main/java/com/tecmis/project/Technical_Officer/Notices/noticeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TECMIS/src/main/java/com/tecmis/project/Technical_Officer/Timetable/TimetableController.java" beforeDir="false" afterPath="$PROJECT_DIR$/TECMIS/src/main/java/com/tecmis/project/Technical_Officer/Timetable/TimetableController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TECMIS/src/main/java/com/tecmis/project/Technical_Officer/technical_officerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/TECMIS/src/main/java/com/tecmis/project/Technical_Officer/technical_officerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TECMIS/src/main/resources/com/tecmis/project/Technical_Officer/technical_officer.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/TECMIS/src/main/resources/com/tecmis/project/Technical_Officer/technical_officer.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,9 +31,22 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true"
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "jdk.selected.JAVA_MODULE": "19",
+    "last_opened_file_path": "C:/Users/ASUS/Desktop/xx/jfoenix-9.0.1.jar",
+    "project.structure.last.edited": "Libraries",
+    "project.structure.proportion": "0.1484375",
+    "project.structure.side.proportion": "0.28850573"
   }
 }]]></component>
+  <component name="RunManager">
+    <configuration name="Unnamed" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="VM_PARAMETERS" value="--module-path &quot;C:\Program Files\Java\javafx-sdk-19.0.2.1\lib&quot; --add-modules javafx.controls,javafx.fxml" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
