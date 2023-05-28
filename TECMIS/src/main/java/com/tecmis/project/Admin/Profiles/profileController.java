@@ -24,21 +24,7 @@ public class profileController{
 
     public profileController(String user_role, String user_id, String user_password,String course_id, String department_id, String first_name, String last_name, String email, Date dob, String sex, String address, String tp_number, String profile_image, Date date, String upnonupuserIMG  )
     {
-        this.user_role = user_role;
-        this.user_id = user_id;
-        this.user_password = user_password;
-        this.course_id = course_id;
-        this.department_id = department_id;
-        this.first_name = first_name;
-        this.last_name = last_name;
-        this.email = email;
-        this.dob = dob;
-        this.sex = sex;
-        this.address = address;
-        this.tp_number = tp_number;
-        this.profile_image = profile_image;
-        this.date = date;
-        this.upnonupuserIMG = upnonupuserIMG;
+
     }
     public String getUser_role(){return user_role;    }
     public String getUser_id(){
