@@ -1,52 +1,441 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tecmis.project.Student.studentController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" styleClass="main" stylesheets="@../css/style03.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tecmis.project.Student.studentController">
    <children>
-      <BorderPane prefHeight="400.0" prefWidth="0.0" />
-      <BorderPane prefHeight="700.0" prefWidth="1200.0">
-         <left>
-            <AnchorPane prefHeight="200.0" prefWidth="255.0" styleClass="student" stylesheets="@../css/style.css" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="702.0" prefWidth="466.0" styleClass="bground" stylesheets="@../css/style03.css">
+         <children>
+            <AnchorPane prefHeight="705.0" prefWidth="897.0" stylesheets="@../css/style03.css">
                <children>
-                  <ImageView fitHeight="230.0" fitWidth="290.0" layoutX="2.0" layoutY="470.0" opacity="0.08" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../image/mainLogo/flower2%20-%20Copy.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="322.0" fitWidth="332.0" layoutX="-171.0" layoutY="148.0" opacity="0.06" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../image/mainLogo/flower.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="314.0" fitWidth="329.0" layoutX="-128.0" layoutY="-175.0" opacity="0.06" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../image/mainLogo/flower.png" />
-                     </image>
-                  </ImageView>
-               </children></AnchorPane>
-         </left>
-         <center>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: red;" BorderPane.alignment="CENTER">
-               <children>
-                  <ImageView fitHeight="531.0" fitWidth="947.0" layoutY="85.0" opacity="0.09" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../image/mainLogo/borboletas-butterflies.gif" />
-                     </image>
-                  </ImageView>
-                  <Label layoutX="260.0" layoutY="493.0" text="Student">
-                     <font>
-                        <Font size="96.0" />
-                     </font>
-                  </Label>
+                  <AnchorPane layoutX="12.0" layoutY="11.0" prefHeight="690.0" prefWidth="365.0" styleClass="left-form" stylesheets="@../css/style03.css" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="923.0" AnchorPane.topAnchor="11.0">
+                     <children>
+                        <Button fx:id="homebtn" layoutX="12.0" layoutY="145.0" mnemonicParsing="false" onAction="#switchFormx" prefHeight="20.0" prefWidth="250.0" styleClass="nav-btn" stylesheets="@../css/style03.css" text="HOME">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="36.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@image/R (1).png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Line endX="118.13333129882812" endY="3.0517578125E-5" layoutX="137.0" layoutY="113.0" scaleY="2.0" startX="-115.46665954589844" startY="3.0517578125E-5" stroke="#f4f4f4" />
+                        <Button fx:id="atenbtn" layoutX="13.0" layoutY="197.0" mnemonicParsing="false" onAction="#switchFormx" prefHeight="20.0" prefWidth="250.0" styleClass="nav-btn" stylesheets="@../css/style03.css" text="Atendance">
+
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="50.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@image/12.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button fx:id="medicalbtn" layoutX="12.0" layoutY="248.0" mnemonicParsing="false" onAction="#switchFormx" prefHeight="20.0" prefWidth="250.0" styleClass="nav-btn" stylesheets="@../css/style03.css" text="Medical">
+
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="69.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@image/5f42c30ba9fdcc7828e6f214_Cardiology.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button fx:id="c_unitbtn" layoutX="13.0" layoutY="306.0" mnemonicParsing="false" onAction="#switchFormx" prefHeight="20.0" prefWidth="250.0" styleClass="nav-btn" stylesheets="@../css/style03.css" text="Couse Unit">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="34.0" fitWidth="76.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@image/R (3).png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button fx:id="gpabtn" layoutX="11.0" layoutY="358.0" mnemonicParsing="false" onAction="#switchFormx" prefHeight="20.0" prefWidth="250.0" styleClass="nav-btn" stylesheets="@../css/style03.css" text="Grades and GPA">
+
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="39.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@image/R.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button fx:id="t_tablebtn" layoutX="13.0" layoutY="413.0" mnemonicParsing="false" onAction="#switchFormx" prefHeight="20.0" prefWidth="250.0" styleClass="nav-btn" stylesheets="@../css/style03.css" text="Tme table">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="45.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@image/timetable.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Line endX="118.13333129882812" endY="3.0517578125E-5" layoutX="138.0" layoutY="506.0" scaleY="2.0" startX="-115.46665954589844" startY="3.0517578125E-5" stroke="#f4f4f4" />
+                        <Button fx:id="signbtn" layoutX="13.0" layoutY="585.0" mnemonicParsing="false" onAction="#SignOut" prefHeight="20.0" prefWidth="250.0" styleClass="sign-btn" stylesheets="@../css/style03.css" text="Sign Out">
+
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="47.0" fitWidth="74.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@image/3007340.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+
+                        <Label layoutX="56.0" layoutY="48.0" prefHeight="2.0" prefWidth="207.0" text="Student Management System" textFill="WHITE">
+                           <font>
+                              <Font name="Tahoma Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <ImageView fitHeight="53.0" fitWidth="47.0" layoutX="7.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@image/logo.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="294.0" prefHeight="114.0" prefWidth="916.0">
+                     <children>
+                        <AnchorPane fx:id="homeroomtop" layoutX="-250.0" layoutY="57.0" prefHeight="175.2" prefWidth="916.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <Button fx:id="Updatecontactdetails" layoutX="313.0" layoutY="22.0" mnemonicParsing="false" onAction="#switchForm2" prefHeight="64.0" prefWidth="262.0" styleClass="part01-top-btn" stylesheets="@../css/style03.css" text="Update contact details">
+                                 <graphic>
+                                    <ImageView fitHeight="58.0" fitWidth="51.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@image/second (2).png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic></Button>
+                              <Button fx:id="Mydetails" alignment="CENTER" contentDisplay="CENTER" layoutY="28.0" mnemonicParsing="false" onAction="#switchForm2" prefHeight="50.0" prefWidth="248.0" styleClass="part01-top-btn" stylesheets="@../css/style03.css" text="                           My details">
+                                 <graphic>
+                                    <ImageView fitHeight="37.0" fitWidth="55.0" opacity="0.93" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@image/10.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic></Button>
+                              <Button fx:id="Updateprofilepicture" layoutX="616.0" layoutY="26.0" mnemonicParsing="false" onAction="#switchForm2" prefHeight="20.0" prefWidth="250.0" styleClass="part01-top-btn" stylesheets="@../css/style03.css" text="Update profile picture">
+                                 <graphic>
+                                    <ImageView fitHeight="42.0" fitWidth="71.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@image/second (3).png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic></Button>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="homeform_bottom" layoutX="301.0" layoutY="85.0" prefHeight="609.0" prefWidth="886.0" styleClass="part01-top" stylesheets="@../css/style03.css">
+                     <children>
+                        <AnchorPane layoutX="1.0" layoutY="2.0" prefHeight="603.0" prefWidth="882.0">
+                           <children>
+                              <AnchorPane layoutX="370.0" layoutY="24.0" prefHeight="555.0" prefWidth="462.0" styleClass="welcomescreen" stylesheets="@../css/style03.css">
+                                 <children>
+                                    <Circle fx:id="UserImage_ViewCircle" fill="DODGERBLUE" layoutX="236.0" layoutY="133.0" radius="94.0" stroke="BLACK" strokeType="INSIDE" />
+                                    <Label layoutX="25.0" layoutY="273.0" text="Email             :" textFill="WHITE">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="Front_name" layoutX="168.0" layoutY="269.0" prefHeight="32.0" prefWidth="230.0" textFill="WHITE">
+                                       <font>
+                                          <Font name="Tahoma" size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="dp_name" layoutX="170.0" layoutY="309.0" prefHeight="32.0" prefWidth="168.0" textFill="WHITE">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="23.0" layoutY="311.0" text="Department   :" textFill="WHITE">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="Mobile_number" layoutX="171.0" layoutY="346.0" prefHeight="32.0" prefWidth="168.0" textFill="WHITE">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="24.0" layoutY="348.0" text="Phone            :" textFill="WHITE">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Button layoutX="312.0" layoutY="484.0" mnemonicParsing="false" styleClass="noticebtn" stylesheets="@../css/style03.css" text="Notice">
+                                       <font>
+                                          <Font name="Tahoma Bold" size="20.0" />
+                                       </font>
+                                       <graphic>
+                                          <ImageView fitHeight="34.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@image/R%20(5).png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane layoutX="20.0" layoutY="173.0" prefHeight="200.0" prefWidth="373.0">
+                                 <children>
+                                    <Label layoutX="45.0" layoutY="77.0" text="WELCOME" textFill="WHITE">
+                                       <font>
+                                          <Font name="Arial" size="31.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="User_fullName" layoutX="46.0" layoutY="112.0" textFill="WHITE">
+                                       <font>
+                                          <Font size="22.0" />
+                                       </font>
+                                    </Label>
+                                    <Line endX="90.79998779296875" layoutX="176.0" layoutY="144.0" startX="-129.99996948242188" stroke="WHITE" strokeWidth="2.0" />
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="mydetailsform" layoutX="304.0" layoutY="89.0" prefHeight="0000" prefWidth="0000" styleClass="xxxx" stylesheets="" visible="false">
+                     <children>
+                        <AnchorPane layoutX="-7.0" layoutY="-4.0" prefHeight="615.0" prefWidth="908.0" styleClass="other-windows" stylesheets="@../css/style03.css">
+                           <children>
+                              <Line endX="632.5333251953125" layoutX="224.0" layoutY="16.0" startX="-173.60000610351562" stroke="WHITE" strokeWidth="2.0" />
+                              <Label layoutX="136.0" layoutY="444.0" text="Tel Number    :" textFill="WHITE">
+                                 <font>
+                                    <Font name="Tahoma Bold" size="17.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="137.0" layoutY="396.0" text="Gender           :" textFill="WHITE">
+                                 <font>
+                                    <Font name="Tahoma Bold" size="17.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="138.0" layoutY="345.0" text="Address          :" textFill="WHITE">
+                                 <font>
+                                    <Font name="Tahoma Bold" size="17.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="134.0" layoutY="295.0" text="Date Of Birth  :" textFill="WHITE">
+                                 <font>
+                                    <Font name="Tahoma Bold" size="17.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="135.0" layoutY="241.0" text="Email               :" textFill="WHITE">
+                                 <font>
+                                    <Font name="Tahoma Bold" size="17.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="134.0" layoutY="187.0" text="Department    :" textFill="WHITE">
+                                 <font>
+                                    <Font name="Tahoma Bold" size="17.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="132.0" layoutY="133.0" text="User number  :" textFill="WHITE">
+                                 <font>
+                                    <Font name="Tahoma Bold" size="17.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="numberdetails" layoutX="314.0" layoutY="441.0" prefHeight="28.0" prefWidth="293.0" textFill="WHITE">
+                                 <font>
+                                    <Font name="Tahoma Bold" size="17.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="genderdetails" layoutX="314.0" layoutY="394.0" prefHeight="28.0" prefWidth="262.0" textFill="WHITE">
+                                 <font>
+                                    <Font name="Tahoma Bold" size="17.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="addressdetails" layoutX="314.0" layoutY="345.0" prefHeight="28.0" prefWidth="440.0" textFill="WHITE">
+                                 <font>
+                                    <Font name="Tahoma Bold" size="17.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="birthdaydetails" layoutX="312.0" layoutY="294.0" prefHeight="28.0" prefWidth="248.0" textFill="WHITE">
+                                 <font>
+                                    <Font name="Tahoma Bold" size="17.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="emaildetails" layoutX="315.0" layoutY="239.0" prefHeight="28.0" prefWidth="514.0" textFill="WHITE">
+                                 <font>
+                                    <Font name="Tahoma Bold" size="17.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="departmentdetails" layoutX="315.0" layoutY="186.0" prefHeight="28.0" prefWidth="155.0" textFill="WHITE">
+                                 <font>
+                                    <Font name="Tahoma Bold" size="17.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="usernuberdetails" layoutX="315.0" layoutY="132.0" prefHeight="28.0" prefWidth="538.0" textFill="WHITE">
+                                 <font>
+                                    <Font name="Tahoma Bold" size="17.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="133.0" layoutY="83.0" text="Name              :" textFill="WHITE">
+                                 <font>
+                                    <Font name="Tahoma Bold" size="17.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="namedetails" layoutX="322.0" layoutY="82.0" prefHeight="28.0" prefWidth="538.0" textFill="WHITE">
+                                 <font>
+                                    <Font name="Tahoma Bold" size="17.0" />
+                                 </font>
+                              </Label>
+                           </children></AnchorPane>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="update_cdform" layoutX="362.0" layoutY="156.0" prefHeight="268.0" prefWidth="768.0" visible="false">
+                     <children>
+                        <Label layoutX="91.0" layoutY="76.0" prefHeight="23.0" prefWidth="83.0" text="Adress" textFill="WHITE">
+                           <font>
+                              <Font name="Tahoma" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="89.0" layoutY="125.0" text="Tel Number" textFill="WHITE">
+                           <font>
+                              <Font name="Tahoma" size="18.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="adressupdatepart" layoutX="275.0" layoutY="75.0" prefHeight="26.0" prefWidth="349.0" />
+                        <TextField fx:id="numberupdatepart" layoutX="275.0" layoutY="123.0" prefHeight="26.0" prefWidth="349.0" />
+                        <Button fx:id="Resetbtn_update" layoutX="438.0" layoutY="182.0" mnemonicParsing="false" onAction="#allClear" prefHeight="34.0" prefWidth="85.0" text="Reset" />
+                        <Button fx:id="Updatebtn_update" layoutX="539.0" layoutY="182.0" mnemonicParsing="false" onAction="#addProfileUpdate" prefHeight="34.0" prefWidth="85.0" text="Update" />
+                        <Label layoutX="91.0" layoutY="29.0" text="Email" textFill="WHITE">
+                           <font>
+                              <Font name="Tahoma" size="18.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="emailupdatepart" layoutX="275.0" layoutY="27.0" prefHeight="26.0" prefWidth="349.0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="updateprform" layoutX="394.0" layoutY="127.0" prefHeight="476.0" prefWidth="680.0" styleClass="" stylesheets="" visible="false">
+                     <children>
+                        <Circle fx:id="addTimetable_imageView" fill="DODGERBLUE" layoutX="353.0" layoutY="172.0" radius="128.0" stroke="BLACK" strokeType="INSIDE" />
+                        <Button fx:id="browsebtn" layoutX="160.0" layoutY="395.0" mnemonicParsing="false" onAction="#addTimetableUploadImage" prefHeight="30.0" prefWidth="100.0" text="Browse">
+                           <font>
+                              <Font name="Tahoma" size="19.0" />
+                           </font>
+                        </Button>
+                        <Button layoutX="299.0" layoutY="395.0" mnemonicParsing="false" onAction="#profileClear" prefHeight="30.0" prefWidth="100.0" text="Reset">
+                           <font>
+                              <Font name="Tahoma" size="19.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="addTimetable_ImageuploadBtn" layoutX="435.0" layoutY="395.0" mnemonicParsing="false" onAction="#ProfileUpdate" prefHeight="30.0" prefWidth="100.0" text="Update">
+                           <font>
+                              <Font name="Tahoma" size="19.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="atendanceform" layoutX="296.0" layoutY="14.0" prefHeight="688.0" prefWidth="908.0" styleClass="atendance" stylesheets="@../css/style03.css" visible="false">
+                     <children>
+                        <TableView fx:id="Attendance_table" layoutX="28.0" layoutY="57.0" prefHeight="554.0" prefWidth="850.0" stylesheets="@../css/style03.css">
+                          <columns>
+                            <TableColumn fx:id="columCourseCode" prefWidth="173.33340454101562" text="CourseCode" />
+                            <TableColumn fx:id="columuser_id" prefWidth="331.4665832519531" text="user_id" />
+                              <TableColumn fx:id="columState" prefWidth="189.06671142578125" text="State" />
+                              <TableColumn fx:id="columDate" prefWidth="157.59991455078125" text="Date" />
+                          </columns>
+                        </TableView>
+                        <Line endX="100.0" layoutX="728.0" layoutY="665.0" startX="-631.4000244140625" stroke="WHITE" strokeWidth="2.0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="medicalform" layoutX="296.0" layoutY="14.0" prefHeight="686.0" prefWidth="908.0" styleClass="atendance" stylesheets="@../css/style03.css" visible="false">
+                     <children>
+                        <TableView fx:id="medicalform1" layoutX="31.0" layoutY="41.0" onMouseClicked="#pdfSelect" prefHeight="598.0" prefWidth="850.0" stylesheets="@../css/style03.css">
+                           <columns>
+                              <TableColumn fx:id="columTitle1" prefWidth="173.33340454101562" text="Title" />
+                              <TableColumn fx:id="columdescription1" prefWidth="331.4665832519531" text="Description" />
+                              <TableColumn fx:id="columTDate1" prefWidth="189.06671142578125" text="Date" />
+                              <TableColumn fx:id="columDocument1" prefWidth="157.59991455078125" text="Document" />
+                           </columns>
+                        </TableView>
+                     </children></AnchorPane>
+                  <AnchorPane fx:id="coursewunitform" layoutX="293.0" layoutY="8.0" prefHeight="690.0" prefWidth="906.0" styleClass="atendance" stylesheets="@../css/style03.css" visible="false">
+                     <children>
+                        <TableView fx:id="Coursetable" layoutX="28.0" layoutY="65.0" prefHeight="554.0" prefWidth="850.0" stylesheets="@../css/style03.css">
+                           <columns>
+                              <TableColumn fx:id="CourseCode_course" prefWidth="173.33340454101562" text="CourseCode" />
+                              <TableColumn fx:id="CourseName_course" prefWidth="498.39990234375" text="Course Name" />
+                              <TableColumn fx:id="CourseType_course" prefWidth="180.79998779296875" text="Course Type" />
+                              <TableColumn fx:id="Meterials_course" minWidth="0.0" prefWidth="0.0" />
+                           </columns>
+                        </TableView>
+                     </children></AnchorPane>
+                  <AnchorPane fx:id="timetableform" layoutX="301.0" layoutY="9.0" prefHeight="690.0" prefWidth="900.0" styleClass="atendance" stylesheets="@../css/style03.css" visible="false">
+                     <children>
+                        <TableView fx:id="timetableform1" layoutX="27.0" layoutY="40.0" onMouseClicked="#pdfSelect" prefHeight="598.0" prefWidth="850.0" stylesheets="@../css/style03.css">
+                           <columns>
+                              <TableColumn fx:id="columTitle" prefWidth="173.33340454101562" text="Title" />
+                              <TableColumn fx:id="columdescription" prefWidth="331.4665832519531" text="Description" />
+                              <TableColumn fx:id="columTDate" prefWidth="189.06671142578125" text="Date" />
+                              <TableColumn fx:id="columDocument" prefWidth="157.59991455078125" text="Document" />
+                           </columns>
+                        </TableView>
+                     </children></AnchorPane>
+                  <AnchorPane fx:id="gpaform" layoutX="311.0" layoutY="19.0" prefHeight="690.0" prefWidth="900.0" styleClass="atendance" stylesheets="@../css/style03.css" visible="false">
+                     <children>
+                        <TableView layoutX="23.0" layoutY="35.0" onMouseClicked="#pdfSelect" prefHeight="598.0" prefWidth="850.0" stylesheets="@../css/style03.css">
+                           <columns>
+                              <TableColumn prefWidth="189.06671142578125" text="Date" />
+                           </columns>
+                        </TableView>
+                     </children></AnchorPane>
+                  <BorderPane prefHeight="710.0" prefWidth="1211.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <AnchorPane fx:id="noticeform" layoutX="314.0" layoutY="99.0" prefHeight="0000" prefWidth="0000" styleClass="xxxx" stylesheets="">
+                     <children>
+                        <AnchorPane layoutX="-18.0" layoutY="-14.0" prefHeight="615.0" prefWidth="908.0" styleClass="other-windows" stylesheets="@../css/style03.css">
+                           <children>
+                              <TableView layoutX="20.0" layoutY="64.0" onMouseClicked="#pdfSelect" prefHeight="532.0" prefWidth="862.0" stylesheets="@../css/style03.css">
+                                 <columns>
+                                    <TableColumn prefWidth="189.06671142578125" text="Date" />
+                                 </columns>
+                              </TableView>
+                              <Label layoutX="372.0" layoutY="6.0" text="Notice View" textFill="WHITE">
+                                 <font>
+                                    <Font name="Tahoma Bold" size="20.0" />
+                                 </font>
+                              </Label>
+                              <Line endX="37.7999267578125" layoutX="462.0" layoutY="54.0" startX="-100.0" stroke="WHITE" strokeWidth="2.0" />
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </AnchorPane>
                </children>
             </AnchorPane>
-         </center>
-      </BorderPane>
+         </children>
+      </AnchorPane>
    </children>
-</AnchorPane>
+</StackPane>

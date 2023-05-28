@@ -70,11 +70,35 @@
 
 }
 .atendance{
-     -fx-background-color:#001a33;
+     -fx-background-color: #164e83;
+     -fx-background-radius:20px 20px 20px 20px;
 }
 .form-color{
     -fx-background-color: #164e83;
     -fx-background-radius:15px;
+}
+.table-view{
+
+    -fx-border-color: transparent;
+    -fx-border-width: 2px;
+    -fx-border-radius: 20px ;
+    -fx-font-size:18px;
+    -fx-background-radius: 20px 20px 20px 20px;
+
+}
+.table-view .column-header-background{
+    -fx-background-color:linear-gradient(to bottom left,#000, #001a33);
+    -fx-background-radius: 20px 20px 0px 0px;
+    -fx-background-insets: 0 0 0 0;
+}
+
+.table-view .column-header, .filter{
+    -fx-background-color: transparent;
+    -fx-size:45px;
+}
+.table-view .column-header .label{
+    -fx-text-fill: #fff;
+
 }
 
 .attendence-view-box{
@@ -91,5 +115,12 @@
 
 .table{
     -fx-background-color:black;
+}
+.noticebtn{
+
+    -fx-background-color:transparent;
+        -fx-text-fill:#fff;
+        -fx-font-size:18px;
+        -fx-font-family:"Arial";
 }
 
