@@ -1,8 +1,8 @@
 package com.tecmis.project.Technical_Officer;
 
 import animatefx.animation.FadeIn;
-import com.tecmis.project.Admin.Profiles.profileController;
 import com.tecmis.project.Admin.getData;
+import com.tecmis.project.Technical_Officer.TechProfile.techProfileControllerX;
 import com.tecmis.project.UserSession;
 import com.tecmis.project.connection_DB.JDBC;
 import javafx.collections.FXCollections;
@@ -14,20 +14,16 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.control.TextArea;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.ImagePattern;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.scene.control.Label;
 
-import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -60,7 +56,11 @@ public class technical_officerController implements Initializable {
     private Parent root;
 
 
+    @FXML
+    private Label UploadSuccessfullTEXT;
 
+    @FXML
+    private TextField addUser_userCourseC;
 
     @FXML
     void addProfileUpdate(ActionEvent event) {
@@ -74,29 +74,7 @@ public class technical_officerController implements Initializable {
 
 
     @FXML
-    private ImageView notice_img1;
-
-    @FXML
-    private Label notice_head1;
-
-    @FXML
-    private TextArea notice_body1;
-
-    @FXML
-    private TextField notice_date1;
-
-    @FXML
-    private ImageView notice_img2;
-
-    @FXML
-    private Label notice_head2;
-
-    @FXML
-    private TextArea notice_body2;
-
-    @FXML
-    private TextField notice_date2;
-
+    private ComboBox<?> addUser_CourseL;
 
     @FXML
     private Button btnimportimage;
@@ -194,81 +172,66 @@ public class technical_officerController implements Initializable {
     private ResultSet result;
     private Image image;
 
-    @FXML
-    void initialize() {
-        assert btnProfile != null : "fx:id=\"btnProfile\" was not injected: check your FXML file 'technical_officer.fxml'.";
-        assert btnAttendence != null : "fx:id=\"btnAttendence\" was not injected: check your FXML file 'technical_officer.fxml'.";
-        assert btnMedical != null : "fx:id=\"btnMedical\" was not injected: check your FXML file 'technical_officer.fxml'.";
-        assert btnNotice != null : "fx:id=\"btnNotice\" was not injected: check your FXML file 'technical_officer.fxml'.";
-        assert btnTimetable != null : "fx:id=\"btnTimetable\" was not injected: check your FXML file 'technical_officer.fxml'.";
-        assert btnMain != null : "fx:id=\"btnMain\" was not injected: check your FXML file 'technical_officer.fxml'.";
-        assert mainform != null : "fx:id=\"mainform\" was not injected: check your FXML file 'technical_officer.fxml'.";
-        assert profileform != null : "fx:id=\"profileform\" was not injected: check your FXML file 'technical_officer.fxml'.";
-        assert attendenceform != null : "fx:id=\"attendenceform\" was not injected: check your FXML file 'technical_officer.fxml'.";
-        assert medicalform != null : "fx:id=\"medicalform\" was not injected: check your FXML file 'technical_officer.fxml'.";
-        assert noticeform != null : "fx:id=\"noticeform\" was not injected: check your FXML file 'technical_officer.fxml'.";
-        assert timetableform != null : "fx:id=\"timetableform\" was not injected: check your FXML file 'technical_officer.fxml'.";
+
+
+
+
+
+    public void addTechDepartmentList(){
+
+        String listDepartment = "SELECT * FROM department";
+
+        connect = JDBC.getConnection();
+
+        try {
+
+            ObservableList listC = FXCollections.observableArrayList();
+
+            prepare = connect.prepareStatement(listDepartment);
+            result = prepare.executeQuery();
+
+            while (result.next()){
+                listC.add(result.getString("department_id"));
+            }
+            addUser_DepartmentListC.setItems(listC);
+
+        }catch (Exception e){e.printStackTrace();}
+
+
 
     }
-//
-//
-//
-//
-//    public void addLecDepartmentList(){
-//
-//        String listDepartment = "SELECT * FROM department";
-//
-//        connect = JDBC.getConnection();
-//
-//        try {
-//
-//            ObservableList listC = FXCollections.observableArrayList();
-//
-//            prepare = connect.prepareStatement(listDepartment);
-//            result = prepare.executeQuery();
-//
-//            while (result.next()){
-//                listC.add(result.getString("department_id"));
-//            }
-//            addUser_DepartmentListC.setItems(listC);
-//
-//        }catch (Exception e){e.printStackTrace();}
-//
-//
-//
-//    }
-//
-//
-//    private String[] roleList = {"Admin", "Lecturer", "Technical_Officer", "Student"};
-//    public void addLecProfileRoleList(){
-//
-//        java.util.List<String> roleL = new ArrayList<>();
-//
-//        for(String data: roleList){
-//            roleL.add(data);
-//        }
-//
-//        ObservableList ObList = FXCollections.observableArrayList(roleL);
-//        addUser_roleC.setItems(ObList);
-//    }
-//
-//
-//
-//    private String[] genderList = {"Males", "Female", "Other"};
-//    public void addlecGenList(){
-//
-//
-//        List<String> genderL = new ArrayList<>();
-//
-//        for(String data: genderList){
-//            genderL.add(data);
-//        }
-//
-//        ObservableList ObList = FXCollections.observableArrayList(genderL);
-//
-//     addUser_genderC.setItems(ObList);
-//
-//    }
+
+
+    private String[] roleList = {"Admin", "Lecturer", "Technical_Officer", "Student"};
+    public void addTechProfileRoleList(){
+
+        java.util.List<String> roleL = new ArrayList<>();
+
+        for(String data: roleList){
+            roleL.add(data);
+        }
+
+        ObservableList ObList = FXCollections.observableArrayList(roleL);
+        addUser_roleC.setItems(ObList);
+    }
+
+
+
+    private String[] genderList = {"Males", "Female", "Other"};
+    public void addTechGenList(){
+
+
+        List<String> genderL = new ArrayList<>();
+
+        for(String data: genderList){
+            genderL.add(data);
+        }
+
+        ObservableList ObList = FXCollections.observableArrayList(genderL);
+
+     addUser_genderC.setItems(ObList);
+
+    }
 
 
     public void SignOutButtonAction(ActionEvent event)throws IOException
@@ -307,156 +270,23 @@ public class technical_officerController implements Initializable {
 
 
 
-    public void switchForm(ActionEvent event) {
-        if (event.getSource()==btnProfile){
-            profileform.setVisible(true);
-            attendenceform.setVisible(false);
-            medicalform.setVisible(false);
-            noticeform.setVisible(false);
-            timetableform.setVisible(false);
-            mainform.setVisible(false);
-//
-//
-//            btnMedical.setStyle("-fx-background-color: #d62651;");
-//            btnProfile.setStyle("-fx-background-color: transparent");
-//            btnAttendence.setStyle("-fx-background-color: transparent");
-//            btnNotice.setStyle("-fx-background-color: transparent");
-//            btnTimetable.setStyle("-fx-background-color: transparent");
-//
-//
-////
-////            DashboardDisplayNumberofUser();
-////            DashboardDisplayNumberofStduntUser();
-////            DashboardDisplayNumberofLecturerUser();
-////            DashboardDisplayNumberOfUserChart();
-////            DashboardDisplayNumberOfUserRoleChart();
-////            DashboardDisplayNumberOfUserChart2();
-//
-//
-//
-    } else if (event.getSource()==btnAttendence) {
-            profileform.setVisible(false);
-            attendenceform.setVisible(true);
-            medicalform.setVisible(false);
-            noticeform.setVisible(false);
-            timetableform.setVisible(false);
-            mainform.setVisible(false);
-//
-//
-//            btnProfile.setStyle("-fx-background-color:transparent ;");
-//            btnMedical.setStyle("-fx-background-color: #d62651");
-//            btnAttendence.setStyle("-fx-background-color: transparent");
-//            btnNotice.setStyle("-fx-background-color: transparent");
-//            btnTimetable.setStyle("-fx-background-color: transparent");
-//
-//
-//
-//            //to become updared once you click the add stuydent button on nav
-            addProfileshowData();
-//          addProfileRoleList();
-//           addProfileGenderList();
-////            addProfileCourseList();
-////            addProfileDepartmentList();
-////            addProfilesSearch();
-//
-      } else if (event.getSource()==btnMedical) {
-           profileform.setVisible(false);
-           attendenceform.setVisible(false);
-           medicalform.setVisible(true);
-           noticeform.setVisible(false);
-           timetableform.setVisible(false);
-           mainform.setVisible(false);
-//
-//
-//
-//            btnMedical.setStyle("-fx-background-color:transparent ;");
-//            btnProfile.setStyle("-fx-background-color: transparent");
-//            btnAttendence.setStyle("-fx-background-color: #d62651");
-//            btnNotice.setStyle("-fx-background-color: transparent");
-//            btnTimetable.setStyle("-fx-background-color: transparent");
-//
-////
-////            availableCourseShowData();
-////            availableCourseSearch();
-//
-//
-//
-       }else if (event.getSource()==btnNotice) {
-            profileform.setVisible(false);
-            attendenceform.setVisible(false);
-            medicalform.setVisible(false);
-            noticeform.setVisible(true);
-            timetableform.setVisible(false);
-            mainform.setVisible(false);
-//
-//
-//
-//            btnMain.setStyle("-fx-background-color:transparent ;");
-//            btnProfile.setStyle("-fx-background-color: transparent");
-//            btnMedical.setStyle("-fx-background-color: transparent");
-//            btnNotice.setStyle("-fx-background-color: #d62651");
-//            btnAttendence.setStyle("-fx-background-color: transparent");
-//            btnTimetable.setStyle("-fx-background-color: transparent");
-//
-//
-////            addNoticeShowData();
-////            addNoticeSearch();
-//
-//
-        }else if (event.getSource()==btnTimetable) {
-           profileform.setVisible(false);
-           attendenceform.setVisible(false);
-           medicalform.setVisible(false);
-           noticeform.setVisible(false);
-           timetableform.setVisible(true);
-           mainform.setVisible(false);
 
 
-        }else if (event.getSource()==btnMain) {
-            profileform.setVisible(false);
-            attendenceform.setVisible(false);
-            medicalform.setVisible(false);
-            noticeform.setVisible(false);
-            timetableform.setVisible(false);
-            mainform.setVisible(true);
+    public ObservableList<techProfileControllerX> addProfileController(){
+        ObservableList<techProfileControllerX> listProfileController = FXCollections.observableArrayList();
 
-
-
-//
-//
-//            btnAttendence.setStyle("-fx-background-color:transparent ;");
-//            btnProfile.setStyle("-fx-background-color: transparent");
-//            btnMedical.setStyle("-fx-background-color: transparent");
-//            btnNotice.setStyle("-fx-background-color: transparent");
-//            btnTimetable.setStyle("-fx-background-color: #d62651");
-
-//            addTimetableShowData();
-//            addTimetableSearch();
-//            addProfileDepartmentList();
-
-
-        }
-
-    }
-
-
-
-    public ObservableList<profileController> addProfileController(){
-        ObservableList<profileController> listProfileController = FXCollections.observableArrayList();
-
-        String sql = "SELECT * FROM USER WHERE user_id='" + UserSession.getUserId() + "'";
-
+        String sql = "SELECT * FROM user WHERE user_id = '"+ UserSession.getUserId() +"'";
 
         connect = JDBC.getConnection();
 
         try {
 
-            profileController profileCD;
+            techProfileControllerX profileCD;
             prepare = connect.prepareStatement(sql);
             result = prepare.executeQuery();
 
             while (result.next()){
-                profileCD = new profileController(result.getString("user_role")
+                profileCD = new techProfileControllerX(result.getString("user_role")
                         , result.getString("user_id")
                         , result.getString("user_password")
                         , result.getString("course_id")
@@ -482,21 +312,15 @@ public class technical_officerController implements Initializable {
         }
         return listProfileController;
     }
-
-    private ObservableList<profileController> addProfileCD;
+    private ObservableList<techProfileControllerX> addProfileCD;
 
 
     public void addProfileshowData() {
-        addProfileCD =  addProfileController();
+        addProfileCD = addProfileController();
 
-
-
-        for (profileController profileCD : addProfileCD) {
-
+        for (techProfileControllerX profileCD : addProfileCD) {
             addUser_useridC.setText(String.valueOf(profileCD.getUser_id()));
-
-       //   addUser_CourseCxxx.setText(String.valueOf(profileCD.getCourse_id()));
-
+            addUser_userCourseC.setText(String.valueOf(profileCD.getCourse_id()));
             addUser_PasswordC.setText(String.valueOf(profileCD.getUser_password()));
             addUser_EmailC.setText(String.valueOf(profileCD.getEmail()));
             addUser_FirstNameC.setText(String.valueOf(profileCD.getFirst_name()));
@@ -505,44 +329,55 @@ public class technical_officerController implements Initializable {
             addUser_AddressC.setText(String.valueOf(profileCD.getAddress()));
             addUser_tpNumberC.setText(String.valueOf(profileCD.getTp_number()));
 
+            String userRole = profileCD.getUser_role();
+            if (userRole.equals("Admin")) {
+                addUser_roleC.getSelectionModel().select(0);
+            } else if (userRole.equals("Lecturer")) {
+                addUser_roleC.getSelectionModel().select(1);
+            } else if (userRole.equals("Technical_Officer")) {
+                addUser_roleC.getSelectionModel().select(2);
+            } else {
+                addUser_roleC.getSelectionModel().select(3);
+            }
 
+            // Select the appropriate gender
+            String gender = profileCD.getSex();
+            if (gender.equals("Males")) {
+                addUser_genderC.getSelectionModel().select(0);
+            } else if (gender.equals("Female")) {
+                addUser_genderC.getSelectionModel().select(1);
+            } else {
+                addUser_genderC.getSelectionModel().select(2);
+            }
 
-            if (profileCD.getUser_id().equals("admin001") || profileCD.getUser_id().equals("admin002")) {
+            // Uncomment and modify the following code for selecting the course
+        /*
+        String course = profileCD.getCourse_id();
+        if (course.equals("BBT")) {
+            addUser_CourseL.getSelectionModel().select(0);
+        } else if (course.equals("BET")) {
+            addUser_CourseL.getSelectionModel().select(1);
+        } else if (course.equals("BICT")) {
+            addUser_CourseL.getSelectionModel().select(2);
+        } else {
+            addUser_CourseL.getSelectionModel().select(3);
+        }
+        */
+
+            // Select the appropriate department
+            String department = profileCD.getDepartment_id();
+            if (department.equals("DBT")) {
                 addUser_DepartmentListC.getSelectionModel().select(0);
-            } else if (profileCD.getUser_id().equals("lec001") || profileCD.getUser_id().equals("lec002") || profileCD.getUser_id().equals("lec003")) {
+            } else if (department.equals("DET")) {
                 addUser_DepartmentListC.getSelectionModel().select(1);
-            } else if (profileCD.getUser_id().equals("techoff001") || profileCD.getUser_id().equals("techoff002")) {
+            } else if (department.equals("DICT")) {
                 addUser_DepartmentListC.getSelectionModel().select(2);
             } else {
                 addUser_DepartmentListC.getSelectionModel().select(3);
             }
 
-            if (profileCD.getSex().equals("Males")) {
-                addUser_genderC.getSelectionModel().select(0);
-            } else if (profileCD.getSex().equals("Female")) {
-                addUser_genderC.getSelectionModel().select(1);
-            } else {
-                addUser_genderC.getSelectionModel().select(2);
-            }
-////
-//           if(profileCD.getUser_id().equals("admin001 || admin002")){
-//                addUser_DepartmentListC.getSelectionModel().select(0);
-//            } else if (profileCD.getUser_id().equals("lec001 || lec002 || lec003")) {
-//               addUser_DepartmentListC.getSelectionModel().select(1);
-//            }else if (profileCD.getUser_id().equals("techoff001 || techoff002")) {
-//               addUser_DepartmentListC.getSelectionModel().select(2);
-//            }else{
-//               addUser_DepartmentListC.getSelectionModel().select(3);
-//            }
-//
-//            if(profileCD.getSex().equals("Males")){
-//                addUser_genderC.getSelectionModel().select(0);
-//            } else if (profileCD.getSex().equals("Female")) {
-//                addUser_genderC.getSelectionModel().select(1);
-//            }else{
-//                addUser_genderC.getSelectionModel().select(2);
-//            }
-////
+
+
 
 
             String uri = "file:" + profileCD.getProfile_image();
@@ -554,85 +389,9 @@ public class technical_officerController implements Initializable {
     }
 
 
-    public ObservableList<noticeController> addnoticeController(){
-        ObservableList<noticeController> listnoticeController = FXCollections.observableArrayList();
-
-        String sql = "SELECT * FROM NOTICE WHERE notice_id='" + NoticeSession.getnotice_id() + "'";
 
 
-        connect = JDBC.getConnection();
 
-        try {
-
-            noticeController noticeCD;
-            prepare = connect.prepareStatement(sql);
-            result = prepare.executeQuery();
-
-            while (result.next()){
-                profileCD = new profileController(result.getString("user_role")
-                        , result.getString("user_id")
-                        , result.getString("user_password")
-                        , result.getString("course_id")
-                        , result.getString("department_id")
-                        , result.getString("first_name")
-                        , result.getString("last_name")
-                        , result.getString("email")
-                        , result.getDate("dob")
-                        , result.getString("sex")
-                        , result.getString("address")
-                        , result.getString("tp_number")
-                        , result.getString("profile_image")
-                        , result.getDate("date")
-                        , result.getString("upnonupuserIMG")
-
-                );
-
-                listProfileController.add(profileCD);
-            }
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return listProfileController;
-    }
-
-
-    private ObservableList<noticeController> addNoticeCD;
-    public void noticeShowData()
-    {
-        addNoticeCD = addnoticeController();
-
-        for (noticeController NoticeCD : addNoticeCD) {
-
-            if (NoticeCD.getnotice_id().equals("Not001")){
-                notice_head1.setText(String.valueOf(noticeCD.getnotice_name()));
-                notice_body1.setText(String.valueOf(noticeCD.getbodyof_notice()));
-                notice_date1.setText(String.valueOf(noticeCD.getnotice_createdate()));
-
-                String uri = "file:" + noticeCD.getnotice_imagepdf();
-                image = new Image(uri, 0, 0, true, false);
-                notice_img1.setFill(new ImagePattern(image));
-
-                getData.path = NoticeCD.getnotice_imagepdf();
-
-            }else if (NoticeCD.getnotice_id().equals("Not002")){
-                notice_head2.setText(String.valueOf(NoticeCD.getnotice_name()));
-                notice_body2.setText(String.valueOf(NoticeCD.getbodyof_notice()));
-                notice_date2.setText(String.valueOf(NoticeCD.getnotice_createdate()));
-
-                String uri = "file:" + NoticeCD.getnotice_imagepdf();
-                image = new Image(uri, 0, 0, true, false);
-                notice_img2.setFill(new ImagePattern(image));
-
-                getData.path = NoticeCD.getnotice_imagepdf();
-
-            }
-
-
-        }
-
-
-    }
 
     public void addProfileUploadImage(){
 
@@ -662,17 +421,17 @@ public class technical_officerController implements Initializable {
 
     public  void addProfileUpdatex(){
 
+
         String uri = getData.path;
         uri = uri.replace("\\", "\\\\");
-
 
 
 
         String updateData = "UPDATE user SET "
                 + "user_password  = '"+ addUser_PasswordC.getText()
                 + "', department_id = '"+ addUser_DepartmentListC.getSelectionModel().getSelectedItem()
-//                + "', user_role = '"+ addUser_roleC.getSelectionModel().getSelectedItem()
-//                + "', course_id = '"+ addUser_CourseCxxx.getText()
+                + "', user_role = '"+ addUser_roleC.getSelectionModel().getSelectedItem()
+                + "', course_id = '"+ addUser_userCourseC.getText()
                 + "', email = '"+ addUser_EmailC.getText()
                 + "', first_name = '"+ addUser_FirstNameC.getText()
                 + "', last_name = '"+ addUser_LastNameC.getText()
@@ -691,21 +450,20 @@ public class technical_officerController implements Initializable {
             Alert alert;
             if (addUser_useridC.getText().isEmpty()
                     || addUser_PasswordC.getText().isEmpty()
-//                    || addUser_roleC.getSelectionModel().getSelectedItem() == null
-//                    || addUser_CourseCxxx.getSelectionModel().getSelectedItem() == null
+                    || addUser_roleC.getSelectionModel().getSelectedItem() == null
+                    || addUser_userCourseC.getText().isEmpty()
+                    || addUser_DepartmentListC.getSelectionModel().getSelectedItem() == null
+                    || addUser_EmailC.getText().isEmpty()
                     || addUser_FirstNameC.getText().isEmpty()
                     || addUser_LastNameC.getText().isEmpty()
-                    || addUser_EmailC.getText().isEmpty()
+                    || addUser_dobC.getValue() == null
+                    || addUser_genderC.getSelectionModel().getSelectedItem() == null
                     || addUser_AddressC.getText().isEmpty()
                     || addUser_tpNumberC.getText().isEmpty()
-                    || addUser_genderC.getSelectionModel().getSelectedItem() == null
-                    || addUser_DepartmentListC.getSelectionModel().getSelectedItem() == null
-                    || addUser_dobC.getValue() == null
+                    || getData.path == null || getData.path == ("") ){
 
-                    || getData.path == null || getData.path == "" ){
-
-                UserDataEnterArea.setStyle("-fx-border-color:red;-fx-border-width:2px;"); // filed color red
-                new animatefx.animation.Bounce(UserDataEnterArea).play();
+                profileform.setStyle("-fx-border-color:red;-fx-border-width:2px;"); // filed color red
+                new animatefx.animation.Bounce(profileform).play();
                 alert= new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error Message");
                 alert.setHeaderText(null);
@@ -722,8 +480,11 @@ public class technical_officerController implements Initializable {
                 Optional<ButtonType> option = alert.showAndWait();
 
                 if (option.get().equals(ButtonType.OK)){
-                    statement = connect.createStatement();
-                 statement.executeUpdate(updateData);
+
+                    UploadSuccessfullTEXT.setText("Upload Successfull 👍");
+
+//                    statement = connect.createStatement();
+//                    statement.executeUpdate(updateData);
 
                     String upnonupprofile = (uri != null) ? "Updated" : "Non Updated";
                     PreparedStatement preparedStatement = JDBC.getConnection().prepareStatement(updateData);
@@ -732,7 +493,7 @@ public class technical_officerController implements Initializable {
                     preparedStatement.close();
 
 
-                    UserDataEnterArea.setStyle(null);
+                    profileform.setStyle(null);
                     alert= new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Information Message");
                     alert.setHeaderText(null);
@@ -743,13 +504,13 @@ public class technical_officerController implements Initializable {
                     addProfileshowData();
 
                     //to clear the fields
-                   addProfileClear();
+                    addProfileClearX();
 
                     //to search th fields
-                    //addProfilesSearch();
+//                    addProfilesSearch();
 
                     //main front image and name
-                    //loadUserData();
+                    loadUserData();
 
 
 
@@ -760,11 +521,9 @@ public class technical_officerController implements Initializable {
     }
 
 
-    public void addProfileClear(){
+    public void addProfileClearX(){
         addUser_useridC.setText("");
         addUser_PasswordC.setText("");
-       //addUser_roleC.getSelectionModel().clearSelection();
-      //  addUser_CourseC.getSelectionModel().clearSelection();
         addUser_DepartmentListC.getSelectionModel().clearSelection();
         addUser_EmailC.setText("");
         addUser_FirstNameC.setText("");
@@ -775,36 +534,111 @@ public class technical_officerController implements Initializable {
         addUser_tpNumberC.setText("");
         add_userimageC2.setFill(null);
         getData.path = "";
-        UserDataEnterArea.setStyle(null);
+        UploadSuccessfullTEXT.setText("");
+        profileform.setStyle(null);
         addUser_useridC.setStyle(null);
-        //addProfile_SearchC.setText("");
         btnimportimage.setStyle(null);
-
-        //addProfilesSearch();
+        addUser_roleC.setItems(null);
+        addUser_userCourseC.setText("");
     }
 
 
 
 
+    public void switchForm(ActionEvent event) {
+
+        if (event.getSource()==btnProfile){
+            profileform.setVisible(true);
+            attendenceform.setVisible(false);
+            medicalform.setVisible(false);
+            noticeform.setVisible(false);
+            timetableform.setVisible(false);
+            mainform.setVisible(false);
+
+            addTechDepartmentList();
+            addTechProfileRoleList();
+            addTechGenList();
+
+
+            addProfileshowData();
 
 
 
 
 
-//    public void loadUserData(){
-//
-//
-//        try {
-//
-//
-//            connection = JDBC.getConnection();
-//            query = "SELECT * FROM user WHERE user_id = '"+ UserSession.getUserId() +"'";
-//            preparedStatement = connection.prepareStatement(query);
-//            resultSet = preparedStatement.executeQuery();
-//
-//
-//            while (resultSet.next()){
-//
+
+        } else if (event.getSource()==btnAttendence) {
+            profileform.setVisible(false);
+            attendenceform.setVisible(true);
+            medicalform.setVisible(false);
+            noticeform.setVisible(false);
+            timetableform.setVisible(false);
+            mainform.setVisible(false);
+
+            addProfileshowData();
+
+        } else if (event.getSource()==btnMedical) {
+            profileform.setVisible(false);
+            attendenceform.setVisible(false);
+            medicalform.setVisible(true);
+            noticeform.setVisible(false);
+            timetableform.setVisible(false);
+            mainform.setVisible(false);
+
+            addProfileshowData();
+
+        }else if (event.getSource()==btnNotice) {
+            profileform.setVisible(false);
+            attendenceform.setVisible(false);
+            medicalform.setVisible(false);
+            noticeform.setVisible(true);
+            timetableform.setVisible(false);
+            mainform.setVisible(false);
+            addProfileshowData();
+
+
+        }else if (event.getSource()==btnTimetable) {
+            profileform.setVisible(false);
+            attendenceform.setVisible(false);
+            medicalform.setVisible(false);
+            noticeform.setVisible(false);
+            timetableform.setVisible(true);
+            mainform.setVisible(false);
+
+            addProfileshowData();
+
+
+
+        }else if (event.getSource()==btnMain) {
+            profileform.setVisible(false);
+            attendenceform.setVisible(false);
+            medicalform.setVisible(false);
+            noticeform.setVisible(false);
+            timetableform.setVisible(false);
+            mainform.setVisible(true);
+
+            addProfileshowData();
+
+
+        }
+
+    }
+
+
+    public void loadUserData(){
+
+
+        try {
+
+
+            connection = JDBC.getConnection();
+            query = "SELECT * FROM user WHERE user_id = '"+ UserSession.getUserId() +"'";
+            preparedStatement = connection.prepareStatement(query);
+            resultSet = preparedStatement.executeQuery();
+
+
+            while (resultSet.next()){
+
 //                UploadResultArea.setText(resultSet.getString("first_name") + " " + resultSet.getString("last_name") );
 //
 //                String uri = "file:" + resultSet.getString("profile_image");
@@ -812,13 +646,13 @@ public class technical_officerController implements Initializable {
 //
 ////                addLec_imageViewxxx.setFill(new ImagePattern(image));
 //                UserImage_ViewCircle.setFill(new ImagePattern(image));
-//            }
-//
-//        }catch (Exception e){e.printStackTrace();
-//        }
-//
-//    }
-//
+            }
+
+        }catch (Exception e){e.printStackTrace();
+        }
+
+    }
+
 
 
 
@@ -841,12 +675,19 @@ public class technical_officerController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
         addProfileshowData();
 
-       // addLecDepartmentList();
-    // addLecProfileRoleList();
-     //addlecGenList();
+        addTechDepartmentList();
+        addTechProfileRoleList();
+        addTechGenList();
+
+
+        addProfileshowData();
+        loadUserData();
+
+
+
+
 
     }
 
