@@ -6,7 +6,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -188,13 +187,17 @@
                                     </ImageView>
                                  </children>
                               </AnchorPane>
-                              <TableView layoutX="45.0" layoutY="121.0" prefHeight="541.0" prefWidth="868.0">
+                              <TableView fx:id="addNotice_tableView" layoutX="45.0" layoutY="98.0" prefHeight="299.0" prefWidth="868.0">
                                 <columns>
-                                  <TableColumn prefWidth="75.0" text="C1" />
-                                  <TableColumn prefWidth="75.0" text="C2" />
-                                    <TableColumn prefWidth="75.0" text="C2" />
+                                  <TableColumn fx:id="addNotice_C_noticeID" prefWidth="112.0" text="Notice_Id" />
+                                  <TableColumn fx:id="addNotice_C_noticeName" prefWidth="156.0" text="Notice_Name" />
+                                    <TableColumn fx:id="add_nBody" minWidth="0.0" prefWidth="180.0" text="Notice_Body" />
+                                    <TableColumn fx:id="addNotice_C_imagepdf" prefWidth="178.0" text="Notice_Image" />
+                                    <TableColumn fx:id="NCreateDate" prefWidth="132.0" text="Create_Date" />
+                                    <TableColumn fx:id="nStatus" minWidth="0.0" prefWidth="105.0" text="Notice_Status" />
                                 </columns>
                               </TableView>
+                              <Rectangle fx:id="addNotice_imageViewNew" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="200.0" layoutX="378.0" layoutY="458.0" stroke="WHITE" strokeType="INSIDE" width="200.0" />
                            </children></AnchorPane>
                      </children>
                   </AnchorPane>
@@ -212,51 +215,18 @@
                                     </ImageView>
                                  </children>
                               </AnchorPane>
-                              <AnchorPane layoutX="14.0" layoutY="89.0" prefHeight="298.0" prefWidth="932.0" style="-fx-border-color: red;">
-                                 <children>
-                                    <AnchorPane layoutX="14.0" layoutY="14.0" prefHeight="271.0" prefWidth="443.0" styleClass="technical_officer" stylesheets="@../css/stylesheet.css">
-                                       <children>
-                                          <ImageView fitHeight="244.0" fitWidth="431.0" layoutX="40.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../image/noticeandtimetable/timetable/t1.jpg" />
-                                             </image>
-                                          </ImageView>
-                                       </children>
-                                    </AnchorPane>
-                                    <AnchorPane layoutX="466.0" layoutY="14.0" prefHeight="274.0" prefWidth="455.0" style="-fx-border-color: black;">
-                                       <children>
-                                          <Label layoutX="49.0" layoutY="23.0" scaleX="2.0" scaleY="2.0" text="Department:" />
-                                          <Label layoutX="46.0" layoutY="93.0" scaleX="2.0" scaleY="2.0" text="Timetable:" />
-                                          <Label layoutX="50.0" layoutY="194.0" scaleX="2.0" scaleY="2.0" text="Create Date:" />
-                                          <TextArea layoutX="246.0" layoutY="14.0" prefHeight="18.0" prefWidth="130.0" scaleX="2.0" style="-fx-border-color: red;" styleClass="texbox2" stylesheets="@../css/stylesheet.css" text="DICT" />
-                                          <TextArea layoutX="244.0" layoutY="84.0" prefHeight="53.0" prefWidth="126.0" scaleX="2.0" style="-fx-border-color: red;" styleClass="texbox2" stylesheets="@../css/stylesheet.css" text="ICT All Student&#10; Timetable" />
-                                          <TextArea layoutX="244.0" layoutY="180.0" prefHeight="46.0" prefWidth="127.0" scaleX="2.0" style="-fx-border-color: red;" styleClass="texbox2" stylesheets="@../css/stylesheet.css" text="2023-03-24" />
-                                       </children></AnchorPane>
-                                 </children>
-                              </AnchorPane>
-                              <AnchorPane layoutX="14.0" layoutY="398.0" prefHeight="298.0" prefWidth="932.0" style="-fx-border-color: red;">
-                                 <children>
-                                    <AnchorPane layoutX="14.0" layoutY="14.0" prefHeight="271.0" prefWidth="443.0" styleClass="technical_officer" stylesheets="@../css/stylesheet.css">
-                                       <children>
-                                          <ImageView fitHeight="244.0" fitWidth="431.0" layoutX="40.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../image/noticeandtimetable/timetable/t1.jpg" />
-                                             </image>
-                                          </ImageView>
-                                       </children>
-                                    </AnchorPane>
-                                    <AnchorPane layoutX="466.0" layoutY="13.0" prefHeight="274.0" prefWidth="455.0" style="-fx-border-color: black;">
-                                       <children>
-                                          <Label layoutX="49.0" layoutY="23.0" scaleX="2.0" scaleY="2.0" text="Department:" />
-                                          <Label layoutX="46.0" layoutY="93.0" scaleX="2.0" scaleY="2.0" text="Timetable:" />
-                                          <Label layoutX="50.0" layoutY="194.0" scaleX="2.0" scaleY="2.0" text="Create Date:" />
-                                          <TextArea layoutX="246.0" layoutY="14.0" prefHeight="18.0" prefWidth="130.0" scaleX="2.0" style="-fx-border-color: red;" styleClass="texbox2" stylesheets="@../css/stylesheet.css" text="STAFF" />
-                                          <TextArea layoutX="250.0" layoutY="76.0" prefHeight="53.0" prefWidth="125.0" scaleX="2.0" style="-fx-border-color: red;" styleClass="texbox2" stylesheets="@../css/stylesheet.css" text="STAFF ONLY &#10;Timetable" />
-                                          <TextArea layoutX="251.0" layoutY="180.0" prefHeight="46.0" prefWidth="126.0" scaleX="2.0" style="-fx-border-color: red;" styleClass="texbox2" stylesheets="@../css/stylesheet.css" text="2023-03-24" />
-                                       </children>
-                                    </AnchorPane>
-                                 </children>
-                              </AnchorPane>
+                              <TableView fx:id="addTimetable_tableView" layoutX="37.0" layoutY="105.0" prefHeight="313.0" prefWidth="886.0">
+                                <columns>
+                                  <TableColumn fx:id="timetable_id" prefWidth="107.0" text="Timetable_Id" />
+                                  <TableColumn fx:id="dept_id" prefWidth="119.0" text="Department_Id" />
+                                    <TableColumn fx:id="timetable_name" prefWidth="128.0" text="Timetable_Name" />
+                                    <TableColumn fx:id="timetable_date" prefWidth="119.0" text="Create_Date" />
+                                    <TableColumn fx:id="timetable_img" prefWidth="223.0" text="Image_loc" />
+                                    <TableColumn fx:id="pdf_status" prefWidth="99.0" text="Pdf_Status" />
+                                    <TableColumn fx:id="image_status" prefWidth="102.0" text="Image_Status" />
+                                </columns>
+                              </TableView>
+                              <Rectangle fx:id="addTimetable_imageView" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="200.0" layoutX="340.0" layoutY="452.0" stroke="WHITE" strokeType="INSIDE" width="200.0" />
                            </children></AnchorPane>
                      </children>
                   </AnchorPane>
