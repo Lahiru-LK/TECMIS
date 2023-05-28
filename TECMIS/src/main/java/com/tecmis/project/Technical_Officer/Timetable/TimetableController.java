@@ -1,10 +1,8 @@
-package com.tecmis.project.Admin.Timetable;
+package com.tecmis.project.Technical_Officer.Timetable;
 
 import java.sql.Date;
 
 public class TimetableController {
-
-
 
     private String upload_image; private String timetable_id;
 
@@ -62,3 +60,5 @@ public class TimetableController {
         return upnonupIMG;
     }
 }
+
+
