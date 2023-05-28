@@ -679,13 +679,13 @@ public class adminPageController implements Initializable {
                 listC.add(result.getString("department_id"));
             }
             addUser_DepartmentListC.setItems(listC);
-            addTimetable_DepartmentC.setItems(listC);
+
+        addTimetable_DepartmentC.setItems(listC);
 
 
         }catch (Exception e){e.printStackTrace();}
 
     }
-
     private String[] roleList = {"Admin", "Lecturer", "Technical_Officer", "Student"};
     public void addProfileRoleList(){
 
@@ -1155,6 +1155,18 @@ public class adminPageController implements Initializable {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
     public ObservableList<courseController> availableCourseListData(){
         ObservableList<courseController> listData = FXCollections.observableArrayList();
 
@@ -1183,6 +1195,11 @@ public class adminPageController implements Initializable {
         }
         return listData;
     }
+
+
+
+
+
 
     private ObservableList<courseController> availableCourseD;
 
@@ -1772,10 +1789,10 @@ public class adminPageController implements Initializable {
 
                     if (getData.path !="") {
                         String string = "Uploaded";
+                        prepare.executeUpdate();
                         prepare.setString(6, string);
                     }
 
-                    prepare.executeUpdate();
 
                     alert= new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Information Message");
