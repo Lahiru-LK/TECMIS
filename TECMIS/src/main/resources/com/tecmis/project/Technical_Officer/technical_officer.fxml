@@ -6,6 +6,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -168,12 +169,50 @@
                         <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: red;" />
                      </children>
                   </AnchorPane>
-                  <AnchorPane fx:id="medicalform" prefHeight="710.0" prefWidth="957.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <AnchorPane fx:id="medicalform" prefHeight="710.0" prefWidth="957.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <AnchorPane layoutX="208.0" layoutY="194.0" prefHeight="710.0" prefWidth="957.0" style="-fx-background-color: yellow;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <AnchorPane layoutX="208.0" layoutY="194.0" prefHeight="710.0" prefWidth="957.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <AnchorPane layoutX="9.0" layoutY="8.0" prefHeight="72.0" prefWidth="940.0" styleClass="technical_officer" stylesheets="@../css/stylesheet.css">
+                                 <children>
+                                    <Label layoutX="413.0" layoutY="26.0" scaleX="2.0" scaleY="2.0" text="Maintain Medical" />
+                                    <ImageView fitHeight="59.0" fitWidth="57.0" layoutX="264.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../image/medical.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children></AnchorPane>
+                              <AnchorPane layoutX="9.0" layoutY="87.0" prefHeight="327.0" prefWidth="939.0" style="-fx-border-color: red;">
+                                 <children>
+                                    <TableView fx:id="medical_view" layoutX="13.0" layoutY="13.0" prefHeight="302.0" prefWidth="913.0">
+                                      <columns>
+                                        <TableColumn fx:id="muser_id" prefWidth="129.0" text="User_Id" />
+                                        <TableColumn prefWidth="203.0" text="Title" />
+                                          <TableColumn prefWidth="287.0" text="Description" />
+                                          <TableColumn prefWidth="118.0" text="Date" />
+                                          <TableColumn prefWidth="172.0" text="Document(PDF)" />
+                                      </columns>
+                                    </TableView>
+                                 </children>
+                              </AnchorPane>
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="200.0" layoutX="732.0" layoutY="429.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
+                              <Button blendMode="HARD_LIGHT" layoutX="763.0" layoutY="647.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="139.0" styleClass="technical_officer" stylesheets="@../css/stylesheet.css" text="Upload" />
+                              <Label layoutX="52.0" layoutY="440.0" scaleX="2.0" text="User ID:" />
+                              <Label layoutX="42.0" layoutY="493.0" scaleX="2.0" text="Title:" />
+                              <Label layoutX="66.0" layoutY="539.0" scaleX="2.0" text="Description:" />
+                              <Label layoutX="426.0" layoutY="455.0" scaleX="2.0" text="Date:" />
+                              <Label layoutX="392.0" layoutY="560.0" scaleX="2.0" />
+                              <TextField fx:id="addmedical_uid" layoutX="148.0" layoutY="434.0" styleClass="textfild" stylesheets="@../css/stylesheet.css" />
+                              <TextField fx:id="addmedical_title" layoutX="148.0" layoutY="487.0" styleClass="textfild" stylesheets="@../css/stylesheet.css" />
+                              <TextArea fx:id="addmedical_des" layoutX="26.0" layoutY="571.0" prefHeight="78.0" prefWidth="690.0" styleClass="technical_officer" stylesheets="@../css/stylesheet.css" />
+                              <DatePicker fx:id="medical_date" layoutX="487.0" layoutY="451.0" styleClass="technical_officer" stylesheets="@../css/stylesheet.css" />
+                              <Button layoutX="605.0" layoutY="661.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="111.0" styleClass="technical_officer" stylesheets="@../css/stylesheet.css" text="UPDATE" textAlignment="CENTER" />
+                              <Label layoutX="26.0" layoutY="661.0" prefHeight="42.0" prefWidth="404.0" />
+                              <Button layoutX="487.0" layoutY="661.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="111.0" styleClass="technical_officer" stylesheets="@../css/stylesheet.css" text="CLEAR" textAlignment="CENTER" />
+                           </children></AnchorPane>
                      </children>
                   </AnchorPane>
-                  <AnchorPane fx:id="noticeform" layoutX="10.0" layoutY="10.0" prefHeight="710.0" prefWidth="956.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <AnchorPane fx:id="noticeform" layoutX="10.0" layoutY="10.0" prefHeight="710.0" prefWidth="956.0" style="-fx-background-color: white;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <AnchorPane prefHeight="710.0" prefWidth="957.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
