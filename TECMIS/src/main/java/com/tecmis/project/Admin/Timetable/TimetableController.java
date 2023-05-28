@@ -4,14 +4,14 @@ import java.sql.Date;
 
 public class TimetableController {
 
-
-
-    private String upload_image; private String timetable_id;
+    private String timetable_id;
 
     private String department_id;
     private String timetable_name;
 
     private Date creat_date;
+
+    private String upload_image;
 
     private String usepdf;
 
