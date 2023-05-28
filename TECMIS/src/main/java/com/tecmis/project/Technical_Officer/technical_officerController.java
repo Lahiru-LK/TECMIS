@@ -27,6 +27,17 @@ import javafx.scene.paint.ImagePattern;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.scene.control.Label;
+import java.net.URL;
+import java.nio.file.Files;
+import java.sql.*;
+import java.time.LocalDate;
+import java.util.*;
+import java.util.Date;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+import javafx.stage.FileChooser;
+import org.apache.commons.io.IOUtils;
+import javafx.stage.Stage;
 
 import java.awt.*;
 import java.io.*;
@@ -36,11 +47,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.ResourceBundle;
+
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.control.ComboBox;
@@ -69,6 +78,9 @@ public class technical_officerController implements Initializable {
 
     @FXML
     private TextField addUser_userCourseC;
+
+    @FXML
+    private TableView<?> medical_view;
 
 //    @FXML
 //    void addProfileUpdate(ActionEvent event) {
@@ -133,6 +145,22 @@ public class technical_officerController implements Initializable {
 
     @FXML
     private DatePicker addUser_dobC;
+
+    @FXML
+    private TableColumn<?, ?> muser_id;
+
+    @FXML
+    private TableColumn<?, ?> mtitile;
+
+    @FXML
+    private TableColumn<?, ?> mDescription;
+
+    @FXML
+    private TableColumn<?, ?> mdate;
+
+    @FXML
+    private TableColumn<?, ?> mdocument;
+
 
     @FXML
     private Label UserDataEnterArea;
@@ -227,9 +255,7 @@ public class technical_officerController implements Initializable {
     private ResultSet result;
     private Image image;
 
-
-
-
+    private byte[] pdfBytes;
 
 
     public void addTechDepartmentList(){
@@ -851,6 +877,161 @@ public class technical_officerController implements Initializable {
 
 
 
+
+
+    public void addMedicalAdd(){
+        String insertDATA = "INSERT INTO medical"
+                +"(user_id,Title,Description,date,Document)"
+                +"VALUES(?,?,?,?,?)";
+
+        connect = JDBC.getConnection();
+
+        try {
+
+            Alert alert;
+
+
+            if (muser_id.getText().isEmpty()
+                    || mtitile.getText().isEmpty()
+                    || mDescription.getText().isEmpty()
+                    || mdate.getText().isEmpty()
+                   // || addTimetable_DepartmentC.getSelectionModel().getSelectedItem() == null
+                    || getData.path == null || getData.path == "" ){
+
+              //  TimeTableDataEnterArea1.setStyle("-fx-border-color:red;-fx-border-width:2px;"); // filed color red
+             //   new animatefx.animation.Bounce(TimeTableDataEnterArea1).play();
+                alert= new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error Message");
+                alert.setHeaderText(null);
+                alert.setContentText("Please fill all blank fields & 'pdf insertion is mandatory'");
+                alert.showAndWait();
+
+            }else {
+
+                //check if the user is already exist
+
+                String checkData = "SELECT user_id FROM medical WHERE user_id = '"
+                        +muser_id.getText()+"'";
+
+                statement = connect.createStatement();
+                result = statement.executeQuery(checkData);
+
+                if (result.next()){
+
+                   // TimeTableDataEnterArea1.setStyle(null);
+                   muser_id.setStyle("-fx-border-color:red;-fx-border-width:2px;"); // filed color red
+                    new animatefx.animation.Bounce().play();
+
+                    alert= new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error Message");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Timetable ID '" + muser_id.getText() + "' was already exist!");
+                    alert.showAndWait();
+
+                }else {
+
+                    addUser_useridC.setStyle(null);
+
+                    prepare = connect.prepareStatement(insertDATA);
+
+                    prepare.setString(1, muser_id.getText());
+                    //prepare.setString(2,(String)addTimetable_DepartmentC.getSelectionModel().getSelectedItem());
+                    prepare.setString(2, mtitile.getText());
+                    prepare.setString(3, mDescription.getText());
+
+                    Date date = new Date();
+                    java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+                    prepare.setString(4,String.valueOf(sqlDate));
+
+
+                    String uri = getData.path;
+                    uri = uri.replace("\\", "\\\\");
+                    prepare.setString(5, uri);
+
+                    byte[] pdf = pdfBytes;
+                    prepare.setBytes(6,pdf);
+
+
+                    if (pdfBytes !=null){
+                        String string = "Uploaded";
+                        prepare.setString(7, string);
+
+                    } else if (pdfBytes ==null) {
+                        String string = "None Uploaded";
+                        prepare.setString(7, string);
+                    }
+
+                    if (getData.path !="") {
+                        String string = "Uploaded";
+                        prepare.setString(8, string);
+                    }
+
+
+
+                    prepare.executeUpdate();
+
+                    alert= new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Information Message");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Successfully Added!");
+                    alert.showAndWait();
+
+                    //to update the tableview
+                  //  addTimetableShowData();
+
+                    //to clear the fields
+                  //  addTimetableClear();
+
+                    //to search th fields
+                   // addTimetableSearch();
+
+                }
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void addMedicalShowData(){
+        addMedicalD = addMedicalController();
+
+        muser_id.setCellValueFactory(new PropertyValueFactory<>("user_id"));
+        mtitile.setCellValueFactory(new PropertyValueFactory<>("Title"));
+        mDescription.setCellValueFactory(new PropertyValueFactory<>("Description"));
+        mdate.setCellValueFactory(new PropertyValueFactory<>("date"));
+        //addTimetable_C_image.setCellValueFactory(new PropertyValueFactory<>("upload_image"));
+      //  addTimetable_C_pdf.setCellValueFactory(new PropertyValueFactory<>("upnonupPDF"));
+
+       // addTimetable_C_pdf.setStyle("    -fx-text-fill: #d62651;" +
+         //       " -fx-font-weight: bold;");
+
+      //  addTimetable_C_image.setCellValueFactory(new PropertyValueFactory<>("upnonupIMG"));
+      //  addTimetable_C_image.setStyle("    -fx-text-fill: #e73d66;" +
+       //         " -fx-font-weight: bold;");
+
+        medical_view.setItems(addMedicalD);
+    }
+
+    private Object addMedicalController() {
+        return null;
+    }
+
+
+    public void addTimetableClear(){
+        addTimetable_ID.setText("");
+        addTimetable_Name.setText("");
+        getData.path = "";
+        addTimetable_imageView.setFill(null);
+        TimeTableDataEnterArea1.setStyle(null);
+        addTimetable_ID.setStyle(null);
+        addTimetable_SearchC.setText("");
+        addTimetableSearch();
+        addTimetable_PdfuploadBtn.setStyle(null);
+        addTimetable_ImageuploadBtn.setStyle(null);
+        pdfBytes = null;
+        addTimetable_DepartmentC.getSelectionModel().clearSelection();
+    }
 
 
 
