@@ -27,6 +27,8 @@ import javafx.scene.paint.ImagePattern;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.scene.control.Label;
+
+import java.awt.TextArea;
 import java.net.URL;
 import java.nio.file.Files;
 import java.sql.*;
@@ -146,6 +148,22 @@ public class technical_officerController implements Initializable {
     @FXML
     private DatePicker addUser_dobC;
 
+
+    @FXML
+    private TextField addmedical_uid;
+
+    @FXML
+    private TextField addmedical_title;
+
+    @FXML
+    private TextArea medical_des;
+
+    @FXML
+    private DatePicker addmedical_date;
+
+    @FXML
+    private Button addMedical_addBtn;
+
     @FXML
     private TableColumn<?, ?> muser_id;
 
@@ -154,6 +172,12 @@ public class technical_officerController implements Initializable {
 
     @FXML
     private TableColumn<?, ?> mDescription;
+
+
+    @FXML
+    void addMedicalAdd(ActionEvent event) {
+
+    }
 
     @FXML
     private TableColumn<?, ?> mdate;
@@ -879,173 +903,105 @@ public class technical_officerController implements Initializable {
 
 
 
-    public void addMedicalAdd(){
-        String insertDATA = "INSERT INTO medical"
-                +"(user_id,Title,Description,date,Document)"
-                +"VALUES(?,?,?,?,?)";
-
-        connect = JDBC.getConnection();
-
-        try {
-
-            Alert alert;
-
-
-            if (muser_id.getText().isEmpty()
-                    || mtitile.getText().isEmpty()
-                    || mDescription.getText().isEmpty()
-                    || mdate.getText().isEmpty()
-                   // || addTimetable_DepartmentC.getSelectionModel().getSelectedItem() == null
-                    || getData.path == null || getData.path == "" ){
-
-              //  TimeTableDataEnterArea1.setStyle("-fx-border-color:red;-fx-border-width:2px;"); // filed color red
-             //   new animatefx.animation.Bounce(TimeTableDataEnterArea1).play();
-                alert= new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error Message");
-                alert.setHeaderText(null);
-                alert.setContentText("Please fill all blank fields & 'pdf insertion is mandatory'");
-                alert.showAndWait();
-
-            }else {
-
-                //check if the user is already exist
-
-                String checkData = "SELECT user_id FROM medical WHERE user_id = '"
-                        +muser_id.getText()+"'";
-
-                statement = connect.createStatement();
-                result = statement.executeQuery(checkData);
-
-                if (result.next()){
-
-                   // TimeTableDataEnterArea1.setStyle(null);
-                   muser_id.setStyle("-fx-border-color:red;-fx-border-width:2px;"); // filed color red
-                    new animatefx.animation.Bounce().play();
-
-                    alert= new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Error Message");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Timetable ID '" + muser_id.getText() + "' was already exist!");
-                    alert.showAndWait();
-
-                }else {
-
-                    addUser_useridC.setStyle(null);
-
-                    prepare = connect.prepareStatement(insertDATA);
-
-                    prepare.setString(1, muser_id.getText());
-                    //prepare.setString(2,(String)addTimetable_DepartmentC.getSelectionModel().getSelectedItem());
-                    prepare.setString(2, mtitile.getText());
-                    prepare.setString(3, mDescription.getText());
-
-                    Date date = new Date();
-                    java.sql.Date sqlDate = new java.sql.Date(date.getTime());
-                    prepare.setString(4,String.valueOf(sqlDate));
-
-
-                    String uri = getData.path;
-                    uri = uri.replace("\\", "\\\\");
-                    prepare.setString(5, uri);
-
-                    byte[] pdf = pdfBytes;
-                    prepare.setBytes(6,pdf);
-
-
-                    if (pdfBytes !=null){
-                        String string = "Uploaded";
-                        prepare.setString(7, string);
-
-                    } else if (pdfBytes ==null) {
-                        String string = "None Uploaded";
-                        prepare.setString(7, string);
-                    }
-
-                    if (getData.path !="") {
-                        String string = "Uploaded";
-                        prepare.setString(8, string);
-                    }
-
-
-
-                    prepare.executeUpdate();
-
-                    alert= new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Information Message");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Successfully Added!");
-                    alert.showAndWait();
-
-                    //to update the tableview
-                  //  addTimetableShowData();
-
-                    //to clear the fields
-                  //  addTimetableClear();
-
-                    //to search th fields
-                   // addTimetableSearch();
-
-                }
-            }
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-
-    public void addMedicalShowData(){
-        addMedicalD = addMedicalController();
-
-        muser_id.setCellValueFactory(new PropertyValueFactory<>("user_id"));
-        mtitile.setCellValueFactory(new PropertyValueFactory<>("Title"));
-        mDescription.setCellValueFactory(new PropertyValueFactory<>("Description"));
-        mdate.setCellValueFactory(new PropertyValueFactory<>("date"));
-        //addTimetable_C_image.setCellValueFactory(new PropertyValueFactory<>("upload_image"));
-      //  addTimetable_C_pdf.setCellValueFactory(new PropertyValueFactory<>("upnonupPDF"));
-
-       // addTimetable_C_pdf.setStyle("    -fx-text-fill: #d62651;" +
-         //       " -fx-font-weight: bold;");
-
-      //  addTimetable_C_image.setCellValueFactory(new PropertyValueFactory<>("upnonupIMG"));
-      //  addTimetable_C_image.setStyle("    -fx-text-fill: #e73d66;" +
-       //         " -fx-font-weight: bold;");
-
-        medical_view.setItems(addMedicalD);
-    }
-
-    private Object addMedicalController() {
-        return null;
-    }
-
-
-    public void addTimetableClear(){
-        addTimetable_ID.setText("");
-        addTimetable_Name.setText("");
-        getData.path = "";
-        addTimetable_imageView.setFill(null);
-        TimeTableDataEnterArea1.setStyle(null);
-        addTimetable_ID.setStyle(null);
-        addTimetable_SearchC.setText("");
-        addTimetableSearch();
-        addTimetable_PdfuploadBtn.setStyle(null);
-        addTimetable_ImageuploadBtn.setStyle(null);
-        pdfBytes = null;
-        addTimetable_DepartmentC.getSelectionModel().clearSelection();
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//    public void addMedicalAdd(){
+//        String insertDATA = "INSERT INTO medical"
+//                +"(user_id,Title,Description,date,Document)"
+//                +"VALUES(?,?,?,?,?)";
+//
+//        connect = JDBC.getConnection();
+//
+//        try {
+//
+//            Alert alert;
+//
+//
+//            if (addmedical_uid.getText().isEmpty()
+//                    || addmedical_title.getText().isEmpty()
+//                    || addmedical_des.getText().isEmpty()
+//                    || getData.path == null || getData.path == "" ){
+//
+//                NoticeDataEnterArea.setStyle("-fx-border-color:red;-fx-border-width:2px;"); // filed color red
+//                new animatefx.animation.Bounce(NoticeDataEnterArea).play();
+//                alert= new Alert(Alert.AlertType.ERROR);
+//                alert.setTitle("Error Message");
+//                alert.setHeaderText(null);
+//                alert.setContentText("Please fill all blank fields");
+//                alert.showAndWait();
+//
+//            }else {
+//
+//                //check if the user is already exist
+//
+//                String checkData = "SELECT notice_id FROM notice WHERE notice_id = '"
+//                        +addNotice_noticeIDC.getText()+"'";
+//
+//                statement = connect.createStatement();
+//                result = statement.executeQuery(checkData);
+//
+//                if (result.next()){
+//
+//                    NoticeDataEnterArea.setStyle(null);
+//                    addNotice_noticeIDC.setStyle("-fx-border-color:red;-fx-border-width:2px;"); // filed color red
+//                    new animatefx.animation.Bounce(addNotice_noticeIDC).play();
+//
+//                    alert= new Alert(Alert.AlertType.ERROR);
+//                    alert.setTitle("Error Message");
+//                    alert.setHeaderText(null);
+//                    alert.setContentText("Notice ID '" + addNotice_noticeIDC.getText() + "' was already exist!");
+//                    alert.showAndWait();
+//
+//                }else {
+//
+//                    addNotice_noticeIDC.setStyle(null);
+//                    prepare = connect.prepareStatement(insertDATA);
+//
+//                    prepare.setString(1, addNotice_noticeIDC.getText());
+//                    prepare.setString(2, addNotice_nameC.getText());
+//                    prepare.setString(3,addNotice_bodyLetterC.getText());
+//
+//                    Date date = new Date();
+//                    java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+//                    prepare.setString(4,String.valueOf(sqlDate));
+//
+//
+//                    String uri = getData.path;
+//                    uri = uri.replace("\\", "\\\\");
+//                    prepare.setString(5, uri);
+//
+//                    if (getData.path !="") {
+//                        String string = "Uploaded";
+//                        prepare.setString(6, string);
+//                    }
+//
+//                    prepare.executeUpdate();
+//
+//                    alert= new Alert(Alert.AlertType.INFORMATION);
+//                    alert.setTitle("Information Message");
+//                    alert.setHeaderText(null);
+//                    alert.setContentText("Successfully Added!");
+//                    alert.showAndWait();
+//
+//                    //to update the tableview
+//                   // addMedicalShowData();
+//
+//                    //to clear the fields
+//                   // addMedicalClear();
+//
+//
+//                    //get to session data
+//                    loadUserData();
+//
+//                }
+//            }
+//
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+//    }
+//
+//
+//
+//
 
 
     @Override
