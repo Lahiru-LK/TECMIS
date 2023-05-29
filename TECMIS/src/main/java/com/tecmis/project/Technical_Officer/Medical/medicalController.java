@@ -4,9 +4,8 @@ import java.util.Date;
 
 public class medicalController {
 
-    private String user_id;
 
-    private String Title;
+    private String Medical_id;
 
     private String Description;
 
@@ -14,20 +13,18 @@ public class medicalController {
 
     private String Document;
 
-    public medicalController(String user_id, String title, String description, Date date, String document) {
-        this.user_id = user_id;
-        Title = title;
+    private String user_id;
+
+    public medicalController(String medical_id, String description, Date date, String document, String user_id) {
+        Medical_id = medical_id;
         Description = description;
         this.date = date;
         Document = document;
+        this.user_id = user_id;
     }
 
-    public String getUser_id() {
-        return user_id;
-    }
-
-    public String getTitle() {
-        return Title;
+    public String getMedical_id() {
+        return Medical_id;
     }
 
     public String getDescription() {
@@ -40,5 +37,9 @@ public class medicalController {
 
     public String getDocument() {
         return Document;
+    }
+
+    public String getUser_id() {
+        return user_id;
     }
 }
