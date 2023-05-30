@@ -167,7 +167,7 @@
 
 .white-bg{
     -fx-background-color: #fff;
-    -fx-background-radius: #8px;
+    -fx-background-radius: 8px;
     -fx-background-radius: 5px;
     -fx-background-insets: 0px;
 
