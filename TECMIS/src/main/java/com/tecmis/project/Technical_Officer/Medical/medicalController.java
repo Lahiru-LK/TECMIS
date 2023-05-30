@@ -5,23 +5,30 @@ import java.util.Date;
 public class medicalController {
 
 
+    private String user_id;
+
     private String Medical_id;
 
     private String Description;
 
-    private Date date;
+    private String date;
 
     private String Document;
 
-    private String user_id;
 
-    public medicalController(String medical_id, String description, Date date, String document, String user_id) {
+    public medicalController(String user_id, String medical_id, String description, Date date, String document) {
+        this.user_id = String.valueOf(user_id);
         Medical_id = medical_id;
         Description = description;
-        this.date = date;
+        this.date = String.valueOf(date);
         Document = document;
-        this.user_id = user_id;
+
     }
+
+    public String getUser_id() {
+        return user_id;
+    }
+
 
     public String getMedical_id() {
         return Medical_id;
@@ -31,7 +38,7 @@ public class medicalController {
         return Description;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
@@ -39,7 +46,5 @@ public class medicalController {
         return Document;
     }
 
-    public String getUser_id() {
-        return user_id;
-    }
+
 }

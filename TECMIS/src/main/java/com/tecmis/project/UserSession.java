@@ -13,9 +13,9 @@ public final class UserSession {
     }
 
     public static UserSession getInstance( String userName,String userId) {
-        if(instance == null) {
+//        if(instance == null) {
             instance = new UserSession(userName,userId);
-        }
+//        }
         return instance;
     }
 
