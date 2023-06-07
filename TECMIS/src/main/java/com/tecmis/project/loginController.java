@@ -97,7 +97,6 @@ public class loginController  implements Initializable{
 
                     if(queryResult.getInt(1)==1)
                     {
-
                         String verifycheckRole = "SELECT * FROM user WHERE user_id ='" + username.getText() + "'AND user_password ='" + password.getText() + "' ";
 
                         Statement statement2 = connectDB.createStatement();
@@ -115,9 +114,6 @@ public class loginController  implements Initializable{
                                 User_Name = queryResult2.getString("first_name");
 
                                 UserSession.getInstance(User_Name,User_ID);
-
-//                                System.out.println(UserSession.getUserId());
-
 
 
 
@@ -140,6 +136,7 @@ public class loginController  implements Initializable{
 
                                 UserSession.getInstance(User_Name,User_ID);
 
+
                                 Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Student/student.fxml")));
                                 new FadeIn(root).play();
                                 stage = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -152,6 +149,12 @@ public class loginController  implements Initializable{
 
                             }else if (Role.equals("Lecturer")) {
 
+                                User_ID = queryResult2.getString("user_id");
+                                User_Name = queryResult2.getString("first_name");
+
+                                UserSession.getInstance(User_Name,User_ID);
+
+
                                 Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Lecturer/lecturer.fxml")));
                                 new FadeIn(root).play();
                                 stage = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -162,6 +165,12 @@ public class loginController  implements Initializable{
                                 stage.resizableProperty().setValue(false);
 
                             }else if (Role.equals("Technical_Officer")) {
+
+                                User_ID = queryResult2.getString("user_id");
+                                User_Name = queryResult2.getString("first_name");
+
+                                UserSession.getInstance(User_Name,User_ID);
+
 
                                 Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Technical_Officer/technical_officer.fxml")));
                                 new FadeIn(root).play();

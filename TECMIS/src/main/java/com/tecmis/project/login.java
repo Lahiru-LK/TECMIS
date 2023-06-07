@@ -31,7 +31,6 @@ public class login extends Application {
         primaryStage.setTitle("TECMIS");
         primaryStage.setScene(scene);
         primaryStage.show();
-
     }
 
     public static void main(String[] args) {
