@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="475.0" prefWidth="429.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tecmis.project.Lecturer.UpdateMarksController">
+   <children>
+      <AnchorPane layoutX="-4.0" layoutY="-6.0" prefHeight="475.0" prefWidth="429.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <JFXButton fx:id="subjectmarksAdd_btn" layoutX="226.0" layoutY="410.0" onAction="#addMarks" styleClass="navbar" stylesheets="@../css/lecture.css" text="Add" textFill="WHITE" />
+            <JFXButton fx:id="subjectmarksdel_btn" layoutX="124.0" layoutY="410.0" onAction="#clearMarks" styleClass="navbar" stylesheets="@../css/lecture.css" text="Clear" textFill="#fffdfd" />
+            <Label layoutX="63.0" layoutY="357.0" text="Marks" />
+            <TextField fx:id="marks_F" layoutX="159.0" layoutY="344.0" prefHeight="26.0" prefWidth="187.0" />
+            <Label layoutX="63.0" layoutY="302.0" text="Reg. No" />
+            <JFXComboBox fx:id="RegNo_combo" editable="true" layoutX="159.0" layoutY="288.0" prefHeight="28.0" prefWidth="187.0" />
+            <Label layoutX="63.0" layoutY="249.0" text="Subject" />
+            <JFXComboBox fx:id="Course_combo" layoutX="159.0" layoutY="235.0" prefHeight="28.0" prefWidth="187.0" />
+            <Label layoutX="63.0" layoutY="193.0" text="Exam" />
+            <JFXComboBox fx:id="Exam_combo" layoutX="159.0" layoutY="179.0" prefHeight="28.0" prefWidth="187.0" />
+            <Label layoutX="132.0" layoutY="79.0" text="Add Marks" textFill="#944e4e">
+               <font>
+                  <Font size="31.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

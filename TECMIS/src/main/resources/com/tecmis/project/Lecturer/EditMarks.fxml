@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="475.0" prefWidth="429.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tecmis.project.Lecturer.EditMarks">
+   <children>
+      <Label layoutX="142.0" layoutY="71.0" text="Edit Marks" textFill="#ac3434">
+         <font>
+            <Font size="31.0" />
+         </font>
+      </Label>
+      <Label layoutX="55.0" layoutY="155.0" text="Exam" />
+      <Label layoutX="55.0" layoutY="201.0" text="Course" />
+      <Label layoutX="55.0" layoutY="252.0" text="Reg. No" />
+      <Label layoutX="55.0" layoutY="300.0" />
+      <Label layoutX="55.0" layoutY="300.0" text="Marks" />
+      <JFXComboBox fx:id="Exam_combo_2" layoutX="176.0" layoutY="142.0" prefHeight="26.0" prefWidth="232.0" />
+      <JFXComboBox fx:id="Course_combo_2" layoutX="176.0" layoutY="188.0" prefHeight="26.0" prefWidth="232.0" />
+      <JFXComboBox fx:id="RegNo_combo_2" layoutX="176.0" layoutY="238.0" prefHeight="26.0" prefWidth="232.0" />
+      <JFXButton fx:id="editsubjectmarksEdit_btn" layoutX="257.0" layoutY="382.0" onAction="#editMarksEdit" prefHeight="26.0" prefWidth="58.0" styleClass="navbar" stylesheets="@../css/lecture.css" text="Edit" textFill="WHITE" />
+      <JFXButton fx:id="editsubjectmarksDel_btn" layoutX="112.0" layoutY="382.0" onAction="#reset" prefHeight="26.0" prefWidth="58.0" styleClass="navbar" stylesheets="@../css/lecture.css" text="Clear" textFill="#fffbfb" />
+      <TextField fx:id="marks_F_2" layoutX="176.0" layoutY="288.0" prefHeight="26.0" prefWidth="232.0" />
+   </children>
+</AnchorPane>

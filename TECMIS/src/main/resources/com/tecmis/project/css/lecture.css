@@ -1,0 +1,15 @@
+.navbar{
+    -fx-background-color: linear-gradient(#a72d3b, #363636);
+}
+
+.lectureButtons{
+
+    -fx-background-radius: 5px;
+    -fx-background-insets: 0px;
+    -fx-cursor: hand;
+
+}
+
+.lectureButtons:hover{
+    -fx-background-color: #e4cbcb;
+}
