@@ -47,12 +47,41 @@ public class studentController implements Initializable {
     private Parent root;
 
     TimeTable timetableCX = null;
+    MedicalController MedicalX = null;
 
     @FXML
     private TableColumn<?, ?> columdescription1;
+    @FXML
+    private TableView<gpaController> gradetable;
+    @FXML
+    private TableView<NoticeController> notisetable;
 
     @FXML
     private TableView<MedicalController> medicalform1;
+
+    @FXML
+    private TableColumn<?, ?> course_colum;
+
+    @FXML
+    private TableColumn<?, ?> course_idcolum;
+    @FXML
+    private TableColumn<?, ?> grade_colum;
+    @FXML
+    private AnchorPane noticeform;
+    @FXML
+    private TableColumn<?, ?> notice_createdatecolum;
+
+    @FXML
+    private TableColumn<?, ?> notice_idcolum;
+
+    @FXML
+    private TableColumn<?, ?> notice_imagepdfcolum;
+
+    @FXML
+    private TableColumn<?, ?> notice_namecolum;
+
+    @FXML
+    private Button notice_btn;
     @FXML
     private TableColumn<?, ?> columTitle1;
     @FXML
@@ -83,6 +112,7 @@ public class studentController implements Initializable {
     private AnchorPane update_cdform;
     @FXML
     private Circle addTimetable_imageView;
+
     @FXML
     private TableColumn<?, ?> columdescription;
     @FXML
@@ -208,6 +238,7 @@ public class studentController implements Initializable {
 
 
 
+
     private Image image;
     private Connection connect;
     private PreparedStatement prepare;
@@ -239,7 +270,7 @@ public class studentController implements Initializable {
                 Ttable = new TimeTable(result.getString("timetable_id")
                         ,result.getString("department_id")
                         , result.getString("timetable_name")
-                        , result.getString("creat_date")
+                        , result.getDate("creat_date")
                         , result.getString("upnonupPDF")
 
 
@@ -261,20 +292,8 @@ public class studentController implements Initializable {
 
     public void pdfSelect(MouseEvent event){
 
-        if (event.isPrimaryButtonDown() || event.getClickCount() == 1) {
 
-
-            TimeTable Ttable = timetableform1.getSelectionModel().getSelectedItem();
-            int num = timetableform1.getSelectionModel().getSelectedIndex();
-
-            if ((num - 1) < -1) {
-                return;
-            }
-
-
-
-
-        } else if (event.isPrimaryButtonDown() || event.getClickCount() == 2) {
+            if (event.isPrimaryButtonDown() || event.getClickCount() == 2) {
 
 
             TimeTable Ttable = timetableform1.getSelectionModel().getSelectedItem();
@@ -337,7 +356,7 @@ public class studentController implements Initializable {
     public ObservableList<Controller> addController(){
         ObservableList<Controller> listController = FXCollections.observableArrayList();
 
-        String sql = "SELECT * FROM attendance";
+        String sql = "SELECT * FROM attendence WHERE user_id = '"+ UserSession.getUserId() +"'";
 
         connect = JDBC.getConnection();
 
@@ -348,10 +367,12 @@ public class studentController implements Initializable {
             result = prepare.executeQuery();
 
             while (result.next()){
-                profileCD = new Controller(result.getString("CourseCode")
+                profileCD = new Controller(result.getString("Attendence_id")
                         , result.getString("user_id")
+                        , result.getString("Subject_id")
+                        , result.getInt("Hours")
                         , result.getString("State")
-                        , result.getString("Date")
+                        , result.getDate("Date")
 
 
                 );
@@ -369,9 +390,8 @@ public class studentController implements Initializable {
 
     public void addProfileshowData(){
         addProfileCD = addController();
-
-        columCourseCode.setCellValueFactory(new PropertyValueFactory<>("CourseCode"));
         columuser_id.setCellValueFactory(new PropertyValueFactory<>("user_id"));
+        columCourseCode.setCellValueFactory(new PropertyValueFactory<>("Subject_id"));
         columState.setCellValueFactory(new PropertyValueFactory<>("State"));
         columDate.setCellValueFactory(new PropertyValueFactory<>("Date"));
 
@@ -384,7 +404,7 @@ public class studentController implements Initializable {
 public ObservableList<MedicalController> StudentMedicalController(){
     ObservableList<MedicalController> listMedicalController = FXCollections.observableArrayList();
 
-    String sql = "SELECT * FROM medical";
+    String sql = "SELECT * FROM medical WHERE user_id = '"+ UserSession.getUserId() +"'";
 
     connect = JDBC.getConnection();
 
@@ -395,10 +415,11 @@ public ObservableList<MedicalController> StudentMedicalController(){
         result = prepare.executeQuery();
 
         while (result.next()){
-            medical = new MedicalController(result.getString("Title")
+            medical = new MedicalController(result.getString("Medical_id")
                     , result.getString("Description")
-                    , result.getString("date")
-                    , result.getString("document")
+                    , result.getDate("date")
+                    , result.getString("Document")
+                    , result.getString("PDF_status")
                     , result.getString("user_id")
 
 
@@ -413,14 +434,65 @@ public ObservableList<MedicalController> StudentMedicalController(){
     return listMedicalController;
 }
 
+    public void pdfSelect2(MouseEvent event){
+
+
+
+            if (event.isPrimaryButtonDown() || event.getClickCount() == 2) {
+
+
+            MedicalController medical = medicalform1.getSelectionModel().getSelectedItem();
+            int num = medicalform1.getSelectionModel().getSelectedIndex();
+
+            if ((num - 1) < -1) {
+                return;
+            }
+
+            MedicalX = medicalform1.getSelectionModel().getSelectedItem();
+
+            try {
+                connect = JDBC.getConnection();
+
+                query = "SELECT Document FROM medical WHERE user_id='"+MedicalX.getUser_id()+"'";
+
+                preparedStatement = connection.prepareStatement(query);
+                resultSet = preparedStatement.executeQuery();
+
+                while (resultSet.next()){
+
+
+                    InputStream is = resultSet.getBinaryStream("Document");
+                    OutputStream os = new FileOutputStream(new File("doc.pdf"));
+                    byte[] content = new byte[1024];
+                    int size = 0;
+                    while ((size = is.read(content)) != -1){
+                        os.write(content,0,size);
+                    }
+                    os.close();
+                    is.close();
+
+                    String path = "doc.pdf"; // provide the path to the PDF file
+                    File file = new File(path);
+                    Desktop.getDesktop().open(file);
+
+                }
+
+            }catch (Exception e){
+                System.out.println(e);
+            }
+
+        }
+
+    }
+
     private ObservableList<MedicalController> addmedical;
 
     public void addMedicalController(){
         addmedical = StudentMedicalController();
-        columTitle1.setCellValueFactory(new PropertyValueFactory<>("Title"));
+        columTitle1.setCellValueFactory(new PropertyValueFactory<>("Medical_id"));
         columdescription1.setCellValueFactory(new PropertyValueFactory<>("Description"));
         columTDate1.setCellValueFactory(new PropertyValueFactory<>("date"));
-        columDocument1.setCellValueFactory(new PropertyValueFactory<>("document"));
+        //columDocument1.setCellValueFactory(new PropertyValueFactory<>("document"));
 
         medicalform1.setItems(addmedical);
 
@@ -434,7 +506,7 @@ public ObservableList<MedicalController> StudentMedicalController(){
     public ObservableList<CourseController> CourseControllercourse(){
         ObservableList<CourseController> listCourseController = FXCollections.observableArrayList();
 
-        String sql = "SELECT * FROM dep_sub";
+        String sql = "SELECT * FROM dep_sub ";
 
         connect = JDBC.getConnection();
 
@@ -446,8 +518,8 @@ public ObservableList<MedicalController> StudentMedicalController(){
 
             while (result.next()){
                 course = new CourseController(result.getString("course_id")
-                        , result.getString("Course_Code")
-                        , result.getString("Course_Name")
+                        , result.getString("Subject_id")
+                        , result.getString("Subject_Name")
                         , result.getString("Course_Type")
 
 
@@ -466,38 +538,107 @@ public ObservableList<MedicalController> StudentMedicalController(){
 
     public void addCourseController(){
         addcourse = CourseControllercourse();
-        CourseCode_course.setCellValueFactory(new PropertyValueFactory<>("Course_Code"));
-        CourseName_course.setCellValueFactory(new PropertyValueFactory<>("Course_Name"));
+        CourseCode_course.setCellValueFactory(new PropertyValueFactory<>("Subject_id"));
+        CourseName_course.setCellValueFactory(new PropertyValueFactory<>("Subject_Name"));
         CourseType_course.setCellValueFactory(new PropertyValueFactory<>("Course_Type"));
 
         Coursetable.setItems(addcourse);
 
     }
 
+//----------------------------------------------------------------------
 
 
+    public ObservableList<gpaController> gradegpaController(){
+        ObservableList<gpaController> listgpaController = FXCollections.observableArrayList();
 
+        String sql = "SELECT * FROM gradeandgpa";
 
+        connect = JDBC.getConnection();
 
+        try {
 
+            gpaController gpa;
+            prepare = connect.prepareStatement(sql);
+            result = prepare.executeQuery();
 
+            while (result.next()){
+                gpa = new gpaController(result.getString("course_id")
+                        , result.getString("course")
+                        , result.getString("Grade")
 
+            );
 
+                listgpaController.add(gpa);
+            }
 
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return listgpaController;
+    }
 
+    private ObservableList<gpaController> addgpa;
 
+    public void addgradegpaController(){
+        addgpa = gradegpaController();
+        course_idcolum.setCellValueFactory(new PropertyValueFactory<>("course_id"));
+        course_colum.setCellValueFactory(new PropertyValueFactory<>("course"));
+        grade_colum.setCellValueFactory(new PropertyValueFactory<>("Grade"));
 
+        gradetable.setItems(addgpa);
 
-
-
+    }
 
 
 
 
 //------------------------------------------------------------------------
+public ObservableList<NoticeController> addNoticeController() {
+    ObservableList<NoticeController> listNoticeController = FXCollections.observableArrayList();
+
+    String sql = "SELECT * FROM notice";
+    connect = JDBC.getConnection();
+
+    try {
+
+        NoticeController Notice;
+        prepare = connect.prepareStatement(sql);
+        result = prepare.executeQuery();
+
+        while (result.next()) {
+            Notice = new NoticeController(result.getString("notice_id")
+                    , result.getString("notice_name")
+                    , result.getString("bodyof_notice")
+                    , result.getString("notice_imagepdf")
+                    , result.getString("notice_createdate")
+                    , result.getString("upnonupnotice")
+            );
+            listNoticeController.add(Notice);
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+
+    return listNoticeController;
 
 
+}
+private ObservableList<NoticeController> addNotice;
 
+    public void addNoticeControllershow() {
+
+        addNotice = addNoticeController();
+        notice_idcolum.setCellValueFactory(new PropertyValueFactory("notice_id"));
+        notice_namecolum.setCellValueFactory(new PropertyValueFactory("notice_name"));
+        notice_imagepdfcolum.setCellValueFactory(new PropertyValueFactory("notice_imagepdf"));
+        notice_createdatecolum.setCellValueFactory(new PropertyValueFactory("notice_createdate"));
+
+        notisetable.setItems(addNotice);
+    }
+
+
+//-------------------------------------------------------------
 
     public void switchFormx (ActionEvent event){
         if (event.getSource() == homebtn) {
@@ -512,8 +653,10 @@ public ObservableList<MedicalController> StudentMedicalController(){
             update_cdform.setVisible(false);
             updateprform.setVisible(false);
             mydetailsform.setVisible(false);
+            noticeform.setVisible(false);
 
             loadUserData();
+            loadUserData1();
 
         } else if (event.getSource() == atenbtn) {
             homeroomtop.setVisible(false);
@@ -526,6 +669,8 @@ public ObservableList<MedicalController> StudentMedicalController(){
             update_cdform.setVisible(false);
             updateprform.setVisible(false);
             mydetailsform.setVisible(false);
+            noticeform.setVisible(false);
+
         }else if (event.getSource() == medicalbtn) {
             homeroomtop.setVisible(false);
             homeform_bottom.setVisible(false);
@@ -537,6 +682,8 @@ public ObservableList<MedicalController> StudentMedicalController(){
             update_cdform.setVisible(false);
             updateprform.setVisible(false);
             mydetailsform.setVisible(false);
+            noticeform.setVisible(false);
+
         } else if (event.getSource() == c_unitbtn) {
             homeroomtop.setVisible(false);
             homeform_bottom.setVisible(false);
@@ -548,8 +695,9 @@ public ObservableList<MedicalController> StudentMedicalController(){
             update_cdform.setVisible(false);
             updateprform.setVisible(false);
             mydetailsform.setVisible(false);
-        } else if (event.getSource() == gpabtn) {
+            noticeform.setVisible(false);
 
+        } else if (event.getSource() == gpabtn) {
 
             homeroomtop.setVisible(false);
             homeform_bottom.setVisible(false);
@@ -561,6 +709,8 @@ public ObservableList<MedicalController> StudentMedicalController(){
             update_cdform.setVisible(false);
             updateprform.setVisible(false);
             mydetailsform.setVisible(false);
+            noticeform.setVisible(false);
+
         } else if (event.getSource() == t_tablebtn) {
             homeroomtop.setVisible(false);
             homeform_bottom.setVisible(false);
@@ -572,6 +722,7 @@ public ObservableList<MedicalController> StudentMedicalController(){
             update_cdform.setVisible(false);
             updateprform.setVisible(false);
             mydetailsform.setVisible(false);
+            noticeform.setVisible(false);
         }
 
     }
@@ -588,6 +739,10 @@ public ObservableList<MedicalController> StudentMedicalController(){
                 update_cdform.setVisible(false);
                 updateprform.setVisible(false);
                 mydetailsform.setVisible(true);
+
+                loadUserData();
+                loadUserData1();
+
             } else if (event.getSource() == Updatecontactdetails) {
                 homeroomtop.setVisible(true);
                 homeform_bottom.setVisible(false);
@@ -611,7 +766,19 @@ public ObservableList<MedicalController> StudentMedicalController(){
                 updateprform.setVisible(true);
                 mydetailsform.setVisible(false);
             }
-
+            else if (event.getSource() ==notice_btn) {
+                homeroomtop.setVisible(false);
+                homeform_bottom.setVisible(false);
+                atendanceform.setVisible(false);
+                medicalform.setVisible(false);
+                coursewunitform.setVisible(false);
+                gpaform.setVisible(false);
+                timetableform.setVisible(false);
+                update_cdform.setVisible(false);
+                updateprform.setVisible(false);
+                mydetailsform.setVisible(false);
+                noticeform.setVisible(true);
+            }
         }
 
 
@@ -627,9 +794,11 @@ public ObservableList<MedicalController> StudentMedicalController(){
         addCourseController();
         StudentMedicalController();
         addMedicalController();
+        addgradegpaController();
+        gradegpaController();
+        addNoticeControllershow();
+        addNoticeController();
 
-//        loadUserData2();
-//        loadUserData3();
     }
 
 
@@ -640,13 +809,6 @@ public ObservableList<MedicalController> StudentMedicalController(){
     Connection connection = null ;
     PreparedStatement preparedStatement = null ;
     ResultSet resultSet = null ;
-
-
-
-
-
-
-
 
 
     public void loadUserData(){
@@ -734,17 +896,16 @@ public ObservableList<MedicalController> StudentMedicalController(){
                 alert= new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Confirmation Message");
                 alert.setHeaderText(null);
-//                alert.setContentText("Are you sure you want to UPDATE User ID '" + addUser_useridC.getText() + "' ?" );
+
                 Optional<ButtonType> option = alert.showAndWait();
 
                 if (option.get().equals(ButtonType.OK)){
 
-//                    statement = connect.createStatement();
-//                    statement.executeUpdate(updateData);
 
-                   // String upnonupprofile = (uri != null) ? "Updated" : "Non Updated";
+
+
                     PreparedStatement preparedStatement = JDBC.getConnection().prepareStatement(updateData);
-                  //  preparedStatement.setString(1, upnonupprofile);
+
                     preparedStatement.executeUpdate();
                     preparedStatement.close();
 
@@ -755,6 +916,9 @@ public ObservableList<MedicalController> StudentMedicalController(){
                     alert.setHeaderText(null);
                     alert.setContentText("Successfully Updated!");
                     alert.showAndWait();
+                    allClear();
+
+
 
                 }else return;
             }
@@ -799,7 +963,7 @@ public ObservableList<MedicalController> StudentMedicalController(){
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        //  preparedStatement.setString(1, upnonupprofile);
+
         preparedStatement.executeUpdate();
         preparedStatement.close();
 
@@ -842,6 +1006,8 @@ public ObservableList<MedicalController> StudentMedicalController(){
                 stage.centerOnScreen();
                 stage.show();
                 stage.resizableProperty().setValue(false);
+
+                UserSession.cleanUserSession();
 
             }else return;
 

@@ -1,14 +1,16 @@
 package com.tecmis.project.Student;
 
+import java.util.Date;
+
 public class TimeTable {
 
     private String timetable_id;
     private String department_id;
     private String timetable_name;
-    private String creat_date;
+    private Date creat_date;
     private String upnonupPDF;
 
-    public TimeTable(String timetable_id, String department_id, String timetable_name, String creat_date, String upnonupPDF) {
+    public TimeTable(String timetable_id, String department_id, String timetable_name, Date creat_date, String upnonupPDF) {
         this.timetable_id = timetable_id;
         this.department_id = department_id;
         this.timetable_name = timetable_name;
@@ -28,7 +30,7 @@ public class TimeTable {
         return timetable_name;
     }
 
-    public String getCreat_date() {
+    public Date getCreat_date() {
         return creat_date;
     }
 

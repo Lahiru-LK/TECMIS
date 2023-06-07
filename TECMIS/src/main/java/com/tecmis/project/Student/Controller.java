@@ -1,33 +1,48 @@
 package com.tecmis.project.Student;
 
+import java.util.Date;
+
 public class Controller {
 
 
-    private String CourseCode;
+    private String Attendence_id;
     private String user_id;
-    private String State;
-    private String Date;
+    private String Subject_id;
+    private Integer Hours;
 
-    public Controller(String courseCode, String user_id, String state, String date) {
-        this.CourseCode = courseCode;
+    private String State;
+    private Date Date;
+
+    public Controller(String attendence_id, String user_id, String subject_id, Integer hours, String state, java.util.Date date) {
+        Attendence_id = attendence_id;
         this.user_id = user_id;
-        this.State = state;
-        this.Date = date;
+        Subject_id = subject_id;
+        Hours = hours;
+        State = state;
+        Date = date;
     }
 
-    public String getCourseCode() {
-        return CourseCode;
+    public String getAttendence_id() {
+        return Attendence_id;
     }
 
     public String getUser_id() {
         return user_id;
     }
 
+    public String getSubject_id() {
+        return Subject_id;
+    }
+
+    public Integer getHours() {
+        return Hours;
+    }
+
     public String getState() {
         return State;
     }
 
-    public String getDate() {
+    public java.util.Date getDate() {
         return Date;
     }
 }
