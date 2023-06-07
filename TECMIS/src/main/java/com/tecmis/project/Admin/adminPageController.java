@@ -1331,9 +1331,10 @@ public class adminPageController implements Initializable {
 
     public  void availableCourseUpdate(){
 
-        String updateData = " UPDATE course SET "
-                + "description  = '"+ availableCourse_descriptionC.getText()
-                + "', degree = '"+ availableCourse_degreeC.getText() +"'";
+        String updateData = "UPDATE course SET "
+                + "description = '" + availableCourse_descriptionC.getText() + "', "
+                + "degree = '" + availableCourse_degreeC.getText() + "' "
+                + "WHERE course_id = '" + availableCourse_courseC.getText() + "'";
 
         connect = JDBC.getConnection();
 
