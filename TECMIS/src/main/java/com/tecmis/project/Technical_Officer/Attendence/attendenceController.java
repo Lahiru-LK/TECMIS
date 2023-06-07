@@ -16,15 +16,14 @@ public class attendenceController {
 
     private Date Date;
 
-    public attendenceController(String attendence_id, String user_id, String subject_id, int hours, String state, java.sql.Date date) {
-        Attendence_id = attendence_id;
+    public attendenceController(String Attendence_id, String user_id, String Subject_id, int Hours, String State, java.sql.Date Date) {
+       this.Attendence_id = Attendence_id;
         this.user_id = user_id;
-        Subject_id = subject_id;
-        Hours = hours;
-        State = state;
-        Date = date;
+        this.Subject_id = Subject_id;
+        this.Hours = Hours;
+        this.State = State;
+        this.Date = Date;
     }
-
 
     public String getAttendence_id() {
         return Attendence_id;

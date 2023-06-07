@@ -1,9 +1,13 @@
 package com.tecmis.project.Technical_Officer;
 
+import animatefx.animation.Bounce;
 import animatefx.animation.FadeIn;
+import com.tecmis.project.Admin.Courses.courseController;
 import com.tecmis.project.Admin.Notices.noticeController;
 import com.tecmis.project.Admin.Timetable.TimetableController;
 import com.tecmis.project.Admin.getData;
+import com.tecmis.project.Technical_Officer.Attendence.attendenceController;
+import com.tecmis.project.Technical_Officer.Medical.medicalController;
 import com.tecmis.project.Technical_Officer.TechProfile.techProfileControllerX;
 import com.tecmis.project.UserSession;
 import com.tecmis.project.connection_DB.JDBC;
@@ -18,7 +22,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -28,38 +31,26 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.scene.control.Label;
 
-import java.awt.TextArea;
+import java.awt.event.MouseEvent;
 import java.net.URL;
-import java.nio.file.Files;
-import java.sql.*;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
-import javafx.stage.FileChooser;
-import org.apache.commons.io.IOUtils;
-import javafx.stage.Stage;
 
-import java.awt.*;
 import java.io.*;
-import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.time.LocalDate;
-import java.util.*;
-import java.util.List;
 
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import org.apache.commons.io.IOUtils;
 
-
-
-
+import static com.tecmis.project.UserSession.cleanUserSession;
 
 
 public class technical_officerController implements Initializable {
@@ -72,17 +63,115 @@ public class technical_officerController implements Initializable {
 
 
     @FXML
+    private Rectangle UserImage_ViewCircle;
+
+
+
+
+
+    @FXML
+    private Label messagepromt_medical;
+
+    @FXML
+    private TextField logeUserId;
+
+    @FXML
+    private TextField logeUserDepartment;
+
+    @FXML
+    private TextField logeUserNumber;
+
+    @FXML
+    private TextField User_lastnameF;
+
+    @FXML
+    private TextField User_firstnameF;
+
+    @FXML
+    private TextField logeUserRole;
+
+    @FXML
+    private TextField logeUserEmail;
+
+    @FXML
     private Label UploadSuccessfullTEXT;
+
+    @FXML
+    private AnchorPane attendence_entryarea;
+
 
     @FXML
     private Rectangle addNotice_imageViewNew;
 
+    @FXML
+    private AnchorPane MedicalDataEnterArea;
 
     @FXML
     private TextField addUser_userCourseC;
 
     @FXML
-    private TableView<?> medical_view;
+    private Button addMedical_addBtn;
+
+    @FXML
+    private Button addmedical_clearbtn;
+
+
+    @FXML
+    void addMedicalClear(ActionEvent event) {
+
+
+    }
+
+    @FXML
+    void addMedicalSelect(MouseEvent event) {
+
+    }
+
+
+    @FXML
+    private TableView<medicalController> medical_view;
+
+    @FXML
+    private TableColumn<?, ?> muser_id;
+
+    @FXML
+    private TableColumn<?, ?> mm_id;
+
+    @FXML
+    private TableColumn<?, ?> mdecription;
+
+    @FXML
+    private TableColumn<?, ?> mdate;
+
+    @FXML
+    private TableColumn<?, ?> mpdf;
+
+    @FXML
+    private Rectangle addmedical_pdf;
+
+
+    @FXML
+    private TextField addmedical_id;
+
+    @FXML
+    private TextField addmedical_uid;
+
+    @FXML
+    private DatePicker addmedical_date;
+
+
+    @FXML
+    private DatePicker xxxxxxxx;
+
+    @FXML
+    private TextField attendence_status;
+
+
+    @FXML
+    private TextField addmedical_desc;
+
+    @FXML
+    private TableView<attendenceController> attendence_tableView;
 
 //    @FXML
 //    void addProfileUpdate(ActionEvent event) {
@@ -94,6 +183,48 @@ public class technical_officerController implements Initializable {
 //
 //    }
 
+    @FXML
+    private TextField attendence_uid;
+
+    @FXML
+    private TextField attendence_hours;
+
+    @FXML
+    private TextField attendence_id;
+
+    @FXML
+    private TextField attendence_subject;
+
+
+
+    @FXML
+    private DatePicker attendence_date;
+
+    @FXML
+    private TableColumn<?, ?> attend_id;
+
+    @FXML
+    private TableColumn<?, ?> attend_uid;
+
+    @FXML
+    private TableColumn<?, ?> attend_sub;
+
+    @FXML
+    private TableColumn<?, ?> attend_date;
+
+    @FXML
+    private TableColumn<?, ?> attend_status;
+
+    @FXML
+    private TableColumn<?, ?> attend_hours;
+
+    @FXML
+    private Button pdfinsert1;
+
+    @FXML
+    void addMedicalDelete(ActionEvent event) {
+
+    }
 
     @FXML
     private ComboBox<?> addUser_CourseL;
@@ -104,6 +235,15 @@ public class technical_officerController implements Initializable {
 
     @FXML
     private ComboBox<?> addUser_roleC;
+
+
+    @FXML
+    void addMedicalUpdate(ActionEvent event) {
+
+    }
+
+
+
 
     @FXML
     private ComboBox<?> add_gen;
@@ -149,29 +289,11 @@ public class technical_officerController implements Initializable {
     private DatePicker addUser_dobC;
 
 
-    @FXML
-    private TextField addmedical_uid;
 
-    @FXML
-    private TextField addmedical_title;
 
-    @FXML
-    private TextArea medical_des;
 
-    @FXML
-    private DatePicker addmedical_date;
 
-    @FXML
-    private Button addMedical_addBtn;
 
-    @FXML
-    private TableColumn<?, ?> muser_id;
-
-    @FXML
-    private TableColumn<?, ?> mtitile;
-
-    @FXML
-    private TableColumn<?, ?> mDescription;
 
 
     @FXML
@@ -179,11 +301,7 @@ public class technical_officerController implements Initializable {
 
     }
 
-    @FXML
-    private TableColumn<?, ?> mdate;
 
-    @FXML
-    private TableColumn<?, ?> mdocument;
 
 
     @FXML
@@ -279,7 +397,6 @@ public class technical_officerController implements Initializable {
     private ResultSet result;
     private Image image;
 
-    private byte[] pdfBytes;
 
 
     public void addTechDepartmentList(){
@@ -350,6 +467,10 @@ public class technical_officerController implements Initializable {
 
             Optional<ButtonType> option = alert.showAndWait();
 
+
+
+
+
             if(option.get().equals(ButtonType.OK)){
 
                 Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("..//login.fxml")));
@@ -362,13 +483,19 @@ public class technical_officerController implements Initializable {
                 stage.show();
                 stage.resizableProperty().setValue(false);
 
+
+
             }else return;
 
 
 
         }catch (Exception e){
             e.printStackTrace();
+
+
         }
+
+        cleanUserSession();
 
     }
 
@@ -799,6 +926,14 @@ public class technical_officerController implements Initializable {
             timetableform.setVisible(false);
             mainform.setVisible(false);
 
+            btnProfile.setStyle("-fx-background-color: #d62651;");
+            btnAttendence.setStyle("-fx-background-color: transparent");
+            btnMedical.setStyle("-fx-background-color: transparent");
+            btnNotice.setStyle("-fx-background-color: transparent");
+            btnTimetable.setStyle("-fx-background-color: transparent");
+            btnMain.setStyle("-fx-background-color: transparent");
+
+
             addTechDepartmentList();
             addTechProfileRoleList();
             addTechGenList();
@@ -819,6 +954,15 @@ public class technical_officerController implements Initializable {
             timetableform.setVisible(false);
             mainform.setVisible(false);
 
+
+            btnProfile.setStyle("-fx-background-color: transparent");
+            btnAttendence.setStyle("-fx-background-color: #d62651;");
+            btnMedical.setStyle("-fx-background-color: transparent");
+            btnNotice.setStyle("-fx-background-color: transparent");
+            btnTimetable.setStyle("-fx-background-color: transparent");
+            btnMain.setStyle("-fx-background-color: transparent");
+
+
             addProfileshowData();
 
         } else if (event.getSource()==btnMedical) {
@@ -829,6 +973,14 @@ public class technical_officerController implements Initializable {
             timetableform.setVisible(false);
             mainform.setVisible(false);
 
+            btnProfile.setStyle("-fx-background-color: transparent");
+            btnAttendence.setStyle("-fx-background-color: transparent");
+            btnMedical.setStyle("-fx-background-color:  #d62651;");
+            btnNotice.setStyle("-fx-background-color: transparent");
+            btnTimetable.setStyle("-fx-background-color: transparent");
+            btnMain.setStyle("-fx-background-color: transparent");
+
+
             addProfileshowData();
 
         }else if (event.getSource()==btnNotice) {
@@ -838,6 +990,16 @@ public class technical_officerController implements Initializable {
             noticeform.setVisible(true);
             timetableform.setVisible(false);
             mainform.setVisible(false);
+
+
+            btnProfile.setStyle("-fx-background-color: transparent");
+            btnAttendence.setStyle("-fx-background-color: transparent");
+            btnMedical.setStyle("-fx-background-color:  transparent");
+            btnNotice.setStyle("-fx-background-color: #d62651;");
+            btnTimetable.setStyle("-fx-background-color: transparent");
+            btnMain.setStyle("-fx-background-color: transparent");
+
+
             addProfileshowData();
 
 
@@ -848,6 +1010,14 @@ public class technical_officerController implements Initializable {
             noticeform.setVisible(false);
             timetableform.setVisible(true);
             mainform.setVisible(false);
+
+            btnProfile.setStyle("-fx-background-color: transparent");
+            btnAttendence.setStyle("-fx-background-color: transparent");
+            btnMedical.setStyle("-fx-background-color:  transparent");
+            btnNotice.setStyle("-fx-background-color: transparent");
+            btnTimetable.setStyle("-fx-background-color: #d62651;");
+            btnMain.setStyle("-fx-background-color: transparent");
+
 
             addProfileshowData();
 
@@ -861,6 +1031,13 @@ public class technical_officerController implements Initializable {
             timetableform.setVisible(false);
             mainform.setVisible(true);
 
+            btnProfile.setStyle("-fx-background-color: transparent");
+            btnAttendence.setStyle("-fx-background-color: transparent");
+            btnMedical.setStyle("-fx-background-color:  transparent");
+            btnNotice.setStyle("-fx-background-color: transparent");
+            btnTimetable.setStyle("-fx-background-color: transparent");
+            btnMain.setStyle("-fx-background-color: #d62651;");
+
             addProfileshowData();
 
 
@@ -871,7 +1048,6 @@ public class technical_officerController implements Initializable {
 
     public void loadUserData(){
 
-
         try {
 
 
@@ -880,16 +1056,23 @@ public class technical_officerController implements Initializable {
             preparedStatement = connection.prepareStatement(query);
             resultSet = preparedStatement.executeQuery();
 
-
             while (resultSet.next()){
 
-//                UploadResultArea.setText(resultSet.getString("first_name") + " " + resultSet.getString("last_name") );
-//
-//                String uri = "file:" + resultSet.getString("profile_image");
-//                image = new Image(uri, 0, 0, true, false);
-//
-////                addLec_imageViewxxx.setFill(new ImagePattern(image));
-//                UserImage_ViewCircle.setFill(new ImagePattern(image));
+                User_firstnameF.setText(resultSet.getString("first_name"));
+                User_lastnameF.setText(resultSet.getString("last_name"));
+                logeUserId.setText(resultSet.getString("user_id") );
+                logeUserDepartment.setText(resultSet.getString("department_id"));
+                logeUserNumber.setText(resultSet.getString("tp_number"));
+                logeUserRole.setText(resultSet.getString("user_role"));
+                logeUserEmail.setText(resultSet.getString("email"));
+
+
+
+                String uri = "file:" + resultSet.getString("profile_image");
+                image = new Image(uri, 0, 0, true, false);
+
+                UserImage_ViewCircle.setFill(new ImagePattern(image));
+
             }
 
         }catch (Exception e){e.printStackTrace();
@@ -901,111 +1084,692 @@ public class technical_officerController implements Initializable {
 
 
 
+    public void addMedicalAddX(){
+        String insertDATA = "INSERT INTO medical"
+                +"(Medical_id,user_id,Description,date,PDF_status,Document)"
+                +"VALUES(?,?,?,?,?,?)";
+
+        connect = JDBC.getConnection();
+
+        try {
+
+            Alert alert;
 
 
-//    public void addMedicalAdd(){
-//        String insertDATA = "INSERT INTO medical"
-//                +"(user_id,Title,Description,date,Document)"
-//                +"VALUES(?,?,?,?,?)";
-//
-//        connect = JDBC.getConnection();
-//
-//        try {
-//
-//            Alert alert;
-//
-//
-//            if (addmedical_uid.getText().isEmpty()
-//                    || addmedical_title.getText().isEmpty()
-//                    || addmedical_des.getText().isEmpty()
-//                    || getData.path == null || getData.path == "" ){
-//
-//                NoticeDataEnterArea.setStyle("-fx-border-color:red;-fx-border-width:2px;"); // filed color red
-//                new animatefx.animation.Bounce(NoticeDataEnterArea).play();
-//                alert= new Alert(Alert.AlertType.ERROR);
-//                alert.setTitle("Error Message");
-//                alert.setHeaderText(null);
-//                alert.setContentText("Please fill all blank fields");
-//                alert.showAndWait();
-//
-//            }else {
-//
-//                //check if the user is already exist
-//
-//                String checkData = "SELECT notice_id FROM notice WHERE notice_id = '"
-//                        +addNotice_noticeIDC.getText()+"'";
-//
-//                statement = connect.createStatement();
-//                result = statement.executeQuery(checkData);
-//
-//                if (result.next()){
-//
-//                    NoticeDataEnterArea.setStyle(null);
-//                    addNotice_noticeIDC.setStyle("-fx-border-color:red;-fx-border-width:2px;"); // filed color red
-//                    new animatefx.animation.Bounce(addNotice_noticeIDC).play();
-//
-//                    alert= new Alert(Alert.AlertType.ERROR);
-//                    alert.setTitle("Error Message");
-//                    alert.setHeaderText(null);
-//                    alert.setContentText("Notice ID '" + addNotice_noticeIDC.getText() + "' was already exist!");
-//                    alert.showAndWait();
-//
-//                }else {
-//
-//                    addNotice_noticeIDC.setStyle(null);
-//                    prepare = connect.prepareStatement(insertDATA);
-//
-//                    prepare.setString(1, addNotice_noticeIDC.getText());
-//                    prepare.setString(2, addNotice_nameC.getText());
-//                    prepare.setString(3,addNotice_bodyLetterC.getText());
-//
-//                    Date date = new Date();
-//                    java.sql.Date sqlDate = new java.sql.Date(date.getTime());
-//                    prepare.setString(4,String.valueOf(sqlDate));
-//
-//
-//                    String uri = getData.path;
-//                    uri = uri.replace("\\", "\\\\");
-//                    prepare.setString(5, uri);
-//
-//                    if (getData.path !="") {
-//                        String string = "Uploaded";
-//                        prepare.setString(6, string);
-//                    }
-//
-//                    prepare.executeUpdate();
-//
-//                    alert= new Alert(Alert.AlertType.INFORMATION);
-//                    alert.setTitle("Information Message");
-//                    alert.setHeaderText(null);
-//                    alert.setContentText("Successfully Added!");
-//                    alert.showAndWait();
-//
-//                    //to update the tableview
-//                   // addMedicalShowData();
-//
-//                    //to clear the fields
-//                   // addMedicalClear();
-//
-//
-//                    //get to session data
-//                    loadUserData();
-//
-//                }
-//            }
-//
-//        }catch (Exception e){
-//            e.printStackTrace();
-//        }
-//    }
-//
-//
-//
-//
+            if (addmedical_id.getText().isEmpty()
+                    || addmedical_uid.getText().isEmpty()
+                    || addmedical_desc.getText().isEmpty()
+                   || getData.path == null || getData.path == "" ){
+
+                MedicalDataEnterArea.setStyle("-fx-border-color:red;-fx-border-width:2px;"); // filed color red
+                new animatefx.animation.Bounce(MedicalDataEnterArea).play();
+                alert= new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error Message");
+                alert.setHeaderText(null);
+                alert.setContentText("Please fill all blank fields");
+                alert.showAndWait();
+
+            }else {
+
+                //check if the user is already exist
+
+                String checkData = "SELECT user_id FROM medical WHERE user_id = '"
+                        +addmedical_id.getText()+"'";
+
+                statement = connect.createStatement();
+                result = statement.executeQuery(checkData);
+
+                if (result.next()){
+
+                    MedicalDataEnterArea.setStyle(null);
+                    addmedical_uid.setStyle("-fx-border-color:red;-fx-border-width:2px;"); // filed color red
+                    new animatefx.animation.Bounce(addmedical_uid).play();
+
+                    alert= new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error Message");
+                    alert.setHeaderText(null);
+                    alert.setContentText("User ID '" + addmedical_uid.getText() + "' was already exist!");
+                    alert.showAndWait();
+
+                }else {
+
+                    addmedical_id.setStyle(null);
+                    prepare = connect.prepareStatement(insertDATA);
+
+                    prepare.setString(1, addmedical_id.getText());
+                    prepare.setString(2, addmedical_uid.getText());
+                    prepare.setString(3,addmedical_desc.getText());
+
+                    Date date = new Date();
+                    java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+                    prepare.setString(4,String.valueOf(sqlDate));
+
+
+
+
+
+                    if (pdfBytes !=null) {
+                        String string = "Uploaded";
+                        prepare.setString(5, string);
+                    }else if (pdfBytes ==null) {
+                        String string = "Not Uploaded";
+                        prepare.setString(5, string);
+                    }
+
+                    byte[] pdf = pdfBytes;
+                    prepare.setBytes(6,pdf);
+
+                    prepare.executeUpdate();
+
+                    alert= new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Information Message");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Successfully Added!");
+                    alert.showAndWait();
+
+                    //to update the tableview
+                   //
+                     addMedicalShowData();
+
+                    //to clear the fields
+                    addMedicalClearX();
+
+
+                    //get to session data
+                    loadUserData();
+
+                }
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+
+
+    public void addMedicalClearX(){
+       addmedical_id.setText("");
+        addmedical_uid.setText("");
+        addmedical_desc.setText("");
+        addmedical_date.setValue(null);
+
+        getData.path = "";
+        MedicalDataEnterArea.setStyle(null);
+        addmedical_id.setStyle(null);
+        pdfinsert1.setStyle(null);
+
+    }
+
+
+    public ObservableList<medicalController> addMedicalListData(){
+        ObservableList<medicalController> listData = FXCollections.observableArrayList();
+
+        String sql = "SELECT * FROM medical";
+
+        connect = JDBC.getConnection();
+
+        try {
+
+            medicalController medicalD;
+            prepare = connect.prepareStatement(sql);
+            result = prepare.executeQuery();
+
+            while (result.next()){
+                medicalD = new medicalController(result.getString("Medical_id")
+                        , result.getString("user_id")
+                        , result.getString("Description")
+                        , result.getDate("date")
+                        , result.getString("Document")
+                        , result.getString("PDF_status")
+                );
+
+                listData.add(medicalD);
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return listData;
+    }
+
+    private ObservableList<medicalController> addMedicalListD;
+
+
+
+
+    public void addMedicalShowData(){
+        addMedicalListD = addMedicalListData();
+
+        muser_id.setCellValueFactory(new PropertyValueFactory<>("user_id"));
+       mm_id.setCellValueFactory(new PropertyValueFactory<>("Medical_id"));
+        mdecription.setCellValueFactory(new PropertyValueFactory<>("Description"));
+        mdate.setCellValueFactory(new PropertyValueFactory<>("date"));
+        mpdf.setCellValueFactory(new PropertyValueFactory<>("PDF_status"));
+        mpdf.setStyle("    -fx-text-fill: #d62651;" +
+                " -fx-font-weight: bold;");
+
+
+        medical_view.setItems(addMedicalListD);
+
+
+
+    }
+
+
+
+
+    public void addMedicalUpdateX() {
+        String uri = getData.path;
+        uri = uri.replace("\\", "\\\\");
+
+        String updateData = "UPDATE medical SET "
+                + "Description = '" + addmedical_desc.getText() + "' "
+                + (pdfBytes != null ? ", Document = ? " : "") +
+                "WHERE Medical_id = '" + addmedical_id.getText() + "'";
+
+
+        connect = JDBC.getConnection();
+
+        try {
+            Alert alert;
+
+            if (addmedical_id.getText().isEmpty()
+                    || addmedical_uid.getText().isEmpty()
+                    || addmedical_desc.getText().isEmpty())
+
+
+            {
+
+                MedicalDataEnterArea.setStyle("-fx-border-color:red;-fx-border-width:2px;"); // filed color red
+                new animatefx.animation.Bounce(MedicalDataEnterArea).play();
+                alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error Message");
+                alert.setHeaderText(null);
+                alert.setContentText("Please fill all blank fields");
+                alert.showAndWait();
+
+            } else {
+                alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirmation Message");
+                alert.setHeaderText(null);
+                alert.setContentText("Are you sure you want to UPDATE Medical id '" + addmedical_id.getText() + "' ?");
+                Optional<ButtonType> option = alert.showAndWait();
+
+                if (option.get().equals(ButtonType.OK)) {
+
+                    statement = connect.createStatement();
+                    statement.executeUpdate(updateData);
+
+
+                    MedicalDataEnterArea.setStyle(null);
+                    alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Information Message");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Successfully Updated!");
+                    alert.showAndWait();
+
+                    // to update the tableview
+                    addMedicalShowData();
+
+                    // to clear the fields
+                    addMedicalClearX();
+
+
+                } else {
+                    return;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+
+
+
+    public void addMedicalDeleteX(){
+
+        String deleteData = "DELETE FROM medical WHERE Medical_id = '"
+                +addmedical_id.getText()+"'";
+
+        connect = JDBC.getConnection();
+
+        try {
+            Alert alert;
+            if (addmedical_id.getText().isEmpty()
+                    || addmedical_uid.getText().isEmpty()
+                    || addmedical_desc.getText().isEmpty()){
+
+                MedicalDataEnterArea.setStyle("-fx-border-color:red;-fx-border-width:2px;"); // filed color red
+                new animatefx.animation.Bounce(MedicalDataEnterArea).play();
+                alert= new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error Message");
+                alert.setHeaderText(null);
+                alert.setContentText("Please fill all blank fields");
+                alert.showAndWait();
+
+            }else {
+                alert= new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirmation Message");
+                alert.setHeaderText(null);
+                alert.setContentText("Are you sure you want to DELETE Medical id '" + addmedical_id.getText() + "' ?" );
+
+
+                Optional<ButtonType> option = alert.showAndWait();
+
+                if (option.get().equals(ButtonType.OK)) {
+
+                    statement = connect.createStatement();
+                    statement.executeUpdate(deleteData);
+
+                    addmedical_id.setStyle(null);
+                    alert= new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Information Message");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Successfully Deleted!");
+                    alert.showAndWait();
+
+                    //to update the tableview
+                    addMedicalShowData();
+
+                    //to clear the fields
+                    addMedicalClearX();
+
+
+
+                }else return;
+
+            }
+
+        }catch (Exception e){e.printStackTrace();}
+    }
+
+
+
+    byte[] pdfBytes;
+
+    @FXML
+    void choosePdf(ActionEvent event) {
+        try {
+            FileChooser fileopen = new FileChooser();
+
+            fileopen.setTitle("Open PDF File");
+
+            fileopen.getExtensionFilters().add(new FileChooser.ExtensionFilter("Pdf File", "*pdf"));
+
+            File pdfFile = fileopen.showOpenDialog(medicalform.getScene().getWindow());
+
+            pdfBytes = readPDF(pdfFile);
+
+            if (pdfFile != null) {
+                pdfinsert1.setStyle("-fx-background-color: #ff9800;");
+
+
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("load pdf...");
+                alert.setHeaderText(null);
+                alert.setContentText("pdf file is loaded. Please fill in the fields and click the add button.");
+                alert.showAndWait();
+            }
+
+
+        } catch (Exception e) {
+        }
+    }
+    private byte[] readPDF(File file) throws IOException {
+        try (FileInputStream inputStream = new FileInputStream(file);
+             ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
+            IOUtils.copy(inputStream, outputStream);
+            return outputStream.toByteArray();
+        }
+    }
+
+
+
+
+    public void addMedicalSelect(){
+
+        medicalController medicalD = medical_view.getSelectionModel().getSelectedItem();
+        int num = medical_view.getSelectionModel().getSelectedIndex();
+
+        if((num - 1) < -1) {return;}
+
+
+
+       addmedical_id.setText(String.valueOf(medicalD.getMedical_id()));
+        addmedical_uid.setText(String.valueOf(medicalD.getUser_id()));
+       addmedical_desc.setText(String.valueOf(medicalD.getDescription()));
+        mpdf.setText(String.valueOf(medicalD.getPDF_status()));
+
+       addmedical_date.setValue(LocalDate.parse(String.valueOf(medicalD.getDate())));
+
+
+        String uri = "file:" + medicalD.getDocument();
+       pdfinsert1.textFillProperty();
+        pdfinsert1.setStyle("-fx-background-color: #ff9800;");
+
+        getData.path = medicalD.getDocument();
+
+    }
+
+
+
+
+
+
+
+
+
+
+//Attendence Controll
+
+
+    public ObservableList<attendenceController> attendenceListData(){
+        ObservableList<attendenceController> listData = FXCollections.observableArrayList();
+
+        String sql = "SELECT * FROM attendence";
+
+        connect = JDBC.getConnection();
+
+        try {
+
+            attendenceController attendenceD;
+            prepare = connect.prepareStatement(sql);
+            result = prepare.executeQuery();
+
+            while (result.next()){
+                attendenceD = new attendenceController(result.getString("Attendence_id")
+                        , result.getString("user_id")
+                        , result.getString("Subject_id")
+                        , result.getInt("Hours")
+                        , result.getString("State")
+                        , result.getDate("Date")
+                );
+
+                listData.add(attendenceD);
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return listData;
+    }
+
+    private ObservableList<attendenceController> availableAttendenceD;
+
+    public void attendenceShowData(){
+        availableAttendenceD = attendenceListData();
+
+        attend_id.setCellValueFactory(new PropertyValueFactory<>("Attendence_id"));
+        attend_uid.setCellValueFactory(new PropertyValueFactory<>("user_id"));
+        attend_sub.setCellValueFactory(new PropertyValueFactory<>("Subject_id"));
+        attend_hours.setCellValueFactory(new PropertyValueFactory<>("Hours"));
+        attend_status.setCellValueFactory(new PropertyValueFactory<>("State"));
+        attend_date.setCellValueFactory(new PropertyValueFactory<>("Date"));
+
+
+        attendence_tableView.setItems( availableAttendenceD);
+    }
+
+
+    public void availableattendenceSelect(){
+
+        attendenceController attendenceD =  attendence_tableView.getSelectionModel().getSelectedItem();
+        int num =  attendence_tableView.getSelectionModel().getSelectedIndex();
+
+        if((num - 1) < -1) {return;}
+
+        attendence_id.setText(String.valueOf(attendenceD.getAttendence_id()));
+        attendence_uid.setText(String.valueOf(attendenceD.getUser_id()));
+        attendence_subject.setText(String.valueOf(attendenceD.getSubject_id()));
+        attendence_date.setValue(LocalDate.parse(String.valueOf(attendenceD.getDate())));
+        attendence_status.setText(String.valueOf(attendenceD.getState()));
+        attendence_hours.setText(String.valueOf(attendenceD.getHours()));
+
+
+    }
+
+    public void attendenceAdd(){
+
+        String insertDATA = "INSERT INTO attendence"
+                +"(Attendence_id,user_id,Subject_id,Date,State,Hours)"
+                +"VALUES(?,?,?,?,?,?)";
+
+        connect = JDBC.getConnection();
+
+        try {
+
+            Alert alert;
+
+
+            if (attendence_id.getText().isEmpty()
+                    || attendence_uid.getText().isEmpty()
+                    || attendence_subject.getText().isEmpty()
+                    || attendence_status.getText().isEmpty()){
+
+                attendence_entryarea.setStyle("-fx-border-color:red;-fx-border-width:2px;"); // filed color red
+                new Bounce(attendence_entryarea).play();
+                alert= new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error Message");
+                alert.setHeaderText(null);
+                alert.setContentText("Please fill all blank fields");
+                alert.showAndWait();
+
+            }else {
+
+                //check if the course is already exist
+
+                String checkData = "SELECT Attendence_id FROM attendence WHERE Attendence_id = '"
+                        +attendence_id.getText()+"'";
+
+                statement = connect.createStatement();
+                result = statement.executeQuery(checkData);
+
+                if (result.next()){
+
+                    attendence_entryarea.setStyle(null);
+                   attendence_id.setStyle("-fx-border-color:red;-fx-border-width:2px;"); // filed color red
+                    new Bounce(attendence_id).play();
+
+                    alert= new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error Message");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Attendence ID '" + attendence_id.getText() + "' was already exist!");
+                    alert.showAndWait();
+
+                }else {
+
+                    attendence_id.setStyle(null);
+                    prepare = connect.prepareStatement(insertDATA);
+
+
+                    prepare.setString(1, attendence_id.getText());
+                    prepare.setString(2, attendence_uid.getText());
+                    prepare.setString(3,attendence_subject.getText());
+
+                    Date date = new Date();
+                    java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+                    prepare.setString(4,String.valueOf(sqlDate));
+
+                    prepare.setString(5,attendence_status.getText());
+                    prepare.setString(6,attendence_hours.getText());
+
+
+                    prepare.executeUpdate();
+
+                    alert= new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Information Message");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Successfully Added!");
+                    alert.showAndWait();
+
+                    //to update the tableview
+                    attendenceShowData();
+
+                    //to clear the fields
+                  attendenceClear();
+
+
+                }
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+
+    public void attendenceClear(){
+        attendence_id.setText("");
+       attendence_uid.setText("");
+        attendence_subject.setText("");
+       attendence_entryarea.setStyle(null);
+       attendence_status.setText("");
+        attendence_hours.setText("");
+        attendence_date.setValue(null);
+
+
+    }
+
+    public  void attendenceUpdate(){
+
+        String uri = getData.path;
+        uri = uri.replace("\\", "\\\\");
+
+
+        String updateData = "UPDATE attendence SET "
+                + "Hours = " + attendence_hours.getText() + ", "
+                + "State = '" + attendence_status.getText() + "' WHERE Attendence_id = '" + attendence_id.getText() + "'";
+
+        connect = JDBC.getConnection();
+
+
+        try {
+            Alert alert;
+            if (attendence_id.getText().isEmpty()
+                    || attendence_uid.getText().isEmpty()
+                    || attendence_subject.getText().isEmpty()
+                    || attendence_status.getText().isEmpty()){
+
+                attendence_entryarea.setStyle("-fx-border-color:red;-fx-border-width:2px;"); // filed color red
+                new animatefx.animation.Bounce(attendence_entryarea).play();
+                alert= new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error Message");
+                alert.setHeaderText(null);
+                alert.setContentText("Please fill all blank fields");
+                alert.showAndWait();
+
+            }else {
+
+
+                alert= new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirmation Message");
+                alert.setHeaderText(null);
+                alert.setContentText("Are you sure you want to UPDATE Attendence ID '" + attendence_id.getText() + "' ?" );
+
+                Optional<ButtonType> option = alert.showAndWait();
+
+                if (option.get().equals(ButtonType.OK)){
+
+                    statement = connect.createStatement();
+                    statement.executeUpdate(updateData);
+
+                   attendence_entryarea.setStyle(null);
+                    alert= new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Information Message");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Successfully Updated!");
+                    alert.showAndWait();
+
+                    //to update the tableview
+                    attendenceShowData();
+
+                    //to clear the fields
+                    attendenceClear();
+
+
+
+
+                }else return;
+            }
+        }catch (Exception e){e.printStackTrace();}
+    }
+
+    public void attendenceDelete(){
+
+        String deleteData = "DELETE FROM attendence WHERE Attendence_id = '"
+                +attendence_id.getText()+"'";
+
+        connect = JDBC.getConnection();
+
+        try {
+            Alert alert;
+            if (attendence_id.getText().isEmpty()
+                    || attendence_uid.getText().isEmpty()
+                    || attendence_subject.getText().isEmpty()
+                    || attendence_hours.getText().isEmpty()
+                    || attendence_status.getText().isEmpty()){
+
+               attendence_entryarea.setStyle("-fx-border-color:red;-fx-border-width:2px;"); // filed color red
+                new animatefx.animation.Bounce(attendence_entryarea).play();
+                alert= new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error Message");
+                alert.setHeaderText(null);
+                alert.setContentText("Please fill all blank fields");
+                alert.showAndWait();
+
+            }else {
+                alert= new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirmation Message");
+                alert.setHeaderText(null);
+                alert.setContentText("Are you sure you want to DELETE Attendence ID '" + attendence_id.getText() + "' ?" );
+
+
+                Optional<ButtonType> option = alert.showAndWait();
+
+                if (option.get().equals(ButtonType.OK)) {
+
+                    statement = connect.createStatement();
+                    statement.executeUpdate(deleteData);
+
+                    attendence_id.setStyle(null);
+                    alert= new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Information Message");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Successfully Deleted!");
+                    alert.showAndWait();
+
+                    //to update the tableview
+                    attendenceShowData();
+
+                    //to clear the fields
+                    attendenceClear();
+
+                }else return;
+
+            }
+
+        }catch (Exception e){e.printStackTrace();}
+    }
+
+
+
+
+
+
+
+
+
+
+
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         addProfileshowData();
 
         addTechDepartmentList();
@@ -1016,6 +1780,8 @@ public class technical_officerController implements Initializable {
         addProfileshowData();
         addNoticeShowData();
         addTimetableShowData();
+        addMedicalShowData();
+        attendenceShowData();
         loadUserData();
 
 
