@@ -3,8 +3,10 @@ package com.tecmis.project.Lecturer;
 import animatefx.animation.FadeIn;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
+import com.tecmis.project.Admin.Notices.noticeController;
 import com.tecmis.project.Admin.Profiles.profileController;
 import com.tecmis.project.Admin.getData;
+import com.tecmis.project.Lecturer.SdetailMedical.SdetailMedicalController;
 import com.tecmis.project.Lecturer.coursematerials.coursematerialscontroller;
 import com.tecmis.project.UserSession;
 import com.tecmis.project.connection_DB.JDBC;
@@ -317,13 +319,34 @@ public class lecturerController implements Initializable {
     private TableColumn<?, ?> uploadMarks_Name_clm;
 
     @FXML
-    private TableColumn<?, ?> uploadMarks_Course_clm;
+    private TableColumn<?,?> uploadMarks_Course_clm;
 
     @FXML
     private TableColumn<?, ?> uploadMarks_Type_clm;
 
     @FXML
+    private TableColumn<?, ?> sub;
+
+    @FXML
     private TableColumn<?, ?> uploadMarks_Marks_clm;
+
+    @FXML
+    private TableView<noticeController> Notice_tableView1;
+
+    @FXML
+    private TableColumn<?, ?> noticeBON_clm;
+
+    @FXML
+    private TableColumn<?, ?> noticeNoticeDate_clm;
+
+    @FXML
+    private TableColumn<?, ?> noticeNoticeImg_clm;
+
+    @FXML
+    private TableColumn<?, ?> noticeNoticeName_clm;
+
+    @FXML
+    private TableColumn<?, ?> noticeNotice_Id_Clm;
 
     @FXML
     private TextField UploadMarks_Search;
@@ -333,7 +356,35 @@ public class lecturerController implements Initializable {
 
     @FXML
     private JFXButton uploadMarks_Deletebtn;
-    private MarksInformation marksDetails;
+
+    @FXML
+    private TableColumn<?, ?> SDetails_Course_Id;
+
+    @FXML
+    private TableColumn<?, ?> SDetails_Date;
+
+    @FXML
+    private TableColumn<?, ?> SDetails_Eligibility;
+
+
+    @FXML
+    private TableColumn<?, ?> SDetails_State;
+
+    @FXML
+    private TableColumn<?, ?> SDetails_User_Id;
+
+    @FXML
+    private TableColumn<String, SdetailMedicalController> SDtails_MedicalRecords;
+
+    @FXML
+    private TableView<Controller> SDetails_Table_View;
+
+    @FXML
+    private TableColumn<String, SdetailMedicalController> SDtails_MedicalReg_no;
+
+    @FXML
+    private TableView<SdetailMedicalController> SDetails_MedicalTable_View;
+
 
 
     @FXML
@@ -412,7 +463,7 @@ public class lecturerController implements Initializable {
     }
 
     @FXML
-    void UpdateLecMaterial(ActionEvent event) {
+    void updateCourseMaterial(ActionEvent event) {
 
     }
 
@@ -436,6 +487,11 @@ public class lecturerController implements Initializable {
 
     }
 
+    @FXML
+    void courseMaterialSelect(MouseEvent event) {
+
+    }
+
 
     @FXML
     private void switchForm() {
@@ -449,9 +505,15 @@ public class lecturerController implements Initializable {
 
     private Connection connect;
     private PreparedStatement prepare;
+
+    private MarksInformation marksDetails;
+    private PreparedStatement prepareCheck;
     private Statement statement;
     private ResultSet result;
     private Image image;
+
+    // Declare chosenFilePath as a class variable
+    private String chosenFilePath;
 
     private FileChooser fileChooser;
 
@@ -510,6 +572,8 @@ public class lecturerController implements Initializable {
             SDetails_form.setVisible(false);
             Notices_form.setVisible(false);
 
+            showMaterialDetail();
+
         } else if (event.getSource() == UploadMarks_btn || event.getSource() == UploadMarks_bar) {
             Dashboard_form.setVisible(false);
             Profile_form.setVisible(false);
@@ -517,6 +581,8 @@ public class lecturerController implements Initializable {
             UploadMarks_form.setVisible(true);
             SDetails_form.setVisible(false);
             Notices_form.setVisible(false);
+
+
 
         } else if (event.getSource() == SDetails_btn || event.getSource() == SDetails_bar) {
             Dashboard_form.setVisible(false);
@@ -950,7 +1016,8 @@ public class lecturerController implements Initializable {
 //Course Form Code
 public ObservableList<coursematerialscontroller>courseMaterialsDetails() {
     ObservableList<coursematerialscontroller> DList = FXCollections.observableArrayList();
-    String sql = "SELECT * FROM course_materials";
+
+    String sql = "SELECT * FROM course_materials WHERE user_id = '"+UserSession.getUserId()+"'";
 
     connect = JDBC.getConnection();
 
@@ -961,6 +1028,7 @@ public ObservableList<coursematerialscontroller>courseMaterialsDetails() {
 
         while (result.next()){
             materialD = new coursematerialscontroller(result.getString("course_material_no")
+                    ,result.getString("user_id")
                     , result.getString("material_name")
                     , result.getString("course_material")
 
@@ -975,100 +1043,206 @@ public ObservableList<coursematerialscontroller>courseMaterialsDetails() {
 
 }
 
-    public void addLecMaterial () {
 
-        String insertDATA = "INSERT INTO course_materials"
-                + "(material_name,course_material)"
-                + "VALUES(?,?)";
+
+
+    public void addLecMaterialX() {
+        String insertData = "INSERT INTO course_materials (user_id,material_name, course_material) VALUES (?, ?, ?)";
 
         connect = JDBC.getConnection();
 
         try {
-
             Alert alert;
 
             if (Material_Name.getText().isEmpty()) {
-//                fis=new FileInputStream(file);
-
-
-                CourseDataEnterArea1.setStyle("-fx-border-color:red;-fx-border-width:2px;"); // filed color red
+                CourseDataEnterArea1.setStyle("-fx-border-color: red; -fx-border-width: 2px;");
                 new animatefx.animation.Bounce(CourseDataEnterArea1).play();
                 alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error Message");
                 alert.setHeaderText(null);
                 alert.setContentText("Please Give Material Name");
                 alert.showAndWait();
-            }
-             else {
+            } else {
+                chooseMaterialx();
 
-                String checkData = "SELECT material_name FROM course_materials WHERE material_name = '"
-                        + Material_Name.getText() + "'";
+                Material_Name.setStyle(null);
+                prepare = connect.prepareStatement(insertData, Statement.RETURN_GENERATED_KEYS);
 
-                statement = connect.createStatement();
-                result = statement.executeQuery(checkData);
+                prepare.setString(1, UserSession.getUserId());
+                prepare.setString(2, Material_Name.getText());
+                prepare.setString(3, chosenFilePath);
 
+                String checkData = "SELECT material_name FROM course_materials WHERE material_name = ?";
+                try (PreparedStatement prepareCheck = connect.prepareStatement(checkData)) {
+                    prepareCheck.setString(1, Material_Name.getText());
+                    try (ResultSet result = prepareCheck.executeQuery()) {
+                        if (result.next()) {
+                            CourseDataEnterArea1.setStyle(null);
+                            Material_Name.setStyle("-fx-border-color: red; -fx-border-width: 2px;");
+                            new animatefx.animation.Bounce(Material_Name).play();
 
-////
-////
-//
-                if (result.next()) {
-
-                    CourseDataEnterArea1.setStyle(null);
-                    Material_Name.setStyle("-fx-border-color:red;-fx-border-width:2px;"); // filed color red
-                    new animatefx.animation.Bounce(Material_Name).play();
-
-                    alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Error Message");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Notice ID '" + Material_Name.getText() + "' was already exist!");
-                    alert.showAndWait();
-
-                } else {
-                    Material_Name.setStyle(null);
-                    prepare = connect.prepareStatement(insertDATA);
-
-                    prepare.setString(1, Material_Name.getText());
-
-                    String uri = getData.path;
-                    uri = uri.replace("\\", "\\\\");
-                    prepare.setString(5, uri);
-
-                    if (getData.path != "") {
-                        String string = "Uploaded";
-                        prepare.executeUpdate();
-                        prepare.setString(6, string);
+                            alert = new Alert(Alert.AlertType.ERROR);
+                            alert.setTitle("Error Message");
+                            alert.setHeaderText(null);
+                            alert.setContentText("Material Name '" + Material_Name.getText() + "' already exists!");
+                            alert.showAndWait();
+                        } else {
+                            if (!chosenFilePath.isEmpty()) {
+                                String string = "Uploaded";
+                                prepare.executeUpdate();
+                                try (ResultSet generatedKeys = prepare.getGeneratedKeys()) {
+                                    if (generatedKeys.next()) {
+                                        int generatedId = generatedKeys.getInt(1);
+                                        System.out.println("Generated ID: " + generatedId);
+                                    }
+                                }
+                            }
+                            showMaterialDetail();
+                            availableCourseClearX();
+                        }
                     }
                 }
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
-  }
-
-
-public void chooseMaterialx(){
-
-    FileChooser open = new FileChooser();
-    open.setTitle("Open Image File");
-    open.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image File", "*jpg", "*png"));
+    }
 
 
 
-    File file = open.showOpenDialog(Course_form.getScene().getWindow());
+    public void chooseMaterialx() {
+        FileChooser open = new FileChooser();
+        open.setTitle("Open Image File");
+        open.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Image File", "*.jpg", "*.png"),
+                (new FileChooser.ExtensionFilter("PDF Files", "*.pdf")));
 
-    if (file != null){
+        File file = open.showOpenDialog(Course_form.getScene().getWindow());
 
-//
-        image = new Image(file.toURI().toString(),0, 0, true, false );
-//        addUser_imageViewNew.setFill(new ImagePattern(image));
-        getData.path = file.getAbsolutePath();
+        if (file != null) {
+            chosenFilePath = file.getAbsolutePath();
+            AddMaterial_btn.setStyle("-fx-background-color: #ff9800;");
+        }
+    }
 
-        AddMaterial_btn.setStyle("-fx-background-color: #ff9800;");
+    public void availableCourseClearX() {
+
+        Material_Name.setText("");
+        AddMaterial_btn.setStyle(null);
+    }
+
+
+    public void courseMaterialSelect(){
+
+        coursematerialscontroller courseMaterialsD = courseMaterial_tableView.getSelectionModel().getSelectedItem();
+        int num = courseMaterial_tableView.getSelectionModel().getSelectedIndex();
+
+        if((num - 1) < -1) {return;}
+
+
+
+        Material_Name.setText(String.valueOf(courseMaterialsD.getMaterial_name()));
 
 
     }
-}
+
+
+    public void updateCourseMaterialX() {
+        coursematerialscontroller selectedCourseMaterial = courseMaterial_tableView.getSelectionModel().getSelectedItem();
+
+        String updateData = "UPDATE course_materials SET material_name = ?, course_material = ? WHERE course_material_no = ?";
+
+        try {
+            if (Material_Name.getText().isEmpty()) {
+                CourseDataEnterArea1.setStyle("-fx-border-color:red;-fx-border-width:2px;"); // field color red
+                new animatefx.animation.Bounce(CourseDataEnterArea1).play();
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error Message");
+                alert.setHeaderText(null);
+                alert.setContentText("Please fill all blank fields");
+                alert.showAndWait();
+            } else {
+
+                
+                
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirmation Message");
+                alert.setHeaderText(null);
+                alert.setContentText("Are you sure you want to UPDATE course material '" + Material_Name.getText() + "' ?");
+                Optional<ButtonType> option = alert.showAndWait();
+
+                if (option.get().equals(ButtonType.OK)) {
+                    PreparedStatement preparedStatement = JDBC.getConnection().prepareStatement(updateData);
+                    preparedStatement.setString(1, Material_Name.getText());
+                    preparedStatement.setString(2, selectedCourseMaterial.getCourse_material());
+                    preparedStatement.setString(3, selectedCourseMaterial.getCourse_material_no());
+                    preparedStatement.executeUpdate();
+                    preparedStatement.close();
+                    
+
+                    selectedCourseMaterial.setMaterial_name(Material_Name.getText());
+                    courseMaterial_tableView.refresh();
+
+                    CourseDataEnterArea1.setStyle(null);
+                    alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Information Message");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Successfully Updated!");
+                    alert.showAndWait();
+
+                    // To update the table view
+                    showMaterialDetail();
+
+                    // To clear the fields
+                    availableCourseClearX();
+                } else {
+                    return;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+    public void DeleteLecMaterialX() {
+
+        coursematerialscontroller selectedCourseMaterial = courseMaterial_tableView.getSelectionModel().getSelectedItem();
+
+        if (selectedCourseMaterial == null) {
+            // No row selected, return or show an error message
+            return;
+        }
+
+        String courseId = selectedCourseMaterial.getCourse_material_no();
+
+        String deleteData = "DELETE FROM course_materials WHERE course_material_no = ?";
+
+        connect = JDBC.getConnection();
+
+        try {
+            prepare = connect.prepareStatement(deleteData);
+            prepare.setString(1, courseId);
+            prepare.executeUpdate();
+
+            // Remove the selected course material from the table view
+            courseMaterial_tableView.getItems().remove(selectedCourseMaterial);
+            courseMaterial_tableView.refresh();
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Deletion Successful");
+            alert.setHeaderText(null);
+            alert.setContentText("Course material deleted successfully!");
+            alert.showAndWait();
+
+
+            showMaterialDetail();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
 
     private ObservableList<coursematerialscontroller> courseMaterialsD;
@@ -1086,118 +1260,99 @@ public void chooseMaterialx(){
 
 
 
-
-
 //------------------------------------------------------------------------------------------------------------------------------------------------
 //Upload Marks Code
+
 ObservableList<MarksInformation> marksList = FXCollections.observableArrayList();
 
     public void loadMarksData(){
         connect = JDBC.getConnection();
-//        refreshTable();
-        uploadMarks_regNo_clm.setCellValueFactory(new PropertyValueFactory<>("user_id"));
-        uploadMarks_Name_clm.setCellValueFactory(new PropertyValueFactory<>("first_name"));
-        uploadMarks_Course_clm.setCellValueFactory(new PropertyValueFactory<>("course_name"));
-        uploadMarks_Type_clm.setCellValueFactory(new PropertyValueFactory<>("e_type"));
-        uploadMarks_Marks_clm.setCellValueFactory(new PropertyValueFactory<>("marks"));
+
+       uploadMarks_regNo_clm.setCellValueFactory(new PropertyValueFactory<>("user_id"));
+       uploadMarks_Name_clm.setCellValueFactory(new PropertyValueFactory<>("first_name"));
+       uploadMarks_Course_clm.setCellValueFactory(new PropertyValueFactory<>("Subject_code"));
+       uploadMarks_Type_clm.setCellValueFactory(new PropertyValueFactory<>("e_type"));
+       uploadMarks_Marks_clm.setCellValueFactory(new PropertyValueFactory<>("marks"));
 
         marks_Table.setItems(marksList);
         new FadeIn(marks_Table).play();
 
-//        FilteredList<loadMarksDataList> filteredData = new FilteredList<>(marksList, b -> true);
-//        txtKeyword.textProperty().addListener((observable, oldValue, newValue) -> {
-//            filteredData.setPredicate(MarksDetails -> {
-//
-//                if(newValue.isEmpty() || newValue.isBlank() || newValue == null){
-//                    return true;
-//                }
-//
-//                String searchKeyword = newValue.toLowerCase();
-//
-//                if (MarksDetails.getFname().toLowerCase().indexOf(searchKeyword) > -1){
-//                    return true;
-//                } else if (MarksDetails.getExamtype().toLowerCase().indexOf(searchKeyword) > -1 ) {
-//                    return true;
-//                } else if (MarksDetails.getTgnum().toLowerCase().indexOf(searchKeyword) > -1 ) {
-//                    return true;
-//                } else if (MarksDetails.getCourseName().toLowerCase().indexOf(searchKeyword)> -1) {
-//                    return true;
-//                } else if (MarksDetails.getCourseCode().toLowerCase().indexOf(searchKeyword)> -1) {
-//                    return true;
-//                } else {
-//                    return false;
-//                }
-//
-//            });
-//        });
-//
-//        SortedList<MarksDetails> sortedData = new SortedList<>(filteredData);
-//        sortedData.comparatorProperty().bind(marks_Table.comparatorProperty());
-//        marks_Table.setItems(sortedData);
-//        new FadeIn(marks_Table).play();
     }
-    public void refreshTable(){
-        try{
+
+
+    void refreshTable() {
+        connect = JDBC.getConnection();
+        try {
             marksList.clear();
-            int depId= Integer.parseInt(UserSession.getUserId());
 
-            query="SELECT * FROM marks, user, course, exam WHERE marks.user_id = user.user_id AND examination.CourseCode = course.course_id AND examination.exam_id=marks.examId AND user.department_id="+depId+"";
-            preparedStatement = connection.prepareStatement(query);
-            resultSet = preparedStatement.executeQuery();
+            String query = "SELECT marks.user_id, user.first_name, marks.Subject_code, marks.etype, marks.marks " +
+                    "FROM marks " +
+                    "JOIN user ON marks.user_id = user.user_id " +
+                    "JOIN subject ON marks.Subject_code = subject.Subject_code";
+            prepare = connect.prepareStatement(query);
+            result = prepare.executeQuery();
 
-            while (resultSet.next()){
-                marksList.add(new MarksInformation(resultSet.getString("exam_Id")
-                                        ,resultSet.getString("user_id")
-                                        ,resultSet.getString("first_name")
-                                        ,resultSet.getString("last_name")
-                                        ,resultSet.getString("course_name")
-                                        ,resultSet.getString("course_id")
-                                        , resultSet.getFloat("marks")
-                                        , resultSet.getString("e_type")
-                                        , resultSet.getInt("marks_Id")));
-
-                marks_Table.setItems(marksList);
+            while (result.next()) {
+                marksList.add(new MarksInformation(
+                        result.getString("user_id"),
+                        result.getString("first_name"),
+                        result.getString("Subject_code"),
+                        result.getString("etype"),
+                        result.getFloat("marks")
+                ));
             }
+
+            marks_Table.setItems(marksList);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
-    @FXML
-    public void uploadmarksUpdate(){
+
+    public void uploadmarksUpdateX(){
+
+
         try {
+
             marksDetails = marks_Table.getSelectionModel().getSelectedItem();
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("UpdateMarks.fxml"));
             Parent root = (Parent) fxmlLoader.load();
             Stage stage = new Stage();
             stage.setTitle("Add Marks");
-            javafx.scene.image.Image image = new Image("images/appIcon.png");
-            stage.getIcons().add(image);
+//            javafx.scene.image.Image image = new Image("images/appIcon.png");
+//            stage.getIcons().add(image);
             stage.resizableProperty().setValue(false);
             stage.setScene(new Scene(root));
             stage.show();
+
 
         } catch (IOException ex) {
             Logger.getLogger(lecturerController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     @FXML
-    public void uploadmarksEdit(){
+    public void refreshUpdateMarksTable(){
+        refreshTable();
+    }
+    @FXML
+    public void uploadmarksEditX(){
+
         if(marks_Table.getSelectionModel().getSelectedItem() != null){
             try {
                 marksDetails = marks_Table.getSelectionModel().getSelectedItem();
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("edit-marks.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("EditMarks.fxml"));
                 Parent root = (Parent) fxmlLoader.load();
 
-                editController senddata = fxmlLoader.getController();
-               // senddata.showInformation(marksDetails.getExam_Id(),marksDetails.getE_type(),marksDetails.getCourse_name(),marksDetails.getUser_id(),marksDetails.getMarks());
+                EditMarks senddata = fxmlLoader.getController();
+                senddata.showInformation(marksDetails.getExam_Id(),marksDetails.getE_type(),marksDetails.getSubjectCode(),marksDetails.getUser_id(),marksDetails.getMarks());
 
                 Stage stage = new Stage();
                 stage.setTitle("Edit Marks");
-                javafx.scene.image.Image image = new Image("images/appIcon.png");
-                stage.getIcons().add(image);
+//                javafx.scene.image.Image image = new Image("images/appIcon.png");
+//                stage.getIcons().add(image);
                 stage.resizableProperty().setValue(false);
                 stage.setScene(new Scene(root));
                 stage.show();
+
 
             } catch (IOException ex) {
                 Logger.getLogger(lecturerController.class.getName()).log(Level.SEVERE, null, ex);
@@ -1211,39 +1366,250 @@ ObservableList<MarksInformation> marksList = FXCollections.observableArrayList()
         }
 
     }
+
     @FXML
     private void uploadmarksDelete(javafx.event.ActionEvent event) throws SQLException {
-        if(marks_Table.getSelectionModel().getSelectedItem() != null){
+        if (marks_Table.getSelectionModel().getSelectedItem() != null) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Delete Marks");
-            alert.setContentText("Are you sure to delete this Marks");
+            alert.setContentText("Are you sure you want to delete this Marks?");
             Optional<ButtonType> result = alert.showAndWait();
-            if(result.get() == ButtonType.OK) {
+            if (result.get() == ButtonType.OK) {
                 try {
                     marksDetails = marks_Table.getSelectionModel().getSelectedItem();
-                    query = "DELETE FROM `marks` WHERE user_id='" + marksDetails.getUser_id() + "' AND exam_Id='" + marksDetails.getExam_Id() + "'";
+
+                    String query = "DELETE FROM marks WHERE user_id='" + marksDetails.getUser_id() + "' AND Subject_code='" + marksDetails.getSubject_code() + "' AND etype='" + marksDetails.getE_type() + "'";
+
+
                     connect = JDBC.getConnection();
-                    preparedStatement = connection.prepareStatement(query);
-                    preparedStatement.execute();
+                    Statement stmt = connect.createStatement();
+                    stmt.executeUpdate(query);
+
                     refreshTable();
+
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
             }
-        }else{
+        } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Warning");
-            alert.setContentText("If you want to delete any student marks, First you select the row that you want to delete");
+            alert.setContentText("If you want to delete any student marks, you must first select the row you want to delete.");
             alert.showAndWait();
         }
+    }
+
+//    public void parseMarksDataToCAMarks() {
+//        connect = JDBC.getConnection();
+//
+//        try {
+//            String query = "INSERT INTO `ca_marks`(`user_id`, `Subject_code`, `Quiz_1`, `Quiz_2`, `Quiz_3`, `Assessment_1`, `Assessment_2`, `Mid term`, `Final_theory`, `Final_practical`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+//            prepare = connect.prepareStatement(query);
+//
+//            for (MarksInformation marksInfo : marksList) {
+//                prepare.setString(1, marksInfo.getUser_id());
+//                prepare.setString(2, marksInfo.getSubjectCode());
+//                prepare.setFloat(3, marksInfo.getMarksByEType("Quiz_1"));
+//                prepare.setFloat(4, marksInfo.getMarksByEType("Quiz_2"));
+//                prepare.setFloat(5, marksInfo.getMarksByEType("Quiz_3"));
+//                prepare.setFloat(6, marksInfo.getMarksByEType("Assessment_1"));
+//                prepare.setFloat(7, marksInfo.getMarksByEType("Assessment_2"));
+//                prepare.setFloat(8, marksInfo.getMarksByEType("Mid term"));
+//                prepare.setFloat(9, marksInfo.getMarksByEType("Final_theory"));
+//                prepare.setFloat(10, marksInfo.getMarksByEType("Final_practical"));
+//
+//                prepare.executeUpdate();
+//            }
+//
+//            // Optional: Clear marksList after parsing the data
+//            marksList.clear();
+//
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        } finally {
+//            // Close resources (PreparedStatement, ResultSet, Connection) here
+//        }
+//    }
+//
+//    public float getMarksByEType(String eType) {
+//        switch (eType) {
+//            case "Quiz_1":
+//                return marksInfo.getQuiz1Marks(); // Assuming you have a method to retrieve Quiz_1 marks in the MarksInformation class
+//            case "Quiz_2":
+//                return marksInfo.getQuiz2Marks(); // Assuming you have a method to retrieve Quiz_2 marks in the MarksInformation class
+//            case "Quiz_3":
+//                return marksInfo.getQuiz3Marks(); // Assuming you have a method to retrieve Quiz_3 marks in the MarksInformation class
+//            case "Assessment_1":
+//                return marksInfo.getAssessment1Marks(); // Assuming you have a method to retrieve Assessment_1 marks in the MarksInformation class
+//            case "Assessment_2":
+//                return marksInfo.getAssessment2Marks(); // Assuming you have a method to retrieve Assessment_2 marks in the MarksInformation class
+//            case "Mid term":
+//                return marksInfo.getMidTermMarks(); // Assuming you have a method to retrieve Mid term marks in the MarksInformation class
+//            case "Final_theory":
+//                return marksInfo.getFinalTheoryMarks(); // Assuming you have a method to retrieve Final_theory marks in the MarksInformation class
+//            case "Final_practical":
+//                return marksInfo.getFinalPracticalMarks(); // Assuming you have a method to retrieve Final_practical marks in the MarksInformation class
+//            default:
+//                return 0.0f; // or return a default value if needed
+//        }
+//    }
+
+
+
+
+
+//----------------------------------------------------------------------------------------------------------------------------------------------
+    //Student Details
+
+        public ObservableList<Controller> addController(){
+            ObservableList<Controller> listController = FXCollections.observableArrayList();
+
+            String sql = "SELECT user_id, Subject_id, State, Date FROM attendence ORDER BY user_id";
+
+
+            connect = JDBC.getConnection();
+
+            try {
+
+                Controller sdetailsD;
+                prepare = connect.prepareStatement(sql);
+                result = prepare.executeQuery();
+
+                while (result.next()){
+
+                    sdetailsD = new Controller(result.getString("user_id")
+                            , result.getString("Subject_id")
+                            , result.getString("State")
+                            , result.getDate("Date")
+
+
+                    );
+
+                    listController.add(sdetailsD);
+                }
+
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        return listController;
+    }
+
+    private ObservableList<Controller> sdetailsD;
+
+    public void showSDetails(){
+
+        sdetailsD = addController();
+        SDetails_User_Id.setCellValueFactory(new PropertyValueFactory<>("user_id"));
+        SDetails_Course_Id.setCellValueFactory(new PropertyValueFactory<>("Subject_id"));
+        SDetails_State.setCellValueFactory(new PropertyValueFactory<>("State"));
+        SDetails_Date.setCellValueFactory(new PropertyValueFactory<>("Date"));
+
+
+        SDetails_Table_View.setItems(sdetailsD);
+
+    }
+
+
+    public ObservableList<SdetailMedicalController> MedicalData() {
+        ObservableList<SdetailMedicalController> DataList = FXCollections.observableArrayList();
+
+        connect = JDBC.getConnection();
+
+        try {
+            String sql = "SELECT * FROM medical";
+            prepare = connect.prepareStatement(sql);
+            result = prepare.executeQuery();
+
+            while (result.next()) {
+                SdetailMedicalController sdetailMedicalD = new SdetailMedicalController(
+                        result.getString("user_id"),
+                        result.getString("Description")
+
+                );
+
+                DataList.add(sdetailMedicalD);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return DataList;
+    }
+
+    private ObservableList<SdetailMedicalController> medicalData;
+
+    public void showSDetailMedicalDetails() {
+        medicalData = MedicalData();
+
+        SDtails_MedicalReg_no.setCellValueFactory(new PropertyValueFactory<>("user_id"));
+        SDtails_MedicalRecords.setCellValueFactory(new PropertyValueFactory<>("Description"));
+
+        SDetails_MedicalTable_View.setItems(medicalData);
     }
 
 
 
 
+
+
 //-----------------------------------------------------------------------------------------------------------------------------------------------
+//Notices code
 
 
+    public ObservableList<noticeController> addNoticeListData() {
+        ObservableList<noticeController> listData = FXCollections.observableArrayList();
+
+        String sql = "SELECT * FROM notice";
+
+        try {
+            connect = JDBC.getConnection();
+            PreparedStatement preparedStatement = connect.prepareStatement(sql);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                noticeController noticeD = new noticeController(
+                        resultSet.getString("notice_id"),
+                        resultSet.getString("notice_name"),
+                        resultSet.getString("bodyof_notice"),
+                        resultSet.getString("notice_imagepdf"),
+                        resultSet.getDate("notice_createdate"),
+                        resultSet.getString("upnonupnotice")
+                );
+
+                listData.add(noticeD);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return listData;
+    }
+
+    private ObservableList<noticeController> noticeData;
+
+    public void showNoticeData() {
+
+        noticeData = addNoticeListData();
+
+        noticeNotice_Id_Clm.setCellValueFactory(new PropertyValueFactory<>("notice_id"));
+        noticeNoticeName_clm.setCellValueFactory(new PropertyValueFactory<>("notice_name"));
+        noticeBON_clm.setCellValueFactory(new PropertyValueFactory<>("bodyof_notice"));
+        noticeNoticeImg_clm.setCellValueFactory(new PropertyValueFactory<>("notice_imagepdf"));
+        noticeNoticeDate_clm.setCellValueFactory(new PropertyValueFactory<>("notice_createdate"));
+
+
+
+        Notice_tableView1.setItems(noticeData);
+
+
+        }
+
+
+
+
+
+
+    //-------------------------------------------------------------------------------------------------------------------------------------------------
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         addlecGenList();
@@ -1254,9 +1620,13 @@ ObservableList<MarksInformation> marksList = FXCollections.observableArrayList()
         showMaterialDetail();
         courseMaterialsDetails();
         loadMarksData();
-
+        showNoticeData();
         addProfileshowData();
-
+        showSDetails();
+        addController();
+        refreshTable();
+//        parseMarksDataToCAMarks();
+        showSDetailMedicalDetails();
     }
 
 
@@ -1272,23 +1642,19 @@ ObservableList<MarksInformation> marksList = FXCollections.observableArrayList()
 
 
 
-    String query = null;
-    Connection connection = null ;
-    PreparedStatement preparedStatement = null ;
-    ResultSet resultSet = null ;
-
+//    String query = null;
+//    Connection connection = null ;
+//    PreparedStatement preparedStatement = null ;
+//    ResultSet resultSet = null ;
 
     public void loadUserData(){
+       Connection connection=JDBC.getConnection();
 
 
         try {
-
-
-            connection = JDBC.getConnection();
-            query = "SELECT * FROM user WHERE user_id = '"+ UserSession.getUserId() +"'";
-            preparedStatement = connection.prepareStatement(query);
-            resultSet = preparedStatement.executeQuery();
-
+            Statement stmt = connection.createStatement();
+           String   query = "SELECT * FROM user WHERE user_id = '"+ UserSession.getUserId() +"'";
+            ResultSet resultSet = stmt.executeQuery(query);
 
             while (resultSet.next()){
 
