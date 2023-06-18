@@ -831,11 +831,58 @@ public class adminPageController implements Initializable {
         addUser_dobC.setValue(LocalDate.parse(String.valueOf(profileD.getDob())));
 
 
+        if(profileD.getUser_role().equals("Admin")){
+            addUser_roleC.getSelectionModel().select(0);
+        } else if (profileD.getUser_role().equals("Lecturer")) {
+            addUser_roleC.getSelectionModel().select(1);
+        }else if (profileD.getUser_role().equals("Technical_Officer")) {
+            addUser_roleC.getSelectionModel().select(2);
+        }else{
+            addUser_roleC.getSelectionModel().select(3);
+        }
+
+        if(profileD.getDepartment_id().equals("DBT")){
+            addUser_DepartmentListC.getSelectionModel().select(0);
+        } else if (profileD.getDepartment_id().equals("DET")) {
+            addUser_DepartmentListC.getSelectionModel().select(1);
+        }else if (profileD.getDepartment_id().equals("DICT")) {
+            addUser_DepartmentListC.getSelectionModel().select(2);
+        }else if (profileD.getDepartment_id().equals("STAFF")) {
+            addUser_DepartmentListC.getSelectionModel().select(3);
+        }
+        else{
+            addUser_DepartmentListC.getSelectionModel().select(4);
+        }
+
+
+
+        if(profileD.getCourse_id().equals("BBT")){
+            addUser_CourseC.getSelectionModel().select(0);
+        } else if (profileD.getCourse_id().equals("BET")) {
+            addUser_CourseC.getSelectionModel().select(1);
+        }else if (profileD.getCourse_id().equals("BICT")) {
+            addUser_CourseC.getSelectionModel().select(2);
+        }else{
+            addUser_CourseC.getSelectionModel().select(3);
+        }
+
+        if(profileD.getSex().equals("Males")){
+            addUser_sexC.getSelectionModel().select(0);
+        } else if (profileD.getSex().equals("Female")) {
+            addUser_sexC.getSelectionModel().select(1);
+        }else{
+            addUser_sexC.getSelectionModel().select(2);
+        }
+
+
+
         String uri = "file:" + profileD.getProfile_image();
         image = new Image(uri, 0, 0, true, false);
         addUser_imageViewNew.setFill(new ImagePattern(image));
 
         getData.path = profileD.getProfile_image();
+
+
 
     }
 
@@ -2056,12 +2103,45 @@ public class adminPageController implements Initializable {
             getData.path = timetableD.getUpload_image();
 
 
+            if(timetableD.getDepartment_id().equals("DBT")){
+                addTimetable_DepartmentC.getSelectionModel().select(0);
+            } else if (timetableD.getDepartment_id().equals("DET")) {
+                addTimetable_DepartmentC.getSelectionModel().select(1);
+            }else if (timetableD.getDepartment_id().equals("DICT")) {
+                addTimetable_DepartmentC.getSelectionModel().select(2);
+            }else if (timetableD.getDepartment_id().equals("STAFF")) {
+                addTimetable_DepartmentC.getSelectionModel().select(3);
+            }
+            else{
+                addTimetable_DepartmentC.getSelectionModel().select(4);
+            }
+
+
+
 
 
         } else if (event.isPrimaryButtonDown() || event.getClickCount() == 2) {
 
+
+
             TimetableController timetableD = addTimetable_tableView.getSelectionModel().getSelectedItem();
             int num = addTimetable_tableView.getSelectionModel().getSelectedIndex();
+
+            if(timetableD.getDepartment_id().equals("DBT")){
+                addTimetable_DepartmentC.getSelectionModel().select(0);
+            } else if (timetableD.getDepartment_id().equals("DET")) {
+                addTimetable_DepartmentC.getSelectionModel().select(1);
+            }else if (timetableD.getDepartment_id().equals("DICT")) {
+                addTimetable_DepartmentC.getSelectionModel().select(2);
+            }else if (timetableD.getDepartment_id().equals("STAFF")) {
+                addTimetable_DepartmentC.getSelectionModel().select(3);
+            }
+            else{
+                addTimetable_DepartmentC.getSelectionModel().select(4);
+            }
+
+
+
 
             if ((num - 1) < -1) {
                 return;
